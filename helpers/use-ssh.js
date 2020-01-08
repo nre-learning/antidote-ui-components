@@ -6,7 +6,6 @@ import ResizeObserver from 'resize-observer-polyfill';
 import { sshServiceHost } from './page-state';
 import { useEffect, useReducer, useRef } from 'haunted';
 import { FitAddon } from "xterm-addon-fit";
-import { WebglAddon } from "xterm-addon-webgl";
 import { Terminal } from "xterm";
 import debounce from "./debounce";
 import io from 'socket.io-client/dist/socket.io.slim';
@@ -56,14 +55,12 @@ function initTerminal(terminalRef, terminalContainer, socketRef) {
   }, 150);
 
   const fitAddon = new FitAddon();
-  const webglAddon = new WebglAddon();
   terminalRef.current = new Terminal({
     screenReaderMode: true,
     theme: {
       background: '#262c2c',
     }
   });
-  //terminalRef.current.loadAddon(webglAddon);
   terminalRef.current.loadAddon(fitAddon);
   terminalRef.current.open(terminalContainer);
   terminalRef.current.onData(onData);
