@@ -1,0 +1,41 @@
+{
+  "name": "antidote-ui-components",
+  "version": "0.0.1",
+  "description": "WebComponents that integrate with the Antidote project service layer.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/nlundquist/antidote-ui-components.git"
+  },
+  "keywords": [
+    "antidote"
+  ],
+  "author": "Nils Lundquist",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/nlundquist/antidote-ui-components/issues"
+  },
+  "homepage": "https://github.com/nlundquist/antidote-ui-components#readme",
+  "dependencies": {
+    "awesomplete": "^1.1.5",
+    "haunted": "^4.7.0",
+    "lit-html": "^1.1.2",
+    "resize-observer-polyfill": "^1.5.1",
+    "showdown": "^1.9.1",
+    "socket.io-client": "^2.3.0",
+    "webcomponentsjs": "^1.0.2",
+    "xterm": "^4.3.0",
+    "xterm-addon-fit": "^0.3.0"
+  },
+  "devDependencies": {
+    "@rollup/plugin-alias": "^3.0.0",
+    "@rollup/plugin-node-resolve": "^7.0.0",
+    "less": "^3.10.3",
+    "rollup": "^1.29.0",
+    "rollup-plugin-commonjs": "^10.1.0",
+    "rollup-plugin-terser": "^5.1.3"
+  }
+}
