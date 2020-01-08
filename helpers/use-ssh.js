@@ -68,7 +68,6 @@ function initTerminal(terminalRef, terminalContainer, socketRef) {
 
   if (!window.terminalRef) {
     window.terminalRef = terminalRef;
-    window.webglAddon = webglAddon;
   }
 
   const removeResizeHandler = initResizeHandler(terminalContainer.getRootNode().host, sendResize);
