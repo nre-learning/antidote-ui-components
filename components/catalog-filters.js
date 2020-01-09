@@ -32,7 +32,7 @@ function CatalogFilters() {
   }
 
   return html`
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/nlundquist/nre-styles@latest/dist/styles.css" />
+    <link rel="stylesheet" href="http://127.0.0.1:8081/dist/styles.css" />
     <style>
       :host {
         display: flex;

@@ -7,7 +7,7 @@ function WarnMobile() {
   const [open, setOpen] = useState(true);
 
   return isMobile ? html`
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/nlundquist/nre-styles@latest/dist/styles.css" />
+    <link rel="stylesheet" href="http://127.0.0.1:8081/dist/styles.css" />
       <antidote-modal show=${open}>
         <h1>You Appear To Be Using A Mobile Device</h1>
         <p>
