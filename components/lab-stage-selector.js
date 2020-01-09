@@ -21,32 +21,6 @@ function LabStageSelector() {
 
   return stages.length > 1 ? html`
     <link rel="stylesheet" href="http://127.0.0.1:8081/dist/styles.css" />
-    <style>
-      /* todo: move to nre-styles */
-      :host {
-        margin: 0 50px 50px 50px !important;
-      }
-      .pagination-list {
-        margin-top: 30px;
-        width: auto !important;
-        position: relative;
-        z-index: 0; 
-        /*god damn these hacks*/
-      }
-      .pagination-list > li:first-child {
-        margin-left: 0 !important;
-      }
-      .pagination-list > li:last-child {
-        margin-right: 0 !important;
-      }
-      .pagination-list li::before {
-        top: 7px !important;
-      }
-      .buttons {
-        display: flex;
-        justify-content: space-between;      
-      }  
-    </style>
     <div class="buttons">
       <button class="btn support ${disablePrevious}"
         @click=${navTo('previous')}>

@@ -33,17 +33,6 @@ function CatalogFilters() {
 
   return html`
     <link rel="stylesheet" href="http://127.0.0.1:8081/dist/styles.css" />
-    <style>
-      :host {
-        display: flex;
-      }     
-      :host > label {
-        flex-grow: 1;
-      }
-      :host > label:not(:first-of-type) {
-        margin-left: 30px;
-      }
-    </style>
     <label>
       <span>Category</span>
       <div>

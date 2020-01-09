@@ -10,17 +10,7 @@ customElements.define('antidote-course-plan-context', component(() => {
   const [strengths, setStrengths] = useState({});
 
   return html`
-    <style>
-      :host, 
-      antidote-all-lesson-context-provider,
-      antidote-lesson-prereq-context-provider,
-      antidote-course-plan-name-context-provider,
-      antidote-lesson-plan-strengths-context-provider {
-        display: block;
-        height: 100%;
-        width: 100%;
-      }
-    </style>
+    <link rel="stylesheet" href="http://127.0.0.1:8081/dist/styles.css" />
     <antidote-all-lesson-context-provider .value=${allLessonRequest}>    
     <antidote-lesson-prereq-context-provider .value=${lessonPrereqRequest}>
     <antidote-course-plan-name-context-provider .value=${[name, setName]}>    

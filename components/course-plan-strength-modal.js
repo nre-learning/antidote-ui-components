@@ -1,7 +1,6 @@
 import { html } from 'lit-html';
 import { classMap } from 'lit-html/directives/class-map.js';
-import { component, useContext, useState, useEffect } from 'haunted';
-import { syringeServiceRoot, serviceHost, collectionId } from "../helpers/page-state.js";
+import { component, useContext, useState } from 'haunted';
 import { AllLessonContext, LessonPrereqContext, CoursePlanStrengthsContext } from "../contexts.js";
 
 function getDefaultStrengthsState(prereqSkills) {

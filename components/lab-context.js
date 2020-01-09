@@ -60,16 +60,7 @@ customElements.define('antidote-lab-context', component(() => {
   ];
 
   return html`
-    <style>
-      :host, 
-      antidote-lesson-context-provider,
-      antidote-live-lesson-details-context-provider,
-      antidote-lab-tab-context-provider {
-        display: block;
-        height: 100%;
-        width: 100%;
-      }
-    </style>
+    <link rel="stylesheet" href="http://127.0.0.1:8081/dist/styles.css" />
     <antidote-lesson-context-provider .value=${lessonRequest}>
     <antidote-live-lesson-details-context-provider .value=${liveLessonDetailRequest}>
     <antidote-lab-tabs-context-provider .value=${tabs}>

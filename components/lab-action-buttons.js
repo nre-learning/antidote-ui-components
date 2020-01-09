@@ -50,20 +50,6 @@ function LabActionButtons() {
 
   return noButtons ? '' : html`
     <link rel="stylesheet" href="http://127.0.0.1:8081/dist/styles.css" />
-    <style>
-      :host {       
-        padding: 15px !important;;   
-        background-color: #666666;          
-      }
-      :host(:first-line) {
-      }
-      button {
-        margin: 15px;
-      }
-      img {
-        object-fit: contain;
-      }
-    </style>
   
     <!-- todo: move verify button-->
     ${verifyButton}

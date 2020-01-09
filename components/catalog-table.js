@@ -31,24 +31,6 @@ function CatalogTable() {
 
   return html`
     <link rel="stylesheet" href="http://127.0.0.1:8081/dist/styles.css" />
-    <style>
-      /*todo: move to nre theme?*/
-      /*todo: remove row hover ughhhhh */
-      .tag {
-        display: inline-flex;
-        align-items: center;       
-        padding: 2px 5px;
-        word-spacing: normal;
-        border: 2px solid #0096c3;
-        color: #0096c3;
-        background-color: white;
-        margin-top: 10px;
-      }    
-      .tags {
-        word-spacing: 10px;
-        padding: 0 10px 10px 8px;
-      }
-    </style>
     <table class="catalog">
       <thead>
       <tr>

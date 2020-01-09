@@ -38,31 +38,6 @@ function LabTabs({ tab }) {
 
   return html`
     <link rel="stylesheet" href="http://127.0.0.1:8081/dist/styles.css" />
-    <style>
-      :host {
-        position: relative;
-        overflow: hidden;
-        flex-grow: 1;     
-      }
-      :host > div[tab] {
-        position: absolute;         
-        visibility: hidden;
-        width: 100%;
-        height: 100%;
-      }
-      :host > div[tab][selected] {
-        visibility: visible;
-      }
-      :host > div[tab="terminal"] {
-        padding: 10px 0 5px 10px;
-        background: #262c2c;  /* todo: switch to var */
-      }
-      :host > div[tab="web"] > iframe {
-        width: 100%;
-        height: 100%;
-        border: 0; 
-      }
-    </style>  
     ${tabs.map((tab) => html`
       ${tab.pres ? html`
         ${tab.pres.type === 'http' ? html`

@@ -17,27 +17,7 @@ function CoursePlan() {
     : [];
 
   return html`
-    <link rel="stylesheet" href="http://127.0.0.1:8081/dist/styles.css" />
-    <style>
-      .expertise {
-        display: flex;
-        align-items: center;
-        text-transform: uppercase;
-      }
-      .expertise > img {
-        margin-right: 5px;
-      }
-      .skill-1, .skill-2, .skill-3, .skill-undefined {
-        color: #c35b56;
-      }
-      .skill-4 {
-        color: #ffcc66;
-      }
-      .skill-5 {
-        color: #339966;
-      }
-    </style>
-    
+    <link rel="stylesheet" href="http://127.0.0.1:8081/dist/styles.css" />    
     <h1>${coursePlanName ? coursePlanName+"'s" : 'Your'} Journey to ${(lesson || {}).Slug}</h1>
     ${planLessons.map((lesson, i) => html`
       <div class="path-item">

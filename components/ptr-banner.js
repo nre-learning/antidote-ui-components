@@ -17,16 +17,7 @@ function PTRBanner() {
       : null;
 
     return commits ? html`
-    <style>
-      #ptrBanner {
-        position: fixed;
-        bottom: 0;
-        width: 100%;
-        background: black;
-        color: red;
-        height: 27px;       
-      }
-    </style>
+    <link rel="stylesheet" href="http://127.0.0.1:8081/dist/styles.css" />
     <div id="ptrBanner">
       NRE Labs Public Test Realm. 
       Curriculum:

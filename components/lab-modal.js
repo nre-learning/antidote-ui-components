@@ -82,16 +82,10 @@ function LabModal() {
       }
   }, [detailRequestStatus, healthy, total]);
 
+  const style = getStyle();
+
   return html`
     <link rel="stylesheet" href="http://127.0.0.1:8081/dist/styles.css" />
-    <style>
-      img {
-        display: block;      
-        object-fit: contain;
-        margin: 30px auto 0 auto;
-        max-width: 100%;
-      }
-    </style>
     <antidote-modal show=${content !== ''}>
       ${content}
       ${detailRequestProgressFragment}

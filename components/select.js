@@ -1,5 +1,5 @@
 import { html } from 'lit-html';
-import { component, useContext, useEffect, useRef } from 'haunted';
+import { component, useEffect, useRef } from 'haunted';
 import Awesomplete from 'awesomplete';
 
 // Awesomplete options to be included when multi-select is enabled
@@ -51,23 +51,7 @@ function Select({ placeholder, multi }) {
   return html`
     <link rel="stylesheet" href="http://127.0.0.1:8081/dist/styles.css" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/awesomplete/1.1.5/awesomplete.css" rel="stylesheet "/>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/awesomplete/1.1.5/awesomplete.base.css" rel="stylesheet" />
-    <style>
-      .awesomplete {
-        width: 100%;
-      }
-      .awesomplete:before {       
-        font-family: "feather";
-        content: "\\e842";
-        color: #262c2c;
-        font-size: 30px;
-        padding-right: 0;
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        pointer-events: none;
-      }
-    </style>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/awesomplete/1.1.5/awesomplete.base.css" rel="stylesheet" />   
     <input type="text"
            placeholder=${placeholder}
            data-list=${dataList}

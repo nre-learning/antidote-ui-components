@@ -88,23 +88,6 @@ function LabGuide() {
 
   return html`
     <link rel="stylesheet" href="http://127.0.0.1:8081/dist/styles.css" />
-    <style>
-      :host {
-        display: block;
-        flex-grow: 1;
-        height: 100%;
-        width: 100%;
-        overflow: scroll;
-      }
-      :host > div {
-        padding: 30px 40px 40px 40px;
-      }     
-      iframe {
-        height: 100%;
-        width: 100%;
-        border: none;
-      }
-    </style>
     ${guideContent}
     <antidote-lab-stage-selector></antidote-lab-stage-selector>
   `;

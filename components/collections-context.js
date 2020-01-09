@@ -12,15 +12,7 @@ customElements.define('antidote-collections-context', component(() => {
   });
 
   return html`
-    <style>
-      :host, 
-      antidote-all-collection-context-provider,
-      antidote-collection-filtering-context-provider {
-        display: block;
-        height: 100%;
-        width: 100%;
-      }
-    </style>
+    <link rel="stylesheet" href="http://127.0.0.1:8081/dist/styles.css" />
     <antidote-all-collection-context-provider .value=${allCollectionRequest}>
     <antidote-collection-filtering-context-provider .value=${[filteringState, setFilteringState]}>
       <slot></slot>
