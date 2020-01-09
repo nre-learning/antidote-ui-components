@@ -30,13 +30,9 @@ function Advisor({host}) {
   }
 
   return html`
-    <slot name="style">
-      <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/nlundquist/nre-styles@latest/dist/styles.css" />
-      <link href="https://cdnjs.cloudflare.com/ajax/libs/awesomplete/1.1.5/awesomplete.css" rel="stylesheet "/>
-      <link href="https://cdnjs.cloudflare.com/ajax/libs/awesomplete/1.1.5/awesomplete.base.css" rel="stylesheet" />
-      <slot name="add-style"></slot>
-    </slot>
-    
+    <link rel="stylesheet" href="http://127.0.0.1:8081/dist/styles.css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/awesomplete/1.1.5/awesomplete.css" rel="stylesheet "/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/awesomplete/1.1.5/awesomplete.base.css" rel="stylesheet" />   
     <div class="advisor canister secondary">
       <h1>
         <span>NRE Labs Advisor</span>
