@@ -15,8 +15,6 @@ function AntidoteTerminal({ host, port }) {
 
   return html`
     <link rel="stylesheet" href="http://127.0.0.1:8081/dist/styles.css" />
-    <!-- todo: ... move this into NRE styles. tough call -->
-    <link rel="stylesheet" href="/css/xterm.css" />
     <!-- todo: show reconnection state if available. distinguish between reconnectable and unreconnectable errors  -->
     <!-- todo: distinguish between "appropriate" connection closure and error -->
     ${this._ssh.error ? html `
