@@ -3,7 +3,7 @@ import { component, useContext, useMemo } from 'haunted';
 import { LessonContext, LiveLessonDetailsContext } from '../contexts.js';
 import getL8nReader from '../helpers/l8n';
 
-function getRandomModalMessage(copy) {
+function getRandomModalMessage(l8n) {
   const messages = l8n(['lab.loading.modal.loading.messages']);
   return messages[Math.floor(Math.random() * messages.length)];
 }
@@ -29,14 +29,14 @@ function LabLoadingModal() {
       return html`
       <h3>${l8n('lab.loading.modal.lesson.loading.pending.message')}</h3>
       <img src="/images/flask.gif" alt=${l8n('image.flask.alt')} />
-      <p>${getRandomModalMessage(copy)}</p>
+      <p>${getRandomModalMessage(l8n)}</p>
     `;
     }
     else if (!detailRequest.completed) {
       return html`
       <h3>${l8n('lab.loading.modal.lesson.initialization.pending.message')}</h3>
       <img src="/images/flask.gif" alt=${l8n('images.flask.alt')} />
-      <p>${getRandomModalMessage(copy)}</p>
+      <p>${getRandomModalMessage(l8n)}</p>
     `;
     }
     return '';
