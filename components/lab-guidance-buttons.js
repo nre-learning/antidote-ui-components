@@ -17,7 +17,7 @@ function LabGuidanceButtons() {
     !!(detailsRequest.succeeded && detailsRequest.data.LessonDiagram) && 'diagram',
     !!(detailsRequest.succeeded && detailsRequest.data.LessonVideo) && 'video',
     !!(lessonRequest.succeeded && lessonRequest.data.Stages[lessonStage].VerifyObjective) && 'objective'
-  ];
+  ].filter((i) => i); // remove undefined/null
 
   const buttons = enabledButtonTypes.map((buttonType) => html`
     <button class="btn secondary" @click=${() => setModalContentType(buttonType)}>
