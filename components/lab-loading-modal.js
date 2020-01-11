@@ -56,7 +56,7 @@ function LabLoadingModal() {
         return html`
           <antidote-progress-bar percent="33"></antidote-progress-bar>
           <p>
-            ${l8n('lab.modal.lesson.endpoints.pending.message')}
+            ${l8n('lab.loading.modal.lesson.endpoints.pending.message')}
             ${total > 0 ? `(${healthy}/${total})` : ''}
           </p>
         `;
