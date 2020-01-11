@@ -17,5 +17,13 @@ function reader(key, context) {
 // either from the element's `l8n` property or the global `antidoteLocalization` property
 export default function getL8nReader(element) {
   // copy is either a property on the component or available globally
-  return reader.bind(element.l8n || window.antidoteLocalization)
+  const l8n = element.l8n || window.antidoteLocalization;
+
+  if (!l8n) {
+    throw Error('No localization found for Antidote component! Components are expected to pass a ' +
+      'map of localization strings as their `l8n` property, or it can be set globally on ' +
+      '`widow.antidoteLocalization`.');
+  }
+
+  return reader.bind(l8n)
 }
