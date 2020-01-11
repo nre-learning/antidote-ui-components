@@ -4,7 +4,7 @@ import { LessonContext, LiveLessonDetailsContext } from '../contexts.js';
 import getL8nReader from '../helpers/l8n';
 
 function getRandomModalMessage(l8n) {
-  const messages = l8n(['lab.loading.modal.loading.messages']);
+  const messages = l8n(['lab.loading.modal.messages']);
   return messages[Math.floor(Math.random() * messages.length)];
 }
 
