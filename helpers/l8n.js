@@ -6,7 +6,7 @@ function reader(key, context) {
   if (!(key in this)) {
     console.warn('No value found in copy for key: ', key);
     return undefined;
-  } if (typeof this[key] instanceof 'function') {
+  } if (typeof this[key] === 'function') {
     return this[key](context || {});
   } else {
     return this[key];
