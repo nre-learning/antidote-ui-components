@@ -28,7 +28,7 @@ function LabLoadingModal() {
     else if (!lessonRequest.completed) {
       return html`
       <h3>${l8n('lab.loading.modal.lesson.loading.pending.message')}</h3>
-      <img src="/images/flask.gif" alt=${l8n('image.flask.alt')} />
+      <img src="/images/flask.gif" alt=${l8n('images.flask.alt')} />
       <p>${getRandomModalMessage(l8n)}</p>
     `;
     }
