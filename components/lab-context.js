@@ -30,7 +30,7 @@ function derivePresentationsFromLessonDetails(detailsRequest) {
   }, []);
 }
 
-customElements.define('antidote-lab-context', component(() => {
+customElements.define('antidote-lab-context', component(function AntidoteLabContext() {
   const l8n = getL8nReader(this);
   const lessonRequest = useFetch(`${syringeServiceRoot}/exp/lesson/${lessonId}`);
   const liveLessonDetailRequest = usePollingRequest({
