@@ -2,10 +2,10 @@ import { html } from 'lit-html';
 import { component, useContext } from 'haunted';
 import { LessonFilteringContext } from "../contexts.js";
 import debounce from "../helpers/debounce.js";
-import getCopyReader from '../helpers/copy';
+import getL8nReader from '../helpers/l8n';
 
 function CatalogSearch() {
-  const copy = getCopyReader(this);
+  const l8n = getL8nReader(this);
   const [filterState, setFilterState] = useContext(LessonFilteringContext);
 
   const change = debounce(function change() {
@@ -21,8 +21,8 @@ function CatalogSearch() {
       }
     </style>  
     <label>
-      <span>${copy('catalog.search.label')}</span>     
-      <input type="text" placeholder="${copy('catalog.search.placeholder')}"
+      <span>${l8n('catalog.search.label')}</span>     
+      <input type="text" placeholder="${l8n('catalog.search.placeholder')}"
         @keyup=${change} @change=${change} />
     </label>
   `;

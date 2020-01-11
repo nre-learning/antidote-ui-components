@@ -2,7 +2,7 @@ import { html } from 'lit-html';
 import { component, useContext } from 'haunted';
 import { LessonContext } from '../contexts.js';
 import { lessonId, lessonStage } from "../helpers/page-state.js";
-import getCopyReaderForElement from '../helpers/copy';
+import getL8nReader from '../helpers/l8n';
 
 const navTo = (destination) => () => {
   if (typeof destination === 'number') {
@@ -15,7 +15,7 @@ const navTo = (destination) => () => {
 };
 
 function LabStageSelector() {
-  const copy = getCopyReaderForElement(this);
+  const l8n = getL8nReader(this);
   const lessonRequest = useContext(LessonContext);
   const stages = lessonRequest.data ? lessonRequest.data.Stages.slice(1) : [];
   const disablePrevious = lessonStage === 1 ? 'disabled' : '';
@@ -26,18 +26,18 @@ function LabStageSelector() {
     <div class="buttons">
       <button class="btn support ${disablePrevious}"
         @click=${navTo('previous')}>
-        ${copy('lab.stage.selector.previous.button.label')}
+        ${l8n('lab.stage.selector.previous.button.label')}
       </button>
       <button class="btn primary ${disableNext}"
         @click=${navTo('next')}>
-        ${copy('lab.stage.selector.next.button.label')}
+        ${l8n('lab.stage.selector.next.button.label')}
       </button>
     </div>
     <ul class="pagination-list">
       ${stages.map((stage, i) => {
         const clss = (i+1) === lessonStage ? 'active' : '';
         return html`
-          <li class="${clss}" data-line="${copy('lab.stage.selector.next.button.label', { i: i+1 })}"
+          <li class="${clss}" data-line="${l8n('lab.stage.selector.next.button.label', { i: i+1 })}"
             @click="${navTo(i+1)}">
           </li>
         `;

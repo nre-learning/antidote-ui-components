@@ -2,10 +2,10 @@ import { html } from 'lit-html';
 import { component } from 'haunted';
 import { syringeServiceRoot } from "../helpers/page-state.js";
 import useFetch from "../helpers/use-fetch.js";
-import getCopyReaderForElement from '../helpers/copy';
+import getL8nReader from '../helpers/l8n';
 
 function PTRBanner() {
-  const copy = getCopyReaderForElement(this);
+  const l8n = getL8nReader(this);
   const showPTR = location.hostname.startsWith('ptr');
 
   if (showPTR) {
@@ -21,8 +21,8 @@ function PTRBanner() {
     return commits ? html`
     <link rel="stylesheet" href="http://127.0.0.1:8081/dist/styles.css" />
     <div id="ptrBanner">
-      ${copy('ptr.banner.realm.label')}
-      ${copy('ptr.banner.curriculum.label')}
+      ${l8n('ptr.banner.realm.label')}
+      ${l8n('ptr.banner.curriculum.label')}
        
       Curriculum:
       <a href="https://github.com/nre-learning/nrelabs-curriculum/commit/${commits.antidote}">

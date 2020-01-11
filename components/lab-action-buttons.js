@@ -3,13 +3,13 @@ import { component, useContext, useState, useRef } from 'haunted';
 import { LessonContext } from '../contexts.js';
 import { syringeServiceRoot, lessonStage, lessonId, sessionId } from '../helpers/page-state.js';
 import usePollingRequest from '../helpers/use-polling-request.js';
-import getCopyReader from '../helpers/copy';
+import getL8nReader from '../helpers/l8n';
 
 /* Note: verification interface should probably eventually be broken into an isolated component
          rather than being part of the implementation of this particular button bar */
 
 function LabActionButtons() {
-  const copy = getCopyReader(this);
+  const l8n = getL8nReader(this);
   const lessonRequest = useContext(LessonContext);
   const hasObjective = lessonRequest.succeeded && lessonRequest.data.Stages[lessonStage].VerifyObjective;
   const verificationAttemptCount = useRef(0); // arbitrary varying value to include in request state to trigger a new request when incremented
@@ -26,15 +26,15 @@ function LabActionButtons() {
   }) : {};
   const verificationMessage = (() => {
     if (verificationRequest.pending) {
-      return copy('verification.modal.pending.message');
+      return l8n('verification.modal.pending.message');
     } else if (verificationRequest.succeeded) {
       if (verificationRequest.data.success) {
-        return copy('verification.modal.success.message');
+        return l8n('verification.modal.success.message');
       } else {
-        return copy('verification.modal.failure.message');
+        return l8n('verification.modal.failure.message');
       }
     } else {
-      return copy('verification.modal.error.message');
+      return l8n('verification.modal.error.message');
     }
   })();
 
@@ -48,7 +48,7 @@ function LabActionButtons() {
   }
 
   const verifyButton = hasObjective
-    ? html`<button class="btn primary" @click=${verify}>${copy('lab.action.buttons.verify.label')}</button>`
+    ? html`<button class="btn primary" @click=${verify}>${l8n('lab.action.buttons.verify.label')}</button>`
     : '';
   const noButtons = !(verifyButton);
 
@@ -67,13 +67,13 @@ function LabActionButtons() {
           text-align: left;
         }
       </style>
-      <h1>${copy('verification.modal.title')}</h1>
+      <h1>${l8n('verification.modal.title')}</h1>
       <p>${verificationMessage}</p>
       ${verificationRequest.pending ? html`
         <img src="/images/flask.gif" alt="flask" />
       `: ''}
       <div>
-        <button class="btn primary" @click=${closeVerify}>${copy('verification.modal.close.button.label')}</button>
+        <button class="btn primary" @click=${closeVerify}>${l8n('verification.modal.close.button.label')}</button>
       </div>     
     </antidote-modal>
   `

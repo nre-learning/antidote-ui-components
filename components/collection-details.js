@@ -3,10 +3,10 @@ import { html } from 'lit-html';
 import { component, useState } from 'haunted';
 import { syringeServiceRoot, collectionId } from "../helpers/page-state.js";
 import useFetch from '../helpers/use-fetch.js'
-import getCopyReader from '../helpers/copy';
+import getL8nReader from '../helpers/l8n';
 
 function CollectionDetails() {
-  const copy = getCopyReader(this);
+  const l8n = getL8nReader(this);
   const request = useFetch(`${syringeServiceRoot}/exp/collection/${collectionId}`);
 
   return html` 
@@ -24,15 +24,15 @@ function CollectionDetails() {
       <p>${request.data.LongDescription}</p>
       
       <table>
-        <tr><td>${copy('collections.details.type.label')}</td><td>${request.data.Type}</td></tr>
+        <tr><td>${l8n('collections.details.type.label')}</td><td>${request.data.Type}</td></tr>
         <tr>
-          <td>${copy('collections.details.website.label')}</td>
+          <td>${l8n('collections.details.website.label')}</td>
           <td>
             <a href="${request.data.Website}">${request.data.Website}</a>
           </td>
         </tr>
         <tr>
-          <td>${copy('collections.details.email.label')}</td>
+          <td>${l8n('collections.details.email.label')}</td>
           <td>
             <a href="mailto:${request.data.ContactEmail}">${request.data.ContactEmail}</a>
           </td>
@@ -41,7 +41,7 @@ function CollectionDetails() {
       
       <div class="canister medium-gray">
         ${request.data.Lessons ? html`
-          <h3>${copy('collections.details.lessons.label')}</h3>
+          <h3>${l8n('collections.details.lessons.label')}</h3>
           ${request.data.Lessons.map((lesson, i) => html`
             <div>
               <a href="/labs/?lessonId=${lesson.lessonId}&lessonStage=1">
@@ -54,7 +54,7 @@ function CollectionDetails() {
             ${request.data.Lessons.length !== i + 1 ? html`<hr/>` : ''}
           `)}        
         ` : html `
-          <h3>${copy('collection.details.lessons.empty.label')}</h3>
+          <h3>${l8n('collection.details.lessons.empty.label')}</h3>
         `}             
       </div>
     ` : ''}

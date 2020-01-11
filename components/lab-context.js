@@ -4,7 +4,7 @@ import { sessionId, lessonId, lessonStage, syringeServiceRoot} from "../helpers/
 import { component } from 'haunted';
 import useFetch from '../helpers/use-fetch.js';
 import usePollingRequest from '../helpers/use-polling-request.js';
-import getCopyReader from '../helpers/copy';
+import getL8nReader from '../helpers/l8n';
 
 function derivePresentationsFromLessonDetails(detailsRequest) {
   const endpoints = detailsRequest.succeeded ? detailsRequest.data.LiveEndpoints : [];
@@ -31,7 +31,7 @@ function derivePresentationsFromLessonDetails(detailsRequest) {
 }
 
 customElements.define('antidote-lab-context', component(() => {
-  const copy = getCopyReader(this);
+  const l8n = getL8nReader(this);
   const lessonRequest = useFetch(`${syringeServiceRoot}/exp/lesson/${lessonId}`);
   const liveLessonDetailRequest = usePollingRequest({
     initialRequestURL: `${syringeServiceRoot}/exp/livelesson`,
@@ -55,7 +55,7 @@ customElements.define('antidote-lab-context', component(() => {
     // merging them together to make a config
     {
       id: 'mobile-guide',
-      label: copy('lab.tab.switcher.guide.tab.label'),
+      label: l8n('lab.tab.switcher.guide.tab.label'),
       selected: isMobileSizedWindow // start with the guide tab selected if the page is narrow enough to need it
     },
     ...presentationTabs

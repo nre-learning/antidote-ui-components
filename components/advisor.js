@@ -2,10 +2,10 @@ import { html } from 'lit-html';
 import { component, useEffect, useRef } from 'haunted';
 import { syringeServiceRoot } from "../helpers/page-state.js";
 import useFetch from '../helpers/use-fetch.js'
-import getCopyReader from '../helpers/copy';
+import getL8nReader from '../helpers/l8n';
 
 function Advisor({ host, stylesheet }) {
-  const copy = getCopyReader(this);
+  const l8n = getL8nReader(this);
   const syringeServicePrefix = host ? host+'/syringe' : syringeServiceRoot;
   const awesompleteRef = useRef(null);
   const allLessonRequest = useFetch(`${syringeServicePrefix}/exp/lesson`);
@@ -37,19 +37,19 @@ function Advisor({ host, stylesheet }) {
     <link href="https://cdnjs.cloudflare.com/ajax/libs/awesomplete/1.1.5/awesomplete.base.css" rel="stylesheet" />   
     <div class="advisor canister secondary">
       <h1>
-        <span>${copy('advisor.title')}</span>
-        <span class="subtitle">${copy('advisor.title')}</span>
+        <span>${l8n('advisor.title')}</span>
+        <span class="subtitle">${l8n('advisor.title')}</span>
       </h1>
     
       <div class="input-wrapper">
-        <input type="text" placeholder="${copy('advisor.placeholder')}"
+        <input type="text" placeholder="${l8n('advisor.placeholder')}"
             @awesomplete-select=${select}
             class="awesomeplete" />
       </div>
         
-      <button class="btn secondary">${copy('advisor.button.label')}</button>
+      <button class="btn secondary">${l8n('advisor.button.label')}</button>
     
-      <aside class="small">${copy('advisor.prompt')}</aside>
+      <aside class="small">${l8n('advisor.prompt')}</aside>
     </div>
   `;
 }

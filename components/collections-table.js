@@ -1,7 +1,7 @@
 import { html } from 'lit-html';
 import { component, useContext} from 'haunted';
 import { AllCollectionContext, CollectionFilteringContext } from "../contexts.js";
-import getCopyReader from '../helpers/copy';
+import getL8nReader from '../helpers/l8n';
 
 function doFiltering(collections, filteringState) {
   const filterEntries = Object.entries(filteringState);
@@ -22,7 +22,7 @@ function doFiltering(collections, filteringState) {
 }
 
 function CollectionsTable() {
-  const copy = getCopyReader(this);
+  const l8n = getL8nReader(this);
   const allCollectionRequest = useContext(AllCollectionContext);
   const [filteringState] = useContext(CollectionFilteringContext);
   const collections = allCollectionRequest.succeeded
@@ -34,8 +34,8 @@ function CollectionsTable() {
     <table class="catalog">
       <thead>
       <tr>
-        <th>${copy('collection.table.column.name.label')}</th>
-        <th>${copy('collection.table.column.description.label')}</th>
+        <th>${l8n('collection.table.column.name.label')}</th>
+        <th>${l8n('collection.table.column.description.label')}</th>
       </tr>
       </thead>
       <tbody>

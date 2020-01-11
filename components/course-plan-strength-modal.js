@@ -2,7 +2,7 @@ import { html } from 'lit-html';
 import { classMap } from 'lit-html/directives/class-map.js';
 import { component, useContext, useState } from 'haunted';
 import { AllLessonContext, LessonPrereqContext, CoursePlanStrengthsContext } from "../contexts.js";
-import getCopyReader from '../helpers/copy';
+import getL8nReader from '../helpers/l8n';
 
 function getDefaultStrengthsState(prereqSkills) {
   return prereqSkills.reduce((acc, skill) => {
@@ -12,7 +12,7 @@ function getDefaultStrengthsState(prereqSkills) {
 }
 
 function CoursePlanStrengthModal() {
-  const copy = getCopyReader(this);
+  const l8n = getL8nReader(this);
   const [open, setOpen] = useState(true);
   const allLessonsRequest = useContext(AllLessonContext);
   const prereqRequest = useContext(LessonPrereqContext);
@@ -46,17 +46,17 @@ function CoursePlanStrengthModal() {
     <link rel="stylesheet" href="http://127.0.0.1:8081/dist/styles.css" />    
 
     <antidote-modal show=${open && prereqSkills.length > 0}>   
-      <h1>${copy('course.plan.strength.modal.placeholder')}</h1>
-      <p>${copy('course.plan.strength.modal.message')}</p>
+      <h1>${l8n('course.plan.strength.modal.placeholder')}</h1>
+      <p>${l8n('course.plan.strength.modal.message')}</p>
       
       ${prereqSkills.map((skill) => html`
-        <h3>${copy('course.plan.strength.modal.prompt', { skill })}</h3>
+        <h3>${l8n('course.plan.strength.modal.prompt', { skill })}</h3>
         <ul class="pagination-list">  
           ${Array(5).map((_, i) => {
             const rank = i + 1;
             return html `
               <li class=${classMap({active: localStrengthsState[skill] === rank})} 
-                  data-line=${copy(`course.plan.strength.modal.option.rank.${rank}.tooltip`)}
+                  data-line=${l8n(`course.plan.strength.modal.option.rank.${rank}.tooltip`)}
                   @click=${setStrength(skill, rank)}></li>
             `;
           })}
@@ -64,8 +64,8 @@ function CoursePlanStrengthModal() {
       `)}
       
       <div class="buttons">
-        <button class="btn support" @click=${skip}>copy('course.plan.strength.modal.skip.button.label')</button>
-        <button class="btn primary" @click=${submit}>copy('course.plan.strength.modal.submit.button.label')</button>
+        <button class="btn support" @click=${skip}>l8n('course.plan.strength.modal.skip.button.label')</button>
+        <button class="btn primary" @click=${submit}>l8n('course.plan.strength.modal.submit.button.label')</button>
       </div>
     </antidote-modal>
   `;

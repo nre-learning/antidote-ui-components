@@ -2,10 +2,10 @@ import { html } from 'lit-html';
 import { component, useContext } from 'haunted';
 import { AllLessonContext, LessonPrereqContext, CoursePlanNameContext, CoursePlanStrengthsContext } from "../contexts.js";
 import { lessonId } from "../helpers/page-state.js";
-import getCopyReader from '../helpers/copy';
+import getL8nReader from '../helpers/l8n';
 
 function CoursePlan() {
-  const copy = getCopyReader(this);
+  const l8n = getL8nReader(this);
   const allLessonsRequest = useContext(AllLessonContext);
   const [coursePlanName] = useContext(CoursePlanNameContext);
   const [strengths] = useContext(CoursePlanStrengthsContext);
@@ -19,8 +19,8 @@ function CoursePlan() {
     : [];
   const slug = (lesson || {}).Slug;
   const coursePlanTitle = coursePlanName
-    ? copy('course.plan.title', { coursePlanName, slug })
-    : copy('course.plan.title.no.name', { slug })
+    ? l8n('course.plan.title', { coursePlanName, slug })
+    : l8n('course.plan.title.no.name', { slug })
 
   return html`
     <link rel="stylesheet" href="http://127.0.0.1:8081/dist/styles.css" />    
@@ -43,15 +43,15 @@ function CoursePlan() {
             <span class="expertise skill-${strengths[lesson.Slug]}">
               ${strengths[lesson.Slug] <= 3 || strengths[lesson.Slug] === undefined ? html`
                 <img src="/images/beginner-icon.svg" alt="beginner logo" class="icon" />
-                ${copy('course.plan.skill.strength.beginner.message')}
+                ${l8n('course.plan.skill.strength.beginner.message')}
               ` : ''}
               ${strengths[lesson.Slug] === 4 ? html`
                 <img src="/images/intermediate-icon.svg" alt="intermediate logo" class="icon" />
-                ${copy('course.plan.skill.strength.intermediate.message')}
+                ${l8n('course.plan.skill.strength.intermediate.message')}
               ` : ''}
               ${strengths[lesson.Slug] === 5 ? html`
                 <img src="/images/expert-icon.svg" alt="expert logo" class="icon" />
-                ${copy('course.plan.skill.strength.expert.message')}                
+                ${l8n('course.plan.skill.strength.expert.message')}                
               ` : ''}
             </span>
           `: ''}

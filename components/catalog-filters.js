@@ -2,7 +2,7 @@ import { html } from 'lit-html';
 import { component, useContext } from 'haunted';
 import { AllLessonContext, LessonFilteringContext } from "../contexts.js";
 import debounce from "../helpers/debounce.js";
-import getCopyReader from '../helpers/copy';
+import getL8nReader from '../helpers/l8n';
 
 function getOptionSetsFromLessons(lessons) {
   const categories = new Set();
@@ -15,7 +15,7 @@ function getOptionSetsFromLessons(lessons) {
 }
 
 function CatalogFilters() {
-  const copy = getCopyReader(this);
+  const l8n = getL8nReader(this);
   const allLessonRequest = useContext(AllLessonContext);
   const [filterState, setFilterState] = useContext(LessonFilteringContext);
   const [categories, tags] = allLessonRequest.succeeded
@@ -36,20 +36,20 @@ function CatalogFilters() {
   return html`
     <link rel="stylesheet" href="http://127.0.0.1:8081/dist/styles.css" />
     <label>
-      <span>${copy('catalog.filters.category.label')}</span>
+      <span>${l8n('catalog.filters.category.label')}</span>
       <div>
         <antidote-select
-          placeholder=${copy('catalog.filters.category.placeholder')}
+          placeholder=${l8n('catalog.filters.category.placeholder')}
           .options=${categories} 
           .change=${setFilter('Category')} />
       </div>      
     </label>
   
     <label>
-      <span>${copy('catalog.filters.tags.label')}</span>
+      <span>${l8n('catalog.filters.tags.label')}</span>
       <div>
         <antidote-select
-            placeholder=${copy('catalog.filters.tags.placeholder')}
+            placeholder=${l8n('catalog.filters.tags.placeholder')}
             multi="true"
             .options=${tags} 
             .change=${setFilter('Tags')} />
