@@ -2,6 +2,7 @@ import { html } from 'lit-html';
 import { classMap } from 'lit-html/directives/class-map.js';
 import { component, useContext, useState } from 'haunted';
 import { AllLessonContext, LessonPrereqContext, CoursePlanStrengthsContext } from "../contexts.js";
+import getCopyReader from '../helpers/copy';
 
 function getDefaultStrengthsState(prereqSkills) {
   return prereqSkills.reduce((acc, skill) => {
@@ -11,6 +12,7 @@ function getDefaultStrengthsState(prereqSkills) {
 }
 
 function CoursePlanStrengthModal() {
+  const copy = getCopyReader(this);
   const [open, setOpen] = useState(true);
   const allLessonsRequest = useContext(AllLessonContext);
   const prereqRequest = useContext(LessonPrereqContext);
@@ -41,47 +43,29 @@ function CoursePlanStrengthModal() {
   }
 
   return html`
-    <link rel="stylesheet" href="http://127.0.0.1:8081/dist/styles.css" />
-    <style>
-      .buttons {
-        display: flex;
-        justify-content: space-between;
-        margin-top: 30px;      
-      }  
-      .btn {      
-        width: 44%;
-      }
-    </style>    
+    <link rel="stylesheet" href="http://127.0.0.1:8081/dist/styles.css" />    
 
     <antidote-modal show=${open && prereqSkills.length > 0}>   
-      <h1>Identify your strengths</h1>
-      <p>Answer the following questions, so we can construct the lesson plan 
-      most relevant to you!</p>
+      <h1>${copy('course.plan.strength.modal.placeholder')}</h1>
+      <p>${copy('course.plan.strength.modal.message')}</p>
       
       ${prereqSkills.map((skill) => html`
-        <h3>How well do you know ${skill}?</h3>
+        <h3>${copy('course.plan.strength.modal.prompt', { skill })}</h3>
         <ul class="pagination-list">  
-          <li class=${classMap({active: localStrengthsState[skill] === 1})} 
-              data-line="Not at all"
-              @click=${setStrength(skill, 1)}></li>
-          <li class=${classMap({active: localStrengthsState[skill] === 2})}
-              data-line="Beginner" 
-              @click=${setStrength(skill, 2)}></li>
-          <li class=${classMap({active: localStrengthsState[skill] === 3})}
-              data-line="Intermediate" 
-              @click=${setStrength(skill, 3)}></li>
-          <li class=${classMap({active: localStrengthsState[skill] === 4})}
-              data-line="Advanced" 
-              @click=${setStrength(skill, 4)}></li>
-          <li class=${classMap({active: localStrengthsState[skill] === 5})}
-              data-line="Expert" 
-              @click=${setStrength(skill, 5)}></li>
+          ${Array(5).map((_, i) => {
+            const rank = i + 1;
+            return html `
+              <li class=${classMap({active: localStrengthsState[skill] === rank})} 
+                  data-line=${copy(`course.plan.strength.modal.option.rank.${rank}.tooltip`)}
+                  @click=${setStrength(skill, rank)}></li>
+            `;
+          })}
         </ul>
       `)}
       
       <div class="buttons">
-        <button class="btn support" @click=${skip}>Skip</button>
-        <button class="btn primary" @click=${submit}>Submit</button>
+        <button class="btn support" @click=${skip}>copy('course.plan.strength.modal.skip.button.label')</button>
+        <button class="btn primary" @click=${submit}>copy('course.plan.strength.modal.submit.button.label')</button>
       </div>
     </antidote-modal>
   `;

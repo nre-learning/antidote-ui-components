@@ -1,6 +1,7 @@
 import { html } from 'lit-html';
 import { component, useContext} from 'haunted';
 import { AllLessonContext, LessonFilteringContext } from "../contexts.js";
+import getCopyReader from '../helpers/copy';
 
 function doFiltering(lessons, filteringState) {
   const filterEntries = Object.entries(filteringState);
@@ -23,6 +24,7 @@ function doFiltering(lessons, filteringState) {
 }
 
 function CatalogTable() {
+  const copy = getCopyReader(this);
   const allLessonRequest = useContext(AllLessonContext);
   const [filteringState] = useContext(LessonFilteringContext);
   const lessons = allLessonRequest.succeeded
@@ -34,9 +36,9 @@ function CatalogTable() {
     <table class="catalog">
       <thead>
       <tr>
-        <th>Lesson</th>
-        <th>Description</th>
-        <th>Tags</th>
+        <th>${copy('catalog.table.column.lesson.label')}</th>
+        <th>${copy('catalog.table.column.description.label')}</th>
+        <th>${copy('catalog.table.column.tags.label')}</th>
       </tr>
       </thead>
       <tbody>

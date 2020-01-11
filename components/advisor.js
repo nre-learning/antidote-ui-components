@@ -2,8 +2,10 @@ import { html } from 'lit-html';
 import { component, useEffect, useRef } from 'haunted';
 import { syringeServiceRoot } from "../helpers/page-state.js";
 import useFetch from '../helpers/use-fetch.js'
+import getCopyReader from '../helpers/copy';
 
-function Advisor({host}) {
+function Advisor({ host, stylesheet }) {
+  const copy = getCopyReader(this);
   const syringeServicePrefix = host ? host+'/syringe' : syringeServiceRoot;
   const awesompleteRef = useRef(null);
   const allLessonRequest = useFetch(`${syringeServicePrefix}/exp/lesson`);
@@ -35,22 +37,19 @@ function Advisor({host}) {
     <link href="https://cdnjs.cloudflare.com/ajax/libs/awesomplete/1.1.5/awesomplete.base.css" rel="stylesheet" />   
     <div class="advisor canister secondary">
       <h1>
-        <span>NRE Labs Advisor</span>
-        <span class="subtitle">Get a customized lesson path</span>
+        <span>${copy('advisor.title')}</span>
+        <span class="subtitle">${copy('advisor.title')}</span>
       </h1>
     
       <div class="input-wrapper">
-        <input type="text" placeholder="I want to learn..."
+        <input type="text" placeholder="${copy('advisor.placeholder')}"
             @awesomplete-select=${select}
             class="awesomeplete" />
       </div>
         
-      <button class="btn secondary">Search Lesson Content</button>
+      <button class="btn secondary">${copy('advisor.button.label')}</button>
     
-      <aside class="small">
-        Use the box above to say what you want to learn, and we’ll work with you
-        to build a relevant learning path. Try “Python” or “StackStorm”!
-      </aside>
+      <aside class="small">${copy('advisor.prompt')}</aside>
     </div>
   `;
 }
