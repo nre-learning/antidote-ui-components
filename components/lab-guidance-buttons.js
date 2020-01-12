@@ -24,7 +24,7 @@ function LabGuidanceButtons() {
     </button>
   `);
   const exitLessonButton = html`
-    <a class="btn secondary" href="/catalog">
+    <a id="exit" class="btn secondary" href="/catalog">
       ${l8n(`lab.guidance.buttons.exit.label`)}
     </a>
   `;
@@ -34,8 +34,8 @@ function LabGuidanceButtons() {
   return html`
     <link rel="stylesheet" href=${getComponentStyleSheetURL(this)} />
     
-    <div class="left">${leftButtons}</div>
-    <div class="right">${rightButtons}</div>      
+    <div id="leftButtons">${leftButtons}</div>
+    <div id="rightButtons">${rightButtons}</div>      
       
     <antidote-modal show=${modalContentType !== null}>
       ${modalContentType === 'diagram' ? html`
