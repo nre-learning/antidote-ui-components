@@ -50,8 +50,7 @@ function LabTabSwitcher() {
   // todo: move stylesheets to NRE-branded usages of this component
   return html`
     <link rel="stylesheet" href=${getComponentStyleSheetURL(this)} />
-    <ul>    
-      <li id="mobile-guide"><h3>Lesson</h3></li>
+    <ul>
       ${tabs.map((tab) => html`
         <li id=${tab.id}
             @click=${() => this.setSelectedPresentation(tab.id)}
