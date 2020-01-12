@@ -4,8 +4,8 @@ import { component, useState } from 'haunted';
 import useFetch from '../helpers/use-fetch.js';
 import getComponentStyleSheetURL from '../helpers/stylesheet';
 
-customElements.define('antidote-course-plan-context', component(() => {
   const allLessonRequest = useFetch(`${syringeServiceRoot}/exp/lesson`);
+customElements.define('antidote-course-plan-context', component(function CoursePlanContext() {
   const lessonPrereqRequest = useFetch(`${syringeServiceRoot}/exp/lesson/${lessonId}/prereqs`);
   const [name, setName] = useState(null);
   const [strengths, setStrengths] = useState({});

@@ -5,7 +5,7 @@ import { syringeServiceRoot } from "../helpers/page-state.js";
 import useFetch from '../helpers/use-fetch.js'
 import getComponentStyleSheetURL from '../helpers/stylesheet';
 
-customElements.define('antidote-collections-context', component(() => {
+customElements.define('antidote-collections-context', component(function CollectionContext() {
   const allCollectionRequest = useFetch(`${syringeServiceRoot}/exp/collection`);
   const [filteringState, setFilteringState] = useState({
     searchString: null,

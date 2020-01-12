@@ -5,7 +5,7 @@ import { syringeServiceRoot } from "../helpers/page-state.js";
 import useFetch from '../helpers/use-fetch.js'
 import getComponentStyleSheetURL from '../helpers/stylesheet';
 
-customElements.define('antidote-catalog-context', component(() => {
+customElements.define('antidote-catalog-context', component(function CatalogContext() {
   const allLessonRequest = useFetch(`${syringeServiceRoot}/exp/lesson`);
   const [filteringState, setFilteringState] = useState({
     searchString: null,
