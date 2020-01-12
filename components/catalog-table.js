@@ -2,6 +2,7 @@ import { html } from 'lit-html';
 import { component, useContext} from 'haunted';
 import { AllLessonContext, LessonFilteringContext } from "../contexts.js";
 import getL8nReader from '../helpers/l8n';
+import getComponentStyleSheetURL from '../helpers/stylesheet';
 
 function doFiltering(lessons, filteringState) {
   const filterEntries = Object.entries(filteringState);
