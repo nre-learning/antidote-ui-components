@@ -13,18 +13,22 @@ function LabGuidanceButtons() {
   const lessonRequest = useContext(LessonContext);
   const detailsRequest = useContext(LiveLessonDetailsContext);
   const [modalContentType, setModalContentType] = useState(null);
-
-  const enabledButtonTypes = [
+  const enabledModalButtonTypes = [
     !!(detailsRequest.succeeded && detailsRequest.data.LessonDiagram) && 'diagram',
     !!(detailsRequest.succeeded && detailsRequest.data.LessonVideo) && 'video',
     !!(lessonRequest.succeeded && lessonRequest.data.Stages[lessonStage].VerifyObjective) && 'objective'
   ].filter((i) => i); // remove undefined/null
-
-  const buttons = enabledButtonTypes.map((buttonType) => html`
+  const modalButtons = enabledModalButtonTypes.map((buttonType) => html`
     <button class="btn secondary" @click=${() => setModalContentType(buttonType)}>
       ${l8n(`lab.guidance.buttons.${buttonType}.label`)}
     </button>
   `);
+  const exitLessonButton = html`
+    <link class="btn secondary" href="/catalog">
+      ${l8n(`lab.guidance.buttons.exit.label`)}
+    </link>
+  `;
+  const buttons = [ ...modalButtons, exitLessonButton ];
 
   return html`
     <link rel="stylesheet" href=${getComponentStyleSheetURL(this)} />

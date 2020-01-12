@@ -47,7 +47,7 @@ function useSyncronizedScrolling(guide) {
         && ev.detail.lessonStage === lessonStage // don't react if we're already at that position
         && ev.detail.position !== currentPosition) { // only react if we're actually at a different position
         this._lastPosition = ev.detail.position; // used to control rounding jitter feedback loops introduced when sending an event in response to a scroll that was itself in response to an event
-        //todo: change this to scrollTop modification once haunted issue is resolved: https://github.com/matthewp/haunted/issues/166
+        //todo: change this to this.scrollTop modification once haunted issue is resolved: https://github.com/matthewp/haunted/issues/166
         const scrollTop = ev.detail.position * (this.scrollHeight - this.offsetHeight);
         this.scrollTo({top: scrollTop});
       }

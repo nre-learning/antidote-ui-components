@@ -34,7 +34,7 @@ const onResize = debounce(function onResize() {
 function LabTabSwitcher() {
   const tabs = useContext(LabTabsContext);
 
-  Object.assign(this, { setSelectedPresentation }); // todo: there has got to be a better way re: matthew?
+  Object.assign(this, { setSelectedPresentation });
 
   // deselect guide tab if we shrink to the point that we show the large guide
   useEffect(() => {
