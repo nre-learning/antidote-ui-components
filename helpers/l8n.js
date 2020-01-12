@@ -1,6 +1,7 @@
 // - consider reimplementing this as proxy on the copy object rather than as an object wrapper?
 // - see if there is a way to memoize lookups / evaluations with haunted hooks?
 // - consider a build step that hashes localization keys to save additional space in the bundle
+// - consider using deep objects rather than '.'-separated keys...?
 
 function reader(key, context) {
   if (!(key in this)) {

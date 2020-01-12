@@ -12,6 +12,42 @@ import getComponentStyleSheetURL from '../helpers/stylesheet';
 // need to be enhanced somewhat to prevent <antidote-terminal> from re-rendering on simple state
 // changes and thus dropping the connections.
 
+function getTabMarkup(tab) {
+  if (tab.id === 'mobile-guide') {
+    return html`
+      <div id=${tab.id}
+           tab="guide"
+           ?selected=${tab.selected}>          
+        <antidote-lab-guide></antidote-lab-guide>             
+      </div>
+    `;
+  } else if (tab.pres) {
+    switch (tab.pres.type) {
+      case('terminal'):
+        return html`
+          <div id=${tab.id}
+               tab="terminal"
+               ?selected=${tab.selected}>
+              <antidote-terminal
+                host=${tab.pres.host}
+                port=${tab.pres.port} />
+          </div>
+        `;
+      case('http'):
+        return html`
+          <div id=${tab.id}
+               tab="web" 
+               ?selected=${tab.selected}>
+            <iframe src="${document.location.protocol}//${serviceHost}/${lessonId}-${sessionId}-ns-${tab.pres.endpoint}/">
+            </iframe>
+          </div>
+        `;
+    }
+  }
+
+  return ``;
+}
+
 function LabTabs({ tab }) {
   const tabsParent = this.shadowRoot;
   const tabs = useContext(LabTabsContext);
@@ -39,32 +75,7 @@ function LabTabs({ tab }) {
 
   return html`
     <link rel="stylesheet" href=${getComponentStyleSheetURL(this)} />
-    ${tabs.map((tab) => html`
-      ${tab.pres ? html`
-        ${tab.pres.type === 'http' ? html`
-          <div id=${tab.id}
-               tab="web" 
-               ?selected=${tab.selected}>
-            <iframe src="${document.location.protocol}//${serviceHost}/${lessonId}-${sessionId}-ns-${tab.pres.endpoint}/">
-            </iframe>
-          </div>                    
-        ` : html`
-          <div id=${tab.id}
-               tab="terminal"
-               ?selected=${tab.selected}>
-              <antidote-terminal
-                host=${tab.pres.host}
-                port=${tab.pres.port} />
-          </div>        
-        `}
-      ` : html`
-        <div id=${tab.id}
-             tab="slot"
-             ?selected=${tab.selected}>
-          <slot name=${tab.id}></slot>       
-        </div>
-      `}              
-    `)}
+    ${tabs.map((tab) => getTabMarkup(tab))}
   `;
 }
 
