@@ -24,16 +24,18 @@ function LabGuidanceButtons() {
     </button>
   `);
   const exitLessonButton = html`
-    <link class="btn secondary" href="/catalog">
+    <a class="btn secondary" href="/catalog">
       ${l8n(`lab.guidance.buttons.exit.label`)}
-    </link>
+    </a>
   `;
-  const buttons = [ ...modalButtons, exitLessonButton ];
+  const leftButtons = modalButtons;
+  const rightButtons = [ exitLessonButton ];
 
   return html`
     <link rel="stylesheet" href=${getComponentStyleSheetURL(this)} />
     
-    ${buttons}   
+    <div class="left">${leftButtons}</div>
+    <div class="right">${rightButtons}</div>      
       
     <antidote-modal show=${modalContentType !== null}>
       ${modalContentType === 'diagram' ? html`
@@ -53,7 +55,7 @@ function LabGuidanceButtons() {
         <p>${lessonRequest.data.Stages[lessonStage].VerifyObjective}</p>
       ` : ''}
       
-      <button class="btn primary" @click=${() => setModalContentType(null)}>
+      <button id="exit" class="btn primary" @click=${() => setModalContentType(null)}>
         ${l8n('lab.guidance.modal.close.button.label')}
       </button>
     </antidote-modal>
