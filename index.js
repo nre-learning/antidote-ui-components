@@ -24,3 +24,4 @@ export * from './components/course-plan.js';
 export * from './components/course-plan-strength-modal.js';
 export * from './components/course-plan-name-field.js';
 export * from './components/ptr-banner.js';
+export * from './components/promoted-lessons.js';
