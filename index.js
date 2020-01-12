@@ -2,6 +2,7 @@ export * from "./components/modal.js";
 export * from "./components/select.js";
 export * from "./components/progress-bar.js";
 export * from "./components/advisor.js";
+export * from "./components/advisor-context.js";
 export * from "./components/terminal.js";
 export * from './components/lab-context.js';
 export * from "./components/lab-stage-selector.js";
