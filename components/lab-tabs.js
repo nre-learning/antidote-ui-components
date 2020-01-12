@@ -23,7 +23,7 @@ function getTabMarkup(tab) {
     `;
   } else if (tab.pres) {
     switch (tab.pres.type) {
-      case('terminal'):
+      case('ssh'):
         return html`
           <div id=${tab.id}
                tab="terminal"
