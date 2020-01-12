@@ -64,7 +64,7 @@ function LabLoadingModal() {
       case "CONFIGURATION":
         return html`
           <antidote-progress-bar percent="66"></antidote-progress-bar>
-          <p></p>
+          <p>${l8n('lab.loading.modal.lesson.configuration.pending.message')}</p>
         `;
 
       default:
