@@ -1,6 +1,7 @@
 import { html } from 'lit-html';
-import { component, useEffect, useRef } from 'haunted';
+import { component, useEffect, useRef, useContext } from 'haunted';
 import { syringeServiceRoot } from "../helpers/page-state.js";
+import { AllLessonContext } from "../contexts.js";
 import useFetch from '../helpers/use-fetch.js'
 import getL8nReader from '../helpers/l8n';
 import getComponentStyleSheetURL from '../helpers/stylesheet';
@@ -9,7 +10,7 @@ function Advisor({ host, stylesheet }) {
   const l8n = getL8nReader(this);
   const syringeServicePrefix = host ? host+'/syringe' : syringeServiceRoot;
   const awesompleteRef = useRef(null);
-  const allLessonRequest = useFetch(`${syringeServicePrefix}/exp/lesson`);
+  const allLessonRequest = useContext(AllLessonContext) || useFetch(`${syringeServicePrefix}/exp/lesson`);
   const lessonOptions = allLessonRequest.succeeded
     ? allLessonRequest.data.lessons.map((l) => ({
       label: l.LessonName,
