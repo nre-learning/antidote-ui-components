@@ -3,6 +3,7 @@ import { component } from 'haunted';
 import { syringeServiceRoot } from "../helpers/page-state.js";
 import useFetch from "../helpers/use-fetch.js";
 import getL8nReader from '../helpers/l8n';
+import getComponentStyleSheetURL from '../helpers/stylesheet';
 
 function PTRBanner() {
   const l8n = getL8nReader(this);
@@ -19,7 +20,7 @@ function PTRBanner() {
       : null;
 
     return commits ? html`
-    <link rel="stylesheet" href="http://127.0.0.1:8081/dist/styles.css" />
+    <link rel="stylesheet" href=${getComponentStyleSheetURL(this)} />
     <div id="ptrBanner">
       ${l8n('ptr.banner.realm.label')}
       ${l8n('ptr.banner.curriculum.label')}

@@ -3,6 +3,7 @@ import { classMap } from 'lit-html/directives/class-map.js';
 import { component, useContext, useState } from 'haunted';
 import { AllLessonContext, LessonPrereqContext, CoursePlanStrengthsContext } from "../contexts.js";
 import getL8nReader from '../helpers/l8n';
+import getComponentStyleSheetURL from '../helpers/stylesheet';
 
 function getDefaultStrengthsState(prereqSkills) {
   return prereqSkills.reduce((acc, skill) => {
@@ -43,7 +44,7 @@ function CoursePlanStrengthModal() {
   }
 
   return html`
-    <link rel="stylesheet" href="http://127.0.0.1:8081/dist/styles.css" />    
+    <link rel="stylesheet" href=${getComponentStyleSheetURL(this)} />    
 
     <antidote-modal show=${open && prereqSkills.length > 0}>   
       <h1>${l8n('course.plan.strength.modal.placeholder')}</h1>

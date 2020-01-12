@@ -5,6 +5,7 @@ import { LiveLessonDetailsContext } from '../contexts.js';
 import { serviceHost, lessonId, lessonStage, sessionId } from "../helpers/page-state.js";
 import showdown from 'showdown';
 import debounce from '../helpers/debounce.js';
+import getComponentStyleSheetURL from '../helpers/stylesheet';
 
 // this function currently needs to be global since it's explicitly referenced in guide markdown content
 // this could eventually be scoped and bound to the appropriate buttons post-render
@@ -87,7 +88,7 @@ function LabGuide() {
   useSyncronizedScrolling.apply(this);
 
   return html`
-    <link rel="stylesheet" href="http://127.0.0.1:8081/dist/styles.css" />
+    <link rel="stylesheet" href=${getComponentStyleSheetURL(this)} />
     ${guideContent}
     <antidote-lab-stage-selector></antidote-lab-stage-selector>
   `;

@@ -4,13 +4,14 @@ import { component, useState } from 'haunted';
 import { syringeServiceRoot, collectionId } from "../helpers/page-state.js";
 import useFetch from '../helpers/use-fetch.js'
 import getL8nReader from '../helpers/l8n';
+import getComponentStyleSheetURL from '../helpers/stylesheet';
 
 function CollectionDetails() {
   const l8n = getL8nReader(this);
   const request = useFetch(`${syringeServiceRoot}/exp/collection/${collectionId}`);
 
   return html` 
-    <link rel="stylesheet" href="http://127.0.0.1:8081/dist/styles.css" />
+    <link rel="stylesheet" href=${getComponentStyleSheetURL(this)} />
     <style>
       h1 {
         text-align: center;

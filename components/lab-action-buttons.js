@@ -4,6 +4,7 @@ import { LessonContext } from '../contexts.js';
 import { syringeServiceRoot, lessonStage, lessonId, sessionId } from '../helpers/page-state.js';
 import usePollingRequest from '../helpers/use-polling-request.js';
 import getL8nReader from '../helpers/l8n';
+import getComponentStyleSheetURL from '../helpers/stylesheet';
 
 /* Note: verification interface should probably eventually be broken into an isolated component
          rather than being part of the implementation of this particular button bar */
@@ -53,7 +54,7 @@ function LabActionButtons() {
   const noButtons = !(verifyButton);
 
   return noButtons ? '' : html`
-    <link rel="stylesheet" href="http://127.0.0.1:8081/dist/styles.css" />
+    <link rel="stylesheet" href=${getComponentStyleSheetURL(this)} />
   
     <!-- todo: move verify button-->
     ${verifyButton}

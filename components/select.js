@@ -1,6 +1,7 @@
 import { html } from 'lit-html';
 import { component, useEffect, useRef } from 'haunted';
 import Awesomplete from 'awesomplete';
+import getComponentStyleSheetURL from '../helpers/stylesheet';
 
 // Awesomplete options to be included when multi-select is enabled
 const multiSelectOptions = {
@@ -49,7 +50,7 @@ function Select({ placeholder, multi }) {
   }
 
   return html`
-    <link rel="stylesheet" href="http://127.0.0.1:8081/dist/styles.css" />
+    <link rel="stylesheet" href=${getComponentStyleSheetURL(this)} />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/awesomplete/1.1.5/awesomplete.css" rel="stylesheet "/>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/awesomplete/1.1.5/awesomplete.base.css" rel="stylesheet" />   
     <input type="text"

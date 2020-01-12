@@ -5,6 +5,7 @@ import { component } from 'haunted';
 import useFetch from '../helpers/use-fetch.js';
 import usePollingRequest from '../helpers/use-polling-request.js';
 import getL8nReader from '../helpers/l8n';
+import getComponentStyleSheetURL from '../helpers/stylesheet';
 
 function derivePresentationsFromLessonDetails(detailsRequest) {
   const endpoints = detailsRequest.succeeded ? detailsRequest.data.LiveEndpoints : [];
@@ -62,7 +63,7 @@ customElements.define('antidote-lab-context', component(function AntidoteLabCont
   ];
 
   return html`
-    <link rel="stylesheet" href="http://127.0.0.1:8081/dist/styles.css" />
+    <link rel="stylesheet" href=${getComponentStyleSheetURL(this)} />
     <antidote-lesson-context-provider .value=${lessonRequest}>
     <antidote-live-lesson-details-context-provider .value=${liveLessonDetailRequest}>
     <antidote-lab-tabs-context-provider .value=${tabs}>

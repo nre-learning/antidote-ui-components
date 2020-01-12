@@ -3,6 +3,7 @@ import { component, useContext, useState } from 'haunted';
 import { LiveLessonDetailsContext, LessonContext } from "../contexts.js";
 import { lessonStage } from '../helpers/page-state.js';
 import getL8nReader from '../helpers/l8n';
+import getComponentStyleSheetURL from '../helpers/stylesheet';
 
 // this button bar also manages the state of the popup it uses to show the output from the button features.
 // this could be more isolated, but until the complexity of this component increases, its fine.
@@ -26,7 +27,7 @@ function LabGuidanceButtons() {
   `);
 
   return html`
-    <link rel="stylesheet" href="http://127.0.0.1:8081/dist/styles.css" />
+    <link rel="stylesheet" href=${getComponentStyleSheetURL(this)} />
     
     ${buttons}   
       

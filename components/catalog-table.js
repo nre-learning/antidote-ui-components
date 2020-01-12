@@ -32,7 +32,7 @@ function CatalogTable() {
     : [];
 
   return html`
-    <link rel="stylesheet" href="http://127.0.0.1:8081/dist/styles.css" />
+    <link rel="stylesheet" href=${getComponentStyleSheetURL(this)} />
     <table class="catalog">
       <thead>
       <tr>

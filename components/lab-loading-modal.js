@@ -2,6 +2,7 @@ import { html } from 'lit-html';
 import { component, useContext, useMemo } from 'haunted';
 import { LessonContext, LiveLessonDetailsContext } from '../contexts.js';
 import getL8nReader from '../helpers/l8n';
+import getComponentStyleSheetURL from '../helpers/stylesheet';
 
 function getRandomModalMessage(l8n) {
   const messages = l8n(['lab.loading.modal.rolling.messages']);
@@ -73,7 +74,7 @@ function LabLoadingModal() {
   }, [detailRequestStatus, healthy, total]);
 
   return html`
-    <link rel="stylesheet" href="http://127.0.0.1:8081/dist/styles.css" />
+    <link rel="stylesheet" href=${getComponentStyleSheetURL(this)} />
     <antidote-modal show=${content !== ''}>
       ${content}
       ${detailRequestProgressFragment}

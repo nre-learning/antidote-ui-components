@@ -3,6 +3,7 @@ import { html } from 'lit-html';
 import { component, useState } from 'haunted';
 import { syringeServiceRoot } from "../helpers/page-state.js";
 import useFetch from '../helpers/use-fetch.js'
+import getComponentStyleSheetURL from '../helpers/stylesheet';
 
 customElements.define('antidote-catalog-context', component(() => {
   const allLessonRequest = useFetch(`${syringeServiceRoot}/exp/lesson`);
@@ -15,7 +16,7 @@ customElements.define('antidote-catalog-context', component(() => {
   });
 
   return html`
-    <link rel="stylesheet" href="http://127.0.0.1:8081/dist/styles.css" />
+    <link rel="stylesheet" href=${getComponentStyleSheetURL(this)} />
     <antidote-all-lesson-context-provider .value=${allLessonRequest}>    
     <antidote-lesson-filtering-context-provider .value=${[filteringState, setFilteringState]}>    
       <slot></slot>

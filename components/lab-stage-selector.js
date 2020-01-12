@@ -3,6 +3,7 @@ import { component, useContext } from 'haunted';
 import { LessonContext } from '../contexts.js';
 import { lessonId, lessonStage } from "../helpers/page-state.js";
 import getL8nReader from '../helpers/l8n';
+import getComponentStyleSheetURL from '../helpers/stylesheet';
 
 const navTo = (destination) => () => {
   if (typeof destination === 'number') {
@@ -22,7 +23,7 @@ function LabStageSelector() {
   const disableNext = lessonStage === stages.length ? 'disabled' : '';
 
   return stages.length > 1 ? html`
-    <link rel="stylesheet" href="http://127.0.0.1:8081/dist/styles.css" />
+    <link rel="stylesheet" href=${getComponentStyleSheetURL(this)} />
     <div class="buttons">
       <button class="btn support ${disablePrevious}"
         @click=${navTo('previous')}>

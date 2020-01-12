@@ -2,6 +2,7 @@ import {html} from 'lit-html';
 import {useContext, useEffect, component} from 'haunted';
 import {LabTabsContext} from '../contexts.js';
 import debounce from '../helpers/debounce.js';
+import getComponentStyleSheetURL from '../helpers/stylesheet';
 
 function setSelectedPresentation(id) {
   // takes a tab label element, sends a change event and updates the `selected` attribute
@@ -48,7 +49,7 @@ function LabTabSwitcher() {
   // todo: confirm slotting a stylesheet like this works as expected :/
   // todo: move stylesheets to NRE-branded usages of this component
   return html`
-    <link rel="stylesheet" href="http://127.0.0.1:8081/dist/styles.css" />
+    <link rel="stylesheet" href=${getComponentStyleSheetURL(this)} />
     <ul>
       ${tabs.map((tab) => html`
         <li id=${tab.id}

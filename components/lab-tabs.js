@@ -2,6 +2,7 @@ import { html } from 'lit-html';
 import { component, useContext, useEffect } from 'haunted';
 import { LabTabsContext } from '../contexts.js';
 import { serviceHost, sessionId, lessonId } from '../helpers/page-state.js';
+import getComponentStyleSheetURL from '../helpers/stylesheet';
 
 // NOTE: On Tab State Management:
 // Currently this component (& the switcher) only keep  _initialization_ state in the LabTabsContext.
@@ -37,7 +38,7 @@ function LabTabs({ tab }) {
   }, [tabs]);
 
   return html`
-    <link rel="stylesheet" href="http://127.0.0.1:8081/dist/styles.css" />
+    <link rel="stylesheet" href=${getComponentStyleSheetURL(this)} />
     ${tabs.map((tab) => html`
       ${tab.pres ? html`
         ${tab.pres.type === 'http' ? html`

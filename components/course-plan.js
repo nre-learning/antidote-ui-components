@@ -3,6 +3,7 @@ import { component, useContext } from 'haunted';
 import { AllLessonContext, LessonPrereqContext, CoursePlanNameContext, CoursePlanStrengthsContext } from "../contexts.js";
 import { lessonId } from "../helpers/page-state.js";
 import getL8nReader from '../helpers/l8n';
+import getComponentStyleSheetURL from '../helpers/stylesheet';
 
 function CoursePlan() {
   const l8n = getL8nReader(this);
@@ -23,7 +24,7 @@ function CoursePlan() {
     : l8n('course.plan.title.no.name', { slug })
 
   return html`
-    <link rel="stylesheet" href="http://127.0.0.1:8081/dist/styles.css" />    
+    <link rel="stylesheet" href=${getComponentStyleSheetURL(this)} />    
     <h1>${coursePlanTitle}</h1>
     
     ${planLessons.map((lesson, i) => html`

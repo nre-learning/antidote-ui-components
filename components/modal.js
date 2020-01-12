@@ -1,5 +1,6 @@
 import { html } from 'lit-html';
 import { component, useEffect } from 'haunted';
+import getComponentStyleSheetURL from '../helpers/stylesheet';
 
 function togglePageOverflow(hide) {
   if (hide) {
@@ -27,7 +28,7 @@ function Modal({show}) {
   }, [showBool]);
 
   return html`
-    <link rel="stylesheet" href="http://127.0.0.1:8081/dist/styles.css" />
+    <link rel="stylesheet" href=${getComponentStyleSheetURL(this)} />
     ${modal}
   `;
 }

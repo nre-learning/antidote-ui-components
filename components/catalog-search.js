@@ -3,6 +3,7 @@ import { component, useContext } from 'haunted';
 import { LessonFilteringContext } from "../contexts.js";
 import debounce from "../helpers/debounce.js";
 import getL8nReader from '../helpers/l8n';
+import getComponentStyleSheetURL from '../helpers/stylesheet';
 
 function CatalogSearch() {
   const l8n = getL8nReader(this);
@@ -14,7 +15,7 @@ function CatalogSearch() {
   }, 200);
 
   return html`
-    <link rel="stylesheet" href="http://127.0.0.1:8081/dist/styles.css" />
+    <link rel="stylesheet" href=${getComponentStyleSheetURL(this)} />
     <style>
       :host {
         display: block;

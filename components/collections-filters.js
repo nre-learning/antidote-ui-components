@@ -3,6 +3,7 @@ import { component, useContext } from 'haunted';
 import { AllCollectionContext, CollectionFilteringContext } from "../contexts.js";
 import debounce from "../helpers/debounce.js";
 import getL8nReader from '../helpers/l8n';
+import getComponentStyleSheetURL from '../helpers/stylesheet';
 
 function getTypeSetFromCollections(collections) {
   const types = new Set();
@@ -28,7 +29,7 @@ function CollectionsFilters() {
   }
 
   return html`
-    <link rel="stylesheet" href="http://127.0.0.1:8081/dist/styles.css" />
+    <link rel="stylesheet" href=${getComponentStyleSheetURL(this)} />
     <label>
       <span>${l8n('collection.filters.name.label')}</span>
       <input type="text" placeholder=${l8n('collection.filters.name.placeholder')}

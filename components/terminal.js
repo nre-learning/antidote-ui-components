@@ -1,6 +1,7 @@
 import { html } from 'lit-html';
 import { component, useRef } from 'haunted';
 import useSSH from '../helpers/use-ssh.js';
+import getComponentStyleSheetURL from '../helpers/stylesheet';
 
 //const sshStyle = {};
 
@@ -14,7 +15,7 @@ function AntidoteTerminal({ host, port }) {
   this.focusTerminal = this._ssh.focus;
 
   return html`
-    <link rel="stylesheet" href="http://127.0.0.1:8081/dist/styles.css" />
+    <link rel="stylesheet" href=${getComponentStyleSheetURL(this)} />
     <!-- todo: show reconnection state if available. distinguish between reconnectable and unreconnectable errors  -->
     <!-- todo: distinguish between "appropriate" connection closure and error -->
     ${this._ssh.error ? html `
