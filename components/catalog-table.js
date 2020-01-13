@@ -39,7 +39,7 @@ function CatalogTable() {
       <tr>
         <th>${l8n('catalog.table.column.lesson.label')}</th>
         <th>${l8n('catalog.table.column.description.label')}</th>
-        <th>${l8n('catalog.table.column.tags.label')}</th>
+        <th name="tags">${l8n('catalog.table.column.tags.label')}</th>
       </tr>
       </thead>
       <tbody>
