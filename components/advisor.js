@@ -6,6 +6,7 @@ import useFetch from '../helpers/use-fetch.js'
 import getL8nReader from '../helpers/l8n';
 import getComponentStyleSheetURL from '../helpers/stylesheet';
 
+// todo: update to use antidote-select component
 function Advisor({ host, stylesheet }) {
   const l8n = getL8nReader(this);
   const syringeServicePrefix = host ? host+'/syringe' : syringeServiceRoot;
@@ -34,9 +35,7 @@ function Advisor({ host, stylesheet }) {
   }
 
   return html`
-    <link rel="stylesheet" href=${getComponentStyleSheetURL(this)} />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/awesomplete/1.1.5/awesomplete.css" rel="stylesheet "/>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/awesomplete/1.1.5/awesomplete.base.css" rel="stylesheet" />   
+    <link rel="stylesheet" href=${getComponentStyleSheetURL(this)} />   
     <div class="advisor canister secondary">
       <h1>
         <span>${l8n('advisor.title')}</span>

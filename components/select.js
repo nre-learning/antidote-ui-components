@@ -50,9 +50,7 @@ function Select({ placeholder, multi }) {
   }
 
   return html`
-    <link rel="stylesheet" href=${getComponentStyleSheetURL(this)} />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/awesomplete/1.1.5/awesomplete.css" rel="stylesheet "/>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/awesomplete/1.1.5/awesomplete.base.css" rel="stylesheet" />   
+    <link rel="stylesheet" href=${getComponentStyleSheetURL(this)} />   
     <input type="text"
            placeholder=${placeholder}
            data-list=${dataList}
