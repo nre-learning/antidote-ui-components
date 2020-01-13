@@ -23,7 +23,7 @@ function LabStageSelector() {
   const disableNext = lessonStage === stages.length ? 'disabled' : '';
   const links = stages.map((stage, i) => ({
     tooltip: l8n('lab.stage.selector.tooltip.label', { i: i+1 }),
-    click: () => navTo(i+1),
+    click: navTo(i+1),
     selected: i === lessonStage - 1
   }));
 

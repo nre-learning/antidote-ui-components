@@ -13,7 +13,7 @@ function ProgressLinks() {
       <ul id="paginator-links">
         ${links.map((link, i) => {
           return html`
-            <li ?completed=${i <= selectedLinkIndex} @click="${link.click()}">
+            <li ?completed=${i <= selectedLinkIndex} @click="${link.click}">
               <div role="tooltip">${link.tooltip}</div>
             </li>
           `;

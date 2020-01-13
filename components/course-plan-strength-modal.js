@@ -45,6 +45,7 @@ function CoursePlanStrengthModal() {
 
   function getLinks(skill) {
     const links = [];
+    debugger;
     for (let i = 0; i < 5; i++) {
       links.push({
         tooltip: l8n(`course.plan.strength.modal.option.rank.${i+1}.tooltip`),
@@ -52,6 +53,7 @@ function CoursePlanStrengthModal() {
         selected: localStrengthsState[skill] === (i+1)
       });
     }
+    debugger;
     return links;
   }
 
