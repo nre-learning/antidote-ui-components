@@ -3,7 +3,7 @@ import { component, useEffect } from 'haunted';
 import getComponentStyleSheetURL from '../helpers/stylesheet';
 
 function ProgressLinks() {
-  const links = this.links;
+  const links = this.links || [];
   const selectedLinkIndex = links.findIndex((l, i) => l.selected);
   const progressWidth = links && links.length > 1 ? (selectedLinkIndex / (links.length - 1)) * 100 : 0;
 
