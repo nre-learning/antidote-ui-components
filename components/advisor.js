@@ -40,7 +40,7 @@ function Advisor({ host, stylesheet }) {
     <div class="advisor canister secondary">
       <h1>
         <span>${l8n('advisor.title')}</span>
-        <span class="subtitle">${l8n('advisor.title')}</span>
+        <span class="subtitle">${l8n('advisor.subtitle')}</span>
       </h1>
     
       <div class="input-wrapper">
