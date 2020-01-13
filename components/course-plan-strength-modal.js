@@ -47,7 +47,7 @@ function CoursePlanStrengthModal() {
     <link rel="stylesheet" href=${getComponentStyleSheetURL(this)} />    
 
     <antidote-modal show=${open && prereqSkills.length > 0}>   
-      <h1>${l8n('course.plan.strength.modal.placeholder')}</h1>
+      <h1>${l8n('course.plan.strength.modal.title')}</h1>
       <p>${l8n('course.plan.strength.modal.message')}</p>
       
       ${prereqSkills.map((skill) => html`
