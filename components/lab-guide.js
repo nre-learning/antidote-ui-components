@@ -74,14 +74,20 @@ function LabGuide() {
       const path = `/notebooks/stage${lessonStage}/notebook.ipynb`;
       const url = `${serviceHost}/${lessonId}-${sessionId}-ns-jupyterlabguide${path}`;
 
-      guideContent = html`<iframe src="${url}"></iframe>`;
+      guideContent = html`
+        <iframe src="${url}"></iframe>
+        <antidote-lab-stage-selector></antidote-lab-stage-selector>
+      `;
     }
     else if (lessonDetailsRequest.data.LabGuide) {
       const converter = new showdown.Converter();
 
-      guideContent = unsafeHTML(
-        '<div>'+converter.makeHtml(lessonDetailsRequest.data.LabGuide)+'</div>'
-      );
+      guideContent = html`
+        <div>
+            ${unsafeHTML(converter.makeHtml(lessonDetailsRequest.data.LabGuide))}
+            <antidote-lab-stage-selector></antidote-lab-stage-selector>        
+        </div> 
+      `;
     }
   }
 
@@ -90,7 +96,6 @@ function LabGuide() {
   return html`
     <link rel="stylesheet" href=${getComponentStyleSheetURL(this)} />
     ${guideContent}
-    <antidote-lab-stage-selector></antidote-lab-stage-selector>
   `;
 }
 
