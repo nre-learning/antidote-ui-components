@@ -9,6 +9,7 @@ import getComponentStyleSheetURL from '../helpers/stylesheet';
 function getLessonMarkup(lessons) {
   return lessons
     .filter((l) => l.Category === 'workflows')
+    .slice(0, 3)
     .map((l) => html`
       <div class="canister medium-gray">
         <a href=${`/labs/?lessonId=${l.LessonId}&lessonStage=1`}>
@@ -18,7 +19,7 @@ function getLessonMarkup(lessons) {
           ${l.Description}
         </p>
       </div>
-    `)
+    `);
 }
 
 function PromotedLessons() {
@@ -29,7 +30,9 @@ function PromotedLessons() {
   return html`
     <link rel="stylesheet" href=${getComponentStyleSheetURL(this)} />
     <h3>${l8n('promoted.lessons.title')}</h3>
-    ${lessons}
+    <div class="three-col">
+        ${lessons}
+    </div>    
   `;
 }
 
