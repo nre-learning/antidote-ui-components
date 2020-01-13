@@ -24,7 +24,7 @@ function LabStageSelector() {
   const links = stages.map((stage, i) => ({
     tooltip: l8n('lab.stage.selector.tooltip.label', { i: i+1 }),
     click: () => navTo(i+1),
-    selected: i === lessonStage
+    selected: i === lessonStage - 1
   }));
 
   return stages.length > 1 ? html`
