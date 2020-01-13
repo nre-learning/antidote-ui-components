@@ -4,7 +4,6 @@ import { LessonContext } from '../contexts.js';
 import { lessonId, lessonStage } from "../helpers/page-state.js";
 import getL8nReader from '../helpers/l8n';
 import getComponentStyleSheetURL from '../helpers/stylesheet';
-import {classMap} from 'lit-html/directives/class-map';
 
 const navTo = (destination) => () => {
   if (typeof destination === 'number') {
@@ -22,8 +21,11 @@ function LabStageSelector() {
   const stages = lessonRequest.data ? lessonRequest.data.Stages.slice(1) : [];
   const disablePrevious = lessonStage === 1 ? 'disabled' : '';
   const disableNext = lessonStage === stages.length ? 'disabled' : '';
-  const selectedStageIndex = stages.findIndex((e, i) => (i+1) === lessonStage);
-  const progressWidth = stages && stages.length > 1 ? (selectedStageIndex / (stages.length - 1)) * 100 : 0;
+  const links = stages.map((stage, i) => ({
+    tooltip: l8n('lab.stage.selector.tooltip.label', { i: i+1 }),
+    click: () => navTo(i+1),
+    selected: i === lessonStage
+  }));
 
   return stages.length > 1 ? html`
     <link rel="stylesheet" href=${getComponentStyleSheetURL(this)} />
@@ -37,19 +39,7 @@ function LabStageSelector() {
         ${l8n('lab.stage.selector.next.button.label')}
       </button>
     </div>
-    <div id="paginator">
-        <ul id="paginator-links">
-          ${stages.map((stage, i) => {
-            return html`
-              <li ?completed=${i <= selectedStageIndex} @click="${navTo(i+1)}">
-                <div role="tooltip">${l8n('lab.stage.selector.tooltip.label', { i: i+1 })}</div>
-              </li>
-            `;
-          })}        
-        </ul>
-        <div id="progress-background"></div>
-        <div id="progress-indicator" style="width: ${progressWidth}%"></div>        
-    </div>  
+    <antidote-progress-links .links=${links}></antidote-progress-links>
   ` : html``;
 }
 

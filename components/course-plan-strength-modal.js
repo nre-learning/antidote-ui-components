@@ -43,6 +43,14 @@ function CoursePlanStrengthModal() {
     setOpen(false);
   }
 
+  function getLinks(skill) {
+    return Array(5).map((_, i) => ({
+      tooltip: l8n(`course.plan.strength.modal.option.rank.${i+1}.tooltip`),
+      click: () => setStrength(skill, i+1),
+      selected: localStrengthsState[skill] === (i+1)
+    }));
+  }
+
   return html`
     <link rel="stylesheet" href=${getComponentStyleSheetURL(this)} />    
 
@@ -52,16 +60,7 @@ function CoursePlanStrengthModal() {
       
       ${prereqSkills.map((skill) => html`
         <h3>${l8n('course.plan.strength.modal.prompt', { skill })}</h3>
-        <ul class="pagination-list">  
-          ${Array(5).map((_, i) => {
-            const rank = i + 1;
-            return html `
-              <li class=${classMap({active: localStrengthsState[skill] === rank})} 
-                  data-line=${l8n(`course.plan.strength.modal.option.rank.${rank}.tooltip`)}
-                  @click=${setStrength(skill, rank)}></li>
-            `;
-          })}
-        </ul>
+        <antidote-progress-links .links=${getLinks()}></antidote-progress-links>
       `)}
       
       <div class="buttons">
