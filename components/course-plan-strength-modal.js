@@ -48,7 +48,7 @@ function CoursePlanStrengthModal() {
     for (let i = 0; i < 5; i++) {
       links.push({
         tooltip: l8n(`course.plan.strength.modal.option.rank.${i+1}.tooltip`),
-        click: () => setStrength(skill, i+1),
+        click: setStrength(skill, i+1),
         selected: localStrengthsState[skill] === (i+1)
       });
     }
