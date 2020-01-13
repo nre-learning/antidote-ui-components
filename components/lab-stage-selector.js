@@ -23,7 +23,7 @@ function LabStageSelector() {
   const disablePrevious = lessonStage === 1 ? 'disabled' : '';
   const disableNext = lessonStage === stages.length ? 'disabled' : '';
   const selectedStageIndex = stages.findIndex((e, i) => (i+1) === lessonStage);
-  const progressWidth = stages && stages.length ? (selectedStageIndex / stages.length) * 100 : 0;
+  const progressWidth = stages && stages.length > 1 ? (selectedStageIndex / (stages.length - 1)) * 100 : 0;
 
   return stages.length > 1 ? html`
     <link rel="stylesheet" href=${getComponentStyleSheetURL(this)} />
@@ -52,7 +52,7 @@ function LabStageSelector() {
           ${stages.map((stage, i) => {
             return html`
               <li ?active=${i === selectedStageIndex} @click="${navTo(i+1)}">
-                <div id="tooltip">${l8n('lab.stage.selector.next.button.label', { i: i+1 })}"</div>
+                <div role="tooltip">${l8n('lab.stage.selector.tooltip.label', { i: i+1 })}"</div>
               </li>
             `;
           })}        
