@@ -13,7 +13,7 @@ function getLessonMarkup(lessons) {
     .map((l) => html`
       <div class="canister medium-gray">
         <a href=${`/labs/?lessonId=${l.LessonId}&lessonStage=1`}>
-          <h3>${l.Name}</h3>      
+          <h3>${l.LessonName}</h3>      
         </a>
         <p>
           ${l.Description}
