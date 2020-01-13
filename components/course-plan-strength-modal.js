@@ -64,7 +64,7 @@ function CoursePlanStrengthModal() {
       
       ${prereqSkills.map((skill) => html`
         <h3>${l8n('course.plan.strength.modal.prompt', { skill })}</h3>
-        <antidote-progress-links .links=${getLinks()}></antidote-progress-links>
+        <antidote-progress-links .links=${getLinks(skill)}></antidote-progress-links>
       `)}
       
       <div class="buttons">
