@@ -37,22 +37,12 @@ function LabStageSelector() {
         ${l8n('lab.stage.selector.next.button.label')}
       </button>
     </div>
-    <ul class="pagination-list">
-      ${stages.map((stage, i) => {
-        const clss = (i+1) === lessonStage ? 'active' : '';
-        return html`
-          <li class="${clss}" data-line="${l8n('lab.stage.selector.next.button.label', { i: i+1 })}"
-            @click="${navTo(i+1)}">
-          </li>
-        `;
-      })}    
-    </ul>
     <div id="paginator">
         <ul id="paginator-links">
           ${stages.map((stage, i) => {
             return html`
               <li ?active=${i === selectedStageIndex} @click="${navTo(i+1)}">
-                <div role="tooltip">${l8n('lab.stage.selector.tooltip.label', { i: i+1 })}"</div>
+                <div role="tooltip">${l8n('lab.stage.selector.tooltip.label', { i: i+1 })}</div>
               </li>
             `;
           })}        
