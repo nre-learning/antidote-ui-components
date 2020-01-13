@@ -65,8 +65,8 @@ function CoursePlanStrengthModal() {
       `)}
       
       <div class="buttons">
-        <button class="btn support" @click=${skip}>l8n('course.plan.strength.modal.skip.button.label')</button>
-        <button class="btn primary" @click=${submit}>l8n('course.plan.strength.modal.submit.button.label')</button>
+        <button class="btn support" @click=${skip}>${l8n('course.plan.strength.modal.skip.button.label')}</button>
+        <button class="btn primary" @click=${submit}>${l8n('course.plan.strength.modal.submit.button.label')}</button>
       </div>
     </antidote-modal>
   `;
