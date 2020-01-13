@@ -41,7 +41,7 @@ function LabStageSelector() {
         <ul id="paginator-links">
           ${stages.map((stage, i) => {
             return html`
-              <li ?active=${i === selectedStageIndex} @click="${navTo(i+1)}">
+              <li ?completed=${i <= selectedStageIndex} @click="${navTo(i+1)}">
                 <div role="tooltip">${l8n('lab.stage.selector.tooltip.label', { i: i+1 })}</div>
               </li>
             `;
