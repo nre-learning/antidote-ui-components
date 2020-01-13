@@ -43,7 +43,9 @@ customElements.define('antidote-lab-context', component(function AntidoteLabCont
     progressRequestURL: ({id}) => `${syringeServiceRoot}/exp/livelesson/${id}`,
     isProgressComplete: ({LiveLessonStatus}) => LiveLessonStatus === 'READY',
   });
-  const isMobileSizedWindow = window.innerWidth <= 1023; // todo: convert to use var from style
+  const tabletBreakpointCSSVar = document.documentElement.style.getPropertyValue('--tablet-max-width');
+  const tabletBreakpoint = parseInt(tabletBreakpointCSSVar, 10) || 1024;
+  const isMobileSizedWindow = window.innerWidth < tabletBreakpoint;
   const presentations = derivePresentationsFromLessonDetails(liveLessonDetailRequest);
   const presentationTabs = presentations ? presentations.map((p, i) => ({
     id: p.name.toLowerCase(),
