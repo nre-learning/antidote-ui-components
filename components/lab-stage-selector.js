@@ -57,7 +57,8 @@ function LabStageSelector() {
             `;
           })}        
         </ul>
-        <div id="progress-indicator" style="width: ${progressWidth}%"></div>
+        <div id="progress-background"></div>
+        <div id="progress-indicator" style="width: ${progressWidth}%"></div>        
     </div>  
   ` : html``;
 }
