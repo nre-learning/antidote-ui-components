@@ -17,7 +17,6 @@ const baseState = {
   error: null,
 };
 
-// todo: only handle the ones we need and switch to individual handlers rather than mono-handler
 const socketEventNames = [
   'connect',
   'ssherror',
@@ -116,7 +115,6 @@ function createInitialState(socketRef, terminalRef) {
 
 // returns a function that handles socket.io events, including updating the connection state by dispatching actions
 // could be refactored into multiple handlers but i find this consolidation convenient
-// todo: break this up
 function getSocketEventHandler(eventName, terminal, socket, dispatch) {
   return function handleSocketEvent(data) {
     const t = terminal.current;
@@ -131,20 +129,12 @@ function getSocketEventHandler(eventName, terminal, socket, dispatch) {
       case 'data':
         t.write(data);
         return null;
+      case 'disconnect':
+        //todo: handle known disconnect?
 
-      case 'setTerminalOpts':
-        // todo: store terminal ops in local storage and ignore this?
-        const opts = ['cursorBlink', 'scrollBack', 'tabStopWidth', 'bellStyle'];
-        for (const opt in opts) {
-          if (data[opt] !== undefined) {
-            t.setOption(opt, data[opt]);
-          }
-        }
-        return null;
-
-      // imo most of the event types that follow aren't things we _should_ handle, even though WebSSH2 is sending them.
-      // i.e the string to print in particular scenario shouldn't be implemented by the server. the server should
-      // communicate what the scenario is to the client and let the client determine how to communicate that to the user.
+      // most of the event types that follow aren't things we _should_ handle, even though WebSSH2 is sending them.
+      // i.e the server specifying the formatted string to print during a particular scenario is a detail
+      // that should be implemented by the client.
 
       case 'title': // `data` is a title string, typically a URI like "ssh://10.109.99.12"
       case 'status': // `data` is a status string like "SSH CONNECTION ESTABLISHED"
@@ -152,8 +142,7 @@ function getSocketEventHandler(eventName, terminal, socket, dispatch) {
       case 'statusBackground': // `data` is a header background color string like "green"
       case 'header': // `data` is a header text string, typically a URI like "ssh://10.109.99.12"
       case 'footer': // `data` is a footer text string, typically a URI like "ssh://antidote@10.109.99.12:22"
-      // todo: answer what the rest of these events are.
-      case 'disconnect':
+      case 'setTerminalOpts':
       case 'reauth':
       case 'allowreplay':
       case 'allowreauth':

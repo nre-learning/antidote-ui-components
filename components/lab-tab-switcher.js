@@ -46,8 +46,6 @@ function LabTabSwitcher() {
     }
   }, []);
 
-  // todo: confirm slotting a stylesheet like this works as expected :/
-  // todo: move stylesheets to NRE-branded usages of this component
   return html`
     <link rel="stylesheet" href=${getComponentStyleSheetURL(this)} />
     <ul>
