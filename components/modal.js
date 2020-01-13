@@ -1,5 +1,6 @@
 import { html } from 'lit-html';
 import { component, useEffect } from 'haunted';
+import getComponentStyleSheetURL from '../helpers/stylesheet';
 
 function togglePageOverflow(hide) {
   if (hide) {
@@ -27,18 +28,7 @@ function Modal({show}) {
   }, [showBool]);
 
   return html`
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/nlundquist/nre-styles@latest/dist/styles.css" />
-    <style>
-      /*todo move to nre-styles*/
-      .modal-wrapper {
-        position: fixed;
-        z-index: 15;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
-      }
-    </style>
+    <link rel="stylesheet" href=${getComponentStyleSheetURL(this)} />
     ${modal}
   `;
 }

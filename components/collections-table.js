@@ -1,6 +1,8 @@
 import { html } from 'lit-html';
 import { component, useContext} from 'haunted';
 import { AllCollectionContext, CollectionFilteringContext } from "../contexts.js";
+import getL8nReader from '../helpers/l8n';
+import getComponentStyleSheetURL from '../helpers/stylesheet';
 
 function doFiltering(collections, filteringState) {
   const filterEntries = Object.entries(filteringState);
@@ -21,6 +23,7 @@ function doFiltering(collections, filteringState) {
 }
 
 function CollectionsTable() {
+  const l8n = getL8nReader(this);
   const allCollectionRequest = useContext(AllCollectionContext);
   const [filteringState] = useContext(CollectionFilteringContext);
   const collections = allCollectionRequest.succeeded
@@ -28,30 +31,12 @@ function CollectionsTable() {
     : [];
 
   return html`
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/nlundquist/nre-styles@latest/dist/styles.css" />
-    <style>
-      /*todo: move to nre theme?*/
-      /*todo: remove row hover ughhhhh */
-      .tag {
-        display: inline-flex;
-        align-items: center;       
-        padding: 2px 5px;
-        word-spacing: normal;
-        border: 2px solid #0096c3;
-        color: #0096c3;
-        background-color: white;
-        margin-top: 10px;
-      }    
-      .tags {
-        word-spacing: 10px;
-        padding: 0 10px 10px 8px;
-      }
-    </style>
+    <link rel="stylesheet" href=${getComponentStyleSheetURL(this)} />
     <table class="catalog">
       <thead>
       <tr>
-        <th>Name</th>
-        <th>Description</th>
+        <th>${l8n('collection.table.column.name.label')}</th>
+        <th>${l8n('collection.table.column.description.label')}</th>
       </tr>
       </thead>
       <tbody>

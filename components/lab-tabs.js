@@ -2,6 +2,7 @@ import { html } from 'lit-html';
 import { component, useContext, useEffect } from 'haunted';
 import { LabTabsContext } from '../contexts.js';
 import { serviceHost, sessionId, lessonId } from '../helpers/page-state.js';
+import getComponentStyleSheetURL from '../helpers/stylesheet';
 
 // NOTE: On Tab State Management:
 // Currently this component (& the switcher) only keep  _initialization_ state in the LabTabsContext.
@@ -10,6 +11,42 @@ import { serviceHost, sessionId, lessonId } from '../helpers/page-state.js';
 // necessary to keep the most up-to-date state in the LabTabsContext, this component would likely
 // need to be enhanced somewhat to prevent <antidote-terminal> from re-rendering on simple state
 // changes and thus dropping the connections.
+
+function getTabMarkup(tab) {
+  if (tab.id === 'mobile-guide') {
+    return html`
+      <div id=${tab.id}
+           tab="guide"
+           ?selected=${tab.selected}>          
+        <antidote-lab-guide></antidote-lab-guide>             
+      </div>
+    `;
+  } else if (tab.pres) {
+    switch (tab.pres.type) {
+      case('ssh'):
+        return html`
+          <div id=${tab.id}
+               tab="terminal"
+               ?selected=${tab.selected}>
+              <antidote-terminal
+                host=${tab.pres.host}
+                port=${tab.pres.port} />
+          </div>
+        `;
+      case('http'):
+        return html`
+          <div id=${tab.id}
+               tab="web" 
+               ?selected=${tab.selected}>
+            <iframe src="${document.location.protocol}//${serviceHost}/${lessonId}-${sessionId}-ns-${tab.pres.endpoint}/">
+            </iframe>
+          </div>
+        `;
+    }
+  }
+
+  return ``;
+}
 
 function LabTabs({ tab }) {
   const tabsParent = this.shadowRoot;
@@ -37,58 +74,8 @@ function LabTabs({ tab }) {
   }, [tabs]);
 
   return html`
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/nlundquist/nre-styles@latest/dist/styles.css" />
-    <style>
-      :host {
-        position: relative;
-        overflow: hidden;
-        flex-grow: 1;     
-      }
-      :host > div[tab] {
-        position: absolute;         
-        visibility: hidden;
-        width: 100%;
-        height: 100%;
-      }
-      :host > div[tab][selected] {
-        visibility: visible;
-      }
-      :host > div[tab="terminal"] {
-        padding: 10px 0 5px 10px;
-        background: #262c2c;  /* todo: switch to var */
-      }
-      :host > div[tab="web"] > iframe {
-        width: 100%;
-        height: 100%;
-        border: 0; 
-      }
-    </style>  
-    ${tabs.map((tab) => html`
-      ${tab.pres ? html`
-        ${tab.pres.type === 'http' ? html`
-          <div id=${tab.id}
-               tab="web" 
-               ?selected=${tab.selected}>
-            <iframe src="${document.location.protocol}//${serviceHost}/${lessonId}-${sessionId}-ns-${tab.pres.endpoint}/">
-            </iframe>
-          </div>                    
-        ` : html`
-          <div id=${tab.id}
-               tab="terminal"
-               ?selected=${tab.selected}>
-              <antidote-terminal
-                host=${tab.pres.host}
-                port=${tab.pres.port} />
-          </div>        
-        `}
-      ` : html`
-        <div id=${tab.id}
-             tab="slot"
-             ?selected=${tab.selected}>
-          <slot name=${tab.id}></slot>       
-        </div>
-      `}              
-    `)}
+    <link rel="stylesheet" href=${getComponentStyleSheetURL(this)} />
+    ${tabs.map((tab) => getTabMarkup(tab))}
   `;
 }
 

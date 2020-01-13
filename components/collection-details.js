@@ -3,12 +3,15 @@ import { html } from 'lit-html';
 import { component, useState } from 'haunted';
 import { syringeServiceRoot, collectionId } from "../helpers/page-state.js";
 import useFetch from '../helpers/use-fetch.js'
+import getL8nReader from '../helpers/l8n';
+import getComponentStyleSheetURL from '../helpers/stylesheet';
 
 function CollectionDetails() {
+  const l8n = getL8nReader(this);
   const request = useFetch(`${syringeServiceRoot}/exp/collection/${collectionId}`);
 
   return html` 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/nlundquist/nre-styles@latest/dist/styles.css" />
+    <link rel="stylesheet" href=${getComponentStyleSheetURL(this)} />
     <style>
       h1 {
         text-align: center;
@@ -22,15 +25,15 @@ function CollectionDetails() {
       <p>${request.data.LongDescription}</p>
       
       <table>
-        <tr><td>Type</td><td>${request.data.Type}</td></tr>
+        <tr><td>${l8n('collections.details.type.label')}</td><td>${request.data.Type}</td></tr>
         <tr>
-          <td>Website</td>
+          <td>${l8n('collections.details.website.label')}</td>
           <td>
             <a href="${request.data.Website}">${request.data.Website}</a>
           </td>
         </tr>
         <tr>
-          <td>Email</td>
+          <td>${l8n('collections.details.email.label')}</td>
           <td>
             <a href="mailto:${request.data.ContactEmail}">${request.data.ContactEmail}</a>
           </td>
@@ -39,7 +42,7 @@ function CollectionDetails() {
       
       <div class="canister medium-gray">
         ${request.data.Lessons ? html`
-          <h3>Lessons</h3>
+          <h3>${l8n('collections.details.lessons.label')}</h3>
           ${request.data.Lessons.map((lesson, i) => html`
             <div>
               <a href="/labs/?lessonId=${lesson.lessonId}&lessonStage=1">
@@ -52,7 +55,7 @@ function CollectionDetails() {
             ${request.data.Lessons.length !== i + 1 ? html`<hr/>` : ''}
           `)}        
         ` : html `
-          <h3>Coming Soon!</h3>
+          <h3>${l8n('collection.details.lessons.empty.label')}</h3>
         `}             
       </div>
     ` : ''}

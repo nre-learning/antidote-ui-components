@@ -1,12 +1,17 @@
 import { html } from 'lit-html';
-import { component, useEffect, useRef } from 'haunted';
+import { component, useEffect, useRef, useContext } from 'haunted';
 import { syringeServiceRoot } from "../helpers/page-state.js";
+import { AllLessonContext } from "../contexts.js";
 import useFetch from '../helpers/use-fetch.js'
+import getL8nReader from '../helpers/l8n';
+import getComponentStyleSheetURL from '../helpers/stylesheet';
 
-function Advisor({host}) {
+// todo: update to use antidote-select component
+function Advisor({ host, stylesheet }) {
+  const l8n = getL8nReader(this);
   const syringeServicePrefix = host ? host+'/syringe' : syringeServiceRoot;
   const awesompleteRef = useRef(null);
-  const allLessonRequest = useFetch(`${syringeServicePrefix}/exp/lesson`);
+  const allLessonRequest = useContext(AllLessonContext) || useFetch(`${syringeServicePrefix}/exp/lesson`);
   const lessonOptions = allLessonRequest.succeeded
     ? allLessonRequest.data.lessons.map((l) => ({
       label: l.LessonName,
@@ -30,33 +35,22 @@ function Advisor({host}) {
   }
 
   return html`
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/nlundquist/nre-styles@latest/dist/styles.css" />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/awesomplete/1.1.5/awesomplete.css" rel="stylesheet "/>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/awesomplete/1.1.5/awesomplete.base.css" rel="stylesheet" />
-    <style>
-      .awesomplete > ul:before,
-      .input-wrapper .awesomplete:before{
-        display: none;
-      }
-    </style>
+    <link rel="stylesheet" href=${getComponentStyleSheetURL(this)} />   
     <div class="advisor canister secondary">
       <h1>
-        <span>NRE Labs Advisor</span>
-        <span class="subtitle">Get a customized lesson path</span>
+        <span>${l8n('advisor.title')}</span>
+        <span class="subtitle">${l8n('advisor.subtitle')}</span>
       </h1>
     
       <div class="input-wrapper">
-        <input type="text" placeholder="I want to learn..."
+        <input type="text" placeholder="${l8n('advisor.placeholder')}"
             @awesomplete-select=${select}
             class="awesomeplete" />
       </div>
         
-      <button class="btn secondary">Search Lesson Content</button>
+      <button class="btn secondary">${l8n('advisor.button.label')}</button>
     
-      <aside class="small">
-        Use the box above to say what you want to learn, and we’ll work with you
-        to build a relevant learning path. Try “Python” or “StackStorm”!
-      </aside>
+      <aside class="small">${l8n('advisor.prompt')}</aside>
     </div>
   `;
 }

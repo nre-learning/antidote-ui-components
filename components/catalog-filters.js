@@ -2,6 +2,8 @@ import { html } from 'lit-html';
 import { component, useContext } from 'haunted';
 import { AllLessonContext, LessonFilteringContext } from "../contexts.js";
 import debounce from "../helpers/debounce.js";
+import getL8nReader from '../helpers/l8n';
+import getComponentStyleSheetURL from '../helpers/stylesheet';
 
 function getOptionSetsFromLessons(lessons) {
   const categories = new Set();
@@ -14,6 +16,7 @@ function getOptionSetsFromLessons(lessons) {
 }
 
 function CatalogFilters() {
+  const l8n = getL8nReader(this);
   const allLessonRequest = useContext(AllLessonContext);
   const [filterState, setFilterState] = useContext(LessonFilteringContext);
   const [categories, tags] = allLessonRequest.succeeded
@@ -32,33 +35,22 @@ function CatalogFilters() {
   }
 
   return html`
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/nlundquist/nre-styles@latest/dist/styles.css" />
-    <style>
-      :host {
-        display: flex;
-      }     
-      :host > label {
-        flex-grow: 1;
-      }
-      :host > label:not(:first-of-type) {
-        margin-left: 30px;
-      }
-    </style>
+    <link rel="stylesheet" href=${getComponentStyleSheetURL(this)} />
     <label>
-      <span>Category</span>
+      <span>${l8n('catalog.filters.category.label')}</span>
       <div>
         <antidote-select
-          placeholder="Label"
+          placeholder=${l8n('catalog.filters.category.placeholder')}
           .options=${categories} 
           .change=${setFilter('Category')} />
       </div>      
     </label>
   
     <label>
-      <span>Tags</span>
+      <span>${l8n('catalog.filters.tags.label')}</span>
       <div>
         <antidote-select
-            placeholder="Label, Label"
+            placeholder=${l8n('catalog.filters.tags.placeholder')}
             multi="true"
             .options=${tags} 
             .change=${setFilter('Tags')} />

@@ -3,8 +3,9 @@ import { html } from 'lit-html';
 import { component, useState } from 'haunted';
 import { syringeServiceRoot } from "../helpers/page-state.js";
 import useFetch from '../helpers/use-fetch.js'
+import getComponentStyleSheetURL from '../helpers/stylesheet';
 
-customElements.define('antidote-catalog-context', component(() => {
+customElements.define('antidote-catalog-context', component(function CatalogContext() {
   const allLessonRequest = useFetch(`${syringeServiceRoot}/exp/lesson`);
   const [filteringState, setFilteringState] = useState({
     searchString: null,
@@ -15,15 +16,7 @@ customElements.define('antidote-catalog-context', component(() => {
   });
 
   return html`
-    <style>
-      :host, 
-      antidote-all-lesson-context-provider,
-      antidote-lesson-filtering-context-provider {
-        display: block;
-        height: 100%;
-        width: 100%;
-      }
-    </style>
+    <link rel="stylesheet" href=${getComponentStyleSheetURL(this)} />
     <antidote-all-lesson-context-provider .value=${allLessonRequest}>    
     <antidote-lesson-filtering-context-provider .value=${[filteringState, setFilteringState]}>    
       <slot></slot>

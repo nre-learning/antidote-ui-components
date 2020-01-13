@@ -2,8 +2,11 @@ import { html } from 'lit-html';
 import { component, useContext } from 'haunted';
 import { AllLessonContext, LessonPrereqContext, CoursePlanNameContext, CoursePlanStrengthsContext } from "../contexts.js";
 import { lessonId } from "../helpers/page-state.js";
+import getL8nReader from '../helpers/l8n';
+import getComponentStyleSheetURL from '../helpers/stylesheet';
 
 function CoursePlan() {
+  const l8n = getL8nReader(this);
   const allLessonsRequest = useContext(AllLessonContext);
   const [coursePlanName] = useContext(CoursePlanNameContext);
   const [strengths] = useContext(CoursePlanStrengthsContext);
@@ -15,30 +18,15 @@ function CoursePlan() {
       allLessonsRequest.data.lessons.find((l) => l.LessonId === prereqId)
     ).concat(lesson)
     : [];
+  const slug = (lesson || {}).Slug;
+  const coursePlanTitle = coursePlanName
+    ? l8n('course.plan.title', { coursePlanName, slug })
+    : l8n('course.plan.title.no.name', { slug })
 
   return html`
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/nlundquist/nre-styles@latest/dist/styles.css" />
-    <style>
-      .expertise {
-        display: flex;
-        align-items: center;
-        text-transform: uppercase;
-      }
-      .expertise > img {
-        margin-right: 5px;
-      }
-      .skill-1, .skill-2, .skill-3, .skill-undefined {
-        color: #c35b56;
-      }
-      .skill-4 {
-        color: #ffcc66;
-      }
-      .skill-5 {
-        color: #339966;
-      }
-    </style>
+    <link rel="stylesheet" href=${getComponentStyleSheetURL(this)} />    
+    <h1>${coursePlanTitle}</h1>
     
-    <h1>${coursePlanName ? coursePlanName+"'s" : 'Your'} Journey to ${(lesson || {}).Slug}</h1>
     ${planLessons.map((lesson, i) => html`
       <div class="path-item">
         <div class="number">
@@ -56,15 +44,15 @@ function CoursePlan() {
             <span class="expertise skill-${strengths[lesson.Slug]}">
               ${strengths[lesson.Slug] <= 3 || strengths[lesson.Slug] === undefined ? html`
                 <img src="/images/beginner-icon.svg" alt="beginner logo" class="icon" />
-                Let's get learning.
+                ${l8n('course.plan.skill.strength.beginner.message')}
               ` : ''}
               ${strengths[lesson.Slug] === 4 ? html`
                 <img src="/images/intermediate-icon.svg" alt="intermediate logo" class="icon" />
-                Let's do a quick review.
+                ${l8n('course.plan.skill.strength.intermediate.message')}
               ` : ''}
               ${strengths[lesson.Slug] === 5 ? html`
                 <img src="/images/expert-icon.svg" alt="expert logo" class="icon" />
-                You're an expert!
+                ${l8n('course.plan.skill.strength.expert.message')}                
               ` : ''}
             </span>
           `: ''}

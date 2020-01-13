@@ -3,9 +3,14 @@ import { component, useContext, useState, useRef } from 'haunted';
 import { LessonContext } from '../contexts.js';
 import { syringeServiceRoot, lessonStage, lessonId, sessionId } from '../helpers/page-state.js';
 import usePollingRequest from '../helpers/use-polling-request.js';
+import getL8nReader from '../helpers/l8n';
+import getComponentStyleSheetURL from '../helpers/stylesheet';
 
-// todo: ugh fix !important in css below
+/* Note: verification interface should probably eventually be broken into an isolated component
+         rather than being part of the implementation of this particular button bar */
+
 function LabActionButtons() {
+  const l8n = getL8nReader(this);
   const lessonRequest = useContext(LessonContext);
   const hasObjective = lessonRequest.succeeded && lessonRequest.data.Stages[lessonStage].VerifyObjective;
   const verificationAttemptCount = useRef(0); // arbitrary varying value to include in request state to trigger a new request when incremented
@@ -22,15 +27,15 @@ function LabActionButtons() {
   }) : {};
   const verificationMessage = (() => {
     if (verificationRequest.pending) {
-      return 'Still verifying...';
+      return l8n('verification.modal.pending.message');
     } else if (verificationRequest.succeeded) {
       if (verificationRequest.data.success) {
-        return 'Successfully verified!'
+        return l8n('verification.modal.success.message');
       } else {
-        return 'Failed to verify.'
+        return l8n('verification.modal.failure.message');
       }
     } else {
-      return 'An unexpected error occurred during verification.';
+      return l8n('verification.modal.error.message');
     }
   })();
 
@@ -44,26 +49,12 @@ function LabActionButtons() {
   }
 
   const verifyButton = hasObjective
-    ? html`<button class="btn primary" @click=${verify}>Verify</button>`
+    ? html`<button class="btn primary" @click=${verify}>${l8n('lab.action.buttons.verify.label')}</button>`
     : '';
   const noButtons = !(verifyButton);
 
   return noButtons ? '' : html`
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/nlundquist/nre-styles@latest/dist/styles.css" />
-    <style>
-      :host {       
-        padding: 15px !important;;   
-        background-color: #666666;          
-      }
-      :host(:first-line) {
-      }
-      button {
-        margin: 15px;
-      }
-      img {
-        object-fit: contain;
-      }
-    </style>
+    <link rel="stylesheet" href=${getComponentStyleSheetURL(this)} />
   
     <!-- todo: move verify button-->
     ${verifyButton}
@@ -77,13 +68,13 @@ function LabActionButtons() {
           text-align: left;
         }
       </style>
-      <h1>Verification</h1>
+      <h1>${l8n('verification.modal.title')}</h1>
       <p>${verificationMessage}</p>
-      ${verificationMessage === 'Still verifying...' ? html`
+      ${verificationRequest.pending ? html`
         <img src="/images/flask.gif" alt="flask" />
       `: ''}
       <div>
-        <button class="btn primary" @click=${closeVerify}>Close</button>
+        <button class="btn primary" @click=${closeVerify}>${l8n('verification.modal.close.button.label')}</button>
       </div>     
     </antidote-modal>
   `

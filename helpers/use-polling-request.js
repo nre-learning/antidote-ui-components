@@ -61,7 +61,6 @@ export default function usePollingRequest({
         }
 
         try {
-          // todo: confirm this change is require
           const response = await fetch(`${window.location.protocol}//${progressRequestURL}`);
           const data = await response.json();
 

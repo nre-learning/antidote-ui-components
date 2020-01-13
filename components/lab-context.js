@@ -4,6 +4,8 @@ import { sessionId, lessonId, lessonStage, syringeServiceRoot} from "../helpers/
 import { component } from 'haunted';
 import useFetch from '../helpers/use-fetch.js';
 import usePollingRequest from '../helpers/use-polling-request.js';
+import getL8nReader from '../helpers/l8n';
+import getComponentStyleSheetURL from '../helpers/stylesheet';
 
 function derivePresentationsFromLessonDetails(detailsRequest) {
   const endpoints = detailsRequest.succeeded ? detailsRequest.data.LiveEndpoints : [];
@@ -29,7 +31,8 @@ function derivePresentationsFromLessonDetails(detailsRequest) {
   }, []);
 }
 
-customElements.define('antidote-lab-context', component(() => {
+customElements.define('antidote-lab-context', component(function AntidoteLabContext() {
+  const l8n = getL8nReader(this);
   const lessonRequest = useFetch(`${syringeServiceRoot}/exp/lesson/${lessonId}`);
   const liveLessonDetailRequest = usePollingRequest({
     initialRequestURL: `${syringeServiceRoot}/exp/livelesson`,
@@ -40,7 +43,9 @@ customElements.define('antidote-lab-context', component(() => {
     progressRequestURL: ({id}) => `${syringeServiceRoot}/exp/livelesson/${id}`,
     isProgressComplete: ({LiveLessonStatus}) => LiveLessonStatus === 'READY',
   });
-  const isMobileSizedWindow = window.innerWidth <= 1023; // todo: convert to use var from style
+  const tabletBreakpointCSSVar = document.documentElement.style.getPropertyValue('--tablet-max-width');
+  const tabletBreakpoint = parseInt(tabletBreakpointCSSVar, 10) || 1024;
+  const isMobileSizedWindow = window.innerWidth < tabletBreakpoint;
   const presentations = derivePresentationsFromLessonDetails(liveLessonDetailRequest);
   const presentationTabs = presentations ? presentations.map((p, i) => ({
     id: p.name.toLowerCase(),
@@ -53,23 +58,14 @@ customElements.define('antidote-lab-context', component(() => {
     // merging them together to make a config
     {
       id: 'mobile-guide',
-      label: 'Guide',
+      label: l8n('lab.tab.switcher.guide.tab.label'),
       selected: isMobileSizedWindow // start with the guide tab selected if the page is narrow enough to need it
     },
     ...presentationTabs
   ];
 
   return html`
-    <style>
-      :host, 
-      antidote-lesson-context-provider,
-      antidote-live-lesson-details-context-provider,
-      antidote-lab-tab-context-provider {
-        display: block;
-        height: 100%;
-        width: 100%;
-      }
-    </style>
+    <link rel="stylesheet" href=${getComponentStyleSheetURL(this)} />
     <antidote-lesson-context-provider .value=${lessonRequest}>
     <antidote-live-lesson-details-context-provider .value=${liveLessonDetailRequest}>
     <antidote-lab-tabs-context-provider .value=${tabs}>

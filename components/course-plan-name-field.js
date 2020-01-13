@@ -2,8 +2,11 @@ import { html } from 'lit-html';
 import { component, useContext } from 'haunted';
 import { CoursePlanNameContext } from "../contexts.js";
 import debounce from "../helpers/debounce.js";
+import getL8nReader from '../helpers/l8n';
+import getComponentStyleSheetURL from '../helpers/stylesheet';
 
 function CoursePlanNameField() {
+  const l8n = getL8nReader(this);
   const [name, setName] = useContext(CoursePlanNameContext);
 
   const change = debounce(function change() {
@@ -11,13 +14,13 @@ function CoursePlanNameField() {
   }, 200);
 
   return html`
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/nlundquist/nre-styles@latest/dist/styles.css" />
+    <link rel="stylesheet" href=${getComponentStyleSheetURL(this)} />
     <style>
       :host {
         display: block;       
       }
     </style>  
-    <input type="text" placeholder="Name"
+    <input type="text" placeholder=${l8n('course.plan.name.field.placeholder')}
         @keyup=${change} @change=${change} value=${name || ''} />
   `;
 }

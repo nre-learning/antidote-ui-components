@@ -1,6 +1,7 @@
 import { html } from 'lit-html';
 import { component, useRef } from 'haunted';
 import useSSH from '../helpers/use-ssh.js';
+import getComponentStyleSheetURL from '../helpers/stylesheet';
 
 //const sshStyle = {};
 
@@ -14,36 +15,7 @@ function AntidoteTerminal({ host, port }) {
   this.focusTerminal = this._ssh.focus;
 
   return html`
-    <!-- what to do about this :/ -->
-    <link rel="stylesheet" href="/css/xterm.css" />
-    <style>
-        :host {
-            display: block;
-            height: 100%;
-            width: 100%;
-            background: #262c2c;
-            padding: 10px 20px 5px 20px;
-        }
-        .error {
-            /* todo: figure out how to use LESS variables in these components :/ */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            left: 0;
-            right: 0;            
-            color: #c35b56;
-            z-index: 10;
-        }
-        #term-target {
-            height: 100%;
-        }
-        .error + #term-target {
-            opacity: .1;
-        }
-    </style>
+    <link rel="stylesheet" href=${getComponentStyleSheetURL(this)} />
     <!-- todo: show reconnection state if available. distinguish between reconnectable and unreconnectable errors  -->
     <!-- todo: distinguish between "appropriate" connection closure and error -->
     ${this._ssh.error ? html `

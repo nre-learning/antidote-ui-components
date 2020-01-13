@@ -2,6 +2,8 @@ import { html } from 'lit-html';
 import { component, useContext } from 'haunted';
 import { AllCollectionContext, CollectionFilteringContext } from "../contexts.js";
 import debounce from "../helpers/debounce.js";
+import getL8nReader from '../helpers/l8n';
+import getComponentStyleSheetURL from '../helpers/stylesheet';
 
 function getTypeSetFromCollections(collections) {
   const types = new Set();
@@ -12,6 +14,7 @@ function getTypeSetFromCollections(collections) {
 }
 
 function CollectionsFilters() {
+  const l8n = getL8nReader(this);
   const allCollectionRequest = useContext(AllCollectionContext);
   const [filterState, setFilterState] = useContext(CollectionFilteringContext);
   const types = allCollectionRequest.succeeded
@@ -26,30 +29,19 @@ function CollectionsFilters() {
   }
 
   return html`
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/nlundquist/nre-styles@latest/dist/styles.css" />
-    <style>
-      :host {
-        display: flex;
-      }     
-      :host > label {
-        flex-grow: 1;
-      }
-      :host > label:not(:first-of-type) {
-        margin-left: 30px;
-      }
-    </style>
+    <link rel="stylesheet" href=${getComponentStyleSheetURL(this)} />
     <label>
-      <span>Filter by</span>
-      <input type="text" placeholder="Name"
+      <span>${l8n('collection.filters.name.label')}</span>
+      <input type="text" placeholder=${l8n('collection.filters.name.placeholder')}
           @keyup=${setFilter('searchString')} 
           @change=${setFilter('searchString')} />
     </label>
   
     <label>
-      <span>Type</span>
+      <span>${l8n('collection.filters.type.label')}</span>
       <div>
         <antidote-select
-            placeholder="Type"
+            placeholder="${l8n('collection.filters.type.placeholder')}"
             .options=${types} 
             .change=${setFilter('Type')} />
       </div>

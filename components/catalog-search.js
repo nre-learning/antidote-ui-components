@@ -2,8 +2,11 @@ import { html } from 'lit-html';
 import { component, useContext } from 'haunted';
 import { LessonFilteringContext } from "../contexts.js";
 import debounce from "../helpers/debounce.js";
+import getL8nReader from '../helpers/l8n';
+import getComponentStyleSheetURL from '../helpers/stylesheet';
 
 function CatalogSearch() {
+  const l8n = getL8nReader(this);
   const [filterState, setFilterState] = useContext(LessonFilteringContext);
 
   const change = debounce(function change() {
@@ -12,15 +15,15 @@ function CatalogSearch() {
   }, 200);
 
   return html`
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/nlundquist/nre-styles@latest/dist/styles.css" />
+    <link rel="stylesheet" href=${getComponentStyleSheetURL(this)} />
     <style>
       :host {
         display: block;
       }
     </style>  
     <label>
-      <span>Search</span>     
-      <input type="text" placeholder="Lesson Title"
+      <span>${l8n('catalog.search.label')}</span>     
+      <input type="text" placeholder="${l8n('catalog.search.placeholder')}"
         @keyup=${change} @change=${change} />
     </label>
   `;

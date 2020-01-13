@@ -5,6 +5,7 @@ import { LiveLessonDetailsContext } from '../contexts.js';
 import { serviceHost, lessonId, lessonStage, sessionId } from "../helpers/page-state.js";
 import showdown from 'showdown';
 import debounce from '../helpers/debounce.js';
+import getComponentStyleSheetURL from '../helpers/stylesheet';
 
 // this function currently needs to be global since it's explicitly referenced in guide markdown content
 // this could eventually be scoped and bound to the appropriate buttons post-render
@@ -46,7 +47,7 @@ function useSyncronizedScrolling(guide) {
         && ev.detail.lessonStage === lessonStage // don't react if we're already at that position
         && ev.detail.position !== currentPosition) { // only react if we're actually at a different position
         this._lastPosition = ev.detail.position; // used to control rounding jitter feedback loops introduced when sending an event in response to a scroll that was itself in response to an event
-        //todo: change this to scrollTop modification once haunted issue is resolved: https://github.com/matthewp/haunted/issues/166
+        // change scrollTo to `this.scrollTop` modification once haunted issue is resolved: https://github.com/matthewp/haunted/issues/166
         const scrollTop = ev.detail.position * (this.scrollHeight - this.offsetHeight);
         this.scrollTo({top: scrollTop});
       }
@@ -73,40 +74,28 @@ function LabGuide() {
       const path = `/notebooks/stage${lessonStage}/notebook.ipynb`;
       const url = `${serviceHost}/${lessonId}-${sessionId}-ns-jupyterlabguide${path}`;
 
-      guideContent = html`<iframe src="${url}"></iframe>`;
+      guideContent = html`
+        <iframe src="${url}"></iframe>
+        <antidote-lab-stage-selector></antidote-lab-stage-selector>
+      `;
     }
     else if (lessonDetailsRequest.data.LabGuide) {
       const converter = new showdown.Converter();
 
-      guideContent = unsafeHTML(
-        '<div>'+converter.makeHtml(lessonDetailsRequest.data.LabGuide)+'</div>'
-      );
+      guideContent = html`
+        <div>
+            ${unsafeHTML(converter.makeHtml(lessonDetailsRequest.data.LabGuide))}
+            <antidote-lab-stage-selector></antidote-lab-stage-selector>        
+        </div> 
+      `;
     }
   }
 
   useSyncronizedScrolling.apply(this);
 
   return html`
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/nlundquist/nre-styles@latest/dist/styles.css" />
-    <style>
-      :host {
-        display: block;
-        flex-grow: 1;
-        height: 100%;
-        width: 100%;
-        overflow: scroll;
-      }
-      :host > div {
-        padding: 30px 40px 40px 40px;
-      }     
-      iframe {
-        height: 100%;
-        width: 100%;
-        border: none;
-      }
-    </style>
+    <link rel="stylesheet" href=${getComponentStyleSheetURL(this)} />
     ${guideContent}
-    <antidote-lab-stage-selector></antidote-lab-stage-selector>
   `;
 }
 

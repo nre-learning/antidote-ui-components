@@ -2,8 +2,11 @@ import { html } from 'lit-html';
 import { component } from 'haunted';
 import { syringeServiceRoot } from "../helpers/page-state.js";
 import useFetch from "../helpers/use-fetch.js";
+import getL8nReader from '../helpers/l8n';
+import getComponentStyleSheetURL from '../helpers/stylesheet';
 
 function PTRBanner() {
+  const l8n = getL8nReader(this);
   const showPTR = location.hostname.startsWith('ptr');
 
   if (showPTR) {
@@ -17,18 +20,11 @@ function PTRBanner() {
       : null;
 
     return commits ? html`
-    <style>
-      #ptrBanner {
-        position: fixed;
-        bottom: 0;
-        width: 100%;
-        background: black;
-        color: red;
-        height: 27px;       
-      }
-    </style>
+    <link rel="stylesheet" href=${getComponentStyleSheetURL(this)} />
     <div id="ptrBanner">
-      NRE Labs Public Test Realm. 
+      ${l8n('ptr.banner.realm.label')}
+      ${l8n('ptr.banner.curriculum.label')}
+       
       Curriculum:
       <a href="https://github.com/nre-learning/nrelabs-curriculum/commit/${commits.antidote}">
         ${commits.antidote.substring(0, 7)}

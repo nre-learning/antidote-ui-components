@@ -2,6 +2,7 @@ import {html} from 'lit-html';
 import {useContext, useEffect, component} from 'haunted';
 import {LabTabsContext} from '../contexts.js';
 import debounce from '../helpers/debounce.js';
+import getComponentStyleSheetURL from '../helpers/stylesheet';
 
 function setSelectedPresentation(id) {
   // takes a tab label element, sends a change event and updates the `selected` attribute
@@ -33,7 +34,7 @@ const onResize = debounce(function onResize() {
 function LabTabSwitcher() {
   const tabs = useContext(LabTabsContext);
 
-  Object.assign(this, { setSelectedPresentation }); // todo: there has got to be a better way re: matthew?
+  Object.assign(this, { setSelectedPresentation });
 
   // deselect guide tab if we shrink to the point that we show the large guide
   useEffect(() => {
@@ -45,53 +46,8 @@ function LabTabSwitcher() {
     }
   }, []);
 
-  // todo: confirm slotting a stylesheet like this works as expected :/
-  // todo: move stylesheets to NRE-branded usages of this component
   return html`
-    <slot name="stylesheets">
-      <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/nlundquist/nre-styles@latest/dist/styles.css" />
-    </slot>
-    <style>     
-      ul {
-        display: flex;
-        background: #d8d8d8;
-        font-size: 21px;
-        list-style: none;                 
-      }      
-      @media (max-width: 1023px) {
-        ul {
-            padding: 5px 5px 0 5px;
-        }       
-      }    
-      li {
-        cursor: pointer;
-        padding: 5px 20px;       
-      }
-      li[selected] {
-        color: white;
-        background-color: #262c2c;
-        border-radius: 6px 6px 0 0;
-      }
-      li[id='mobile-guide'] {
-        display: none;
-      }         
-      /*todo: use breakpoint variable after extracting into style repo*/
-      @media (max-width: 1023px) {
-        li[id='mobile-guide'] {
-          display: list-item;
-        }
-      }
-      li > h3 {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100%;
-        width: 100%;
-      }
-      h3 {
-        margin: 0;
-      }
-    </style>
+    <link rel="stylesheet" href=${getComponentStyleSheetURL(this)} />
     <ul>
       ${tabs.map((tab) => html`
         <li id=${tab.id}

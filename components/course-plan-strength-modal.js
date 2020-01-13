@@ -1,8 +1,9 @@
 import { html } from 'lit-html';
 import { classMap } from 'lit-html/directives/class-map.js';
-import { component, useContext, useState, useEffect } from 'haunted';
-import { syringeServiceRoot, serviceHost, collectionId } from "../helpers/page-state.js";
+import { component, useContext, useState } from 'haunted';
 import { AllLessonContext, LessonPrereqContext, CoursePlanStrengthsContext } from "../contexts.js";
+import getL8nReader from '../helpers/l8n';
+import getComponentStyleSheetURL from '../helpers/stylesheet';
 
 function getDefaultStrengthsState(prereqSkills) {
   return prereqSkills.reduce((acc, skill) => {
@@ -12,6 +13,7 @@ function getDefaultStrengthsState(prereqSkills) {
 }
 
 function CoursePlanStrengthModal() {
+  const l8n = getL8nReader(this);
   const [open, setOpen] = useState(true);
   const allLessonsRequest = useContext(AllLessonContext);
   const prereqRequest = useContext(LessonPrereqContext);
@@ -41,48 +43,35 @@ function CoursePlanStrengthModal() {
     setOpen(false);
   }
 
+  function getLinks(skill) {
+    const links = [];
+    debugger;
+    for (let i = 0; i < 5; i++) {
+      links.push({
+        tooltip: l8n(`course.plan.strength.modal.option.rank.${i+1}.tooltip`),
+        click: setStrength(skill, i+1),
+        selected: localStrengthsState[skill] === (i+1)
+      });
+    }
+    debugger;
+    return links;
+  }
+
   return html`
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/nlundquist/nre-styles@latest/dist/styles.css" />
-    <style>
-      .buttons {
-        display: flex;
-        justify-content: space-between;
-        margin-top: 30px;      
-      }  
-      .btn {      
-        width: 44%;
-      }
-    </style>    
+    <link rel="stylesheet" href=${getComponentStyleSheetURL(this)} />    
 
     <antidote-modal show=${open && prereqSkills.length > 0}>   
-      <h1>Identify your strengths</h1>
-      <p>Answer the following questions, so we can construct the lesson plan 
-      most relevant to you!</p>
+      <h1>${l8n('course.plan.strength.modal.title')}</h1>
+      <p>${l8n('course.plan.strength.modal.message')}</p>
       
       ${prereqSkills.map((skill) => html`
-        <h3>How well do you know ${skill}?</h3>
-        <ul class="pagination-list">  
-          <li class=${classMap({active: localStrengthsState[skill] === 1})} 
-              data-line="Not at all"
-              @click=${setStrength(skill, 1)}></li>
-          <li class=${classMap({active: localStrengthsState[skill] === 2})}
-              data-line="Beginner" 
-              @click=${setStrength(skill, 2)}></li>
-          <li class=${classMap({active: localStrengthsState[skill] === 3})}
-              data-line="Intermediate" 
-              @click=${setStrength(skill, 3)}></li>
-          <li class=${classMap({active: localStrengthsState[skill] === 4})}
-              data-line="Advanced" 
-              @click=${setStrength(skill, 4)}></li>
-          <li class=${classMap({active: localStrengthsState[skill] === 5})}
-              data-line="Expert" 
-              @click=${setStrength(skill, 5)}></li>
-        </ul>
+        <h3>${l8n('course.plan.strength.modal.prompt', { skill })}</h3>
+        <antidote-progress-links .links=${getLinks(skill)}></antidote-progress-links>
       `)}
       
       <div class="buttons">
-        <button class="btn support" @click=${skip}>Skip</button>
-        <button class="btn primary" @click=${submit}>Submit</button>
+        <button class="btn support" @click=${skip}>${l8n('course.plan.strength.modal.skip.button.label')}</button>
+        <button class="btn primary" @click=${submit}>${l8n('course.plan.strength.modal.submit.button.label')}</button>
       </div>
     </antidote-modal>
   `;
