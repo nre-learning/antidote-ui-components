@@ -11,6 +11,7 @@ function makeId() {
 }
 
 export const [serviceHost, syringeServiceRoot, sshServiceHost] = (() => {
+
   switch (window.ENVIRONMENT) {
     case "mock":
       return ['127.0.0.1:8086', '127.0.0.1:8086', '127.0.0.1:30010'];
@@ -18,9 +19,7 @@ export const [serviceHost, syringeServiceRoot, sshServiceHost] = (() => {
       return ['antidote-local:30001', 'antidote-local:30001/syringe', 'antidote-local:30010'];
     case "production":
     default:
-      // todo: confirm with Matthew that this path will host the socket server
-      // return [window.location.origin, window.location.origin+'/syringe', window.location.origin+'/ssh'];
-      return [window.location.origin, window.location.origin+'/syringe', 'https://ssh.nrelabs.io'];
+      return [window.location.origin, window.location.origin+'/syringe', window.location.origin+':30010'];
   }
 })();
 
