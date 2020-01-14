@@ -19,7 +19,8 @@ export const [serviceHost, syringeServiceRoot, sshServiceHost] = (() => {
     case "production":
     default:
       // todo: confirm with Matthew that this path will host the socket server
-      return [window.location.origin, window.location.origin+'/syringe', window.location.origin+'/ssh'];
+      // return [window.location.origin, window.location.origin+'/syringe', window.location.origin+'/ssh'];
+      return [window.location.origin, window.location.origin+'/syringe', 'https://ssh.nrelabs.io'];
   }
 })();
 

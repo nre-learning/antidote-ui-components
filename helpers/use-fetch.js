@@ -11,7 +11,8 @@ const defaultState = {
 // hook that updates the component that calls this at various states of a
 // request lifecycle
 export default function useFetch(path, options) {
-  const url = `${window.location.protocol}//${path}`;
+  const url = `${path}`;
+  // const url = `${window.location.protocol}//${path}`;
   const [requestState, setRequestState] = useState(defaultState);
 
   useEffect(async () => {
