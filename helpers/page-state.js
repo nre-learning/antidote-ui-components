@@ -12,7 +12,7 @@ function makeId() {
 
 export const [serviceHost, syringeServiceRoot, sshServiceHost] = (() => {
 
-  const sshUrl = window.antidoteSSHHost || 'http://'+window.location.host+':30010'
+  const sshUrl = window.WEBSSH2_LOCATION || 'http://'+window.location.host+':30010'
   switch (window.ENVIRONMENT) {
     case "mock":
       return ['127.0.0.1:8086', '127.0.0.1:8086', sshUrl];
