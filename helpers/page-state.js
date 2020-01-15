@@ -12,14 +12,15 @@ function makeId() {
 
 export const [serviceHost, syringeServiceRoot, sshServiceHost] = (() => {
 
+  const sshUrl = window.antidoteSSHHost || 'http://'+window.location.host+':30010'
   switch (window.ENVIRONMENT) {
     case "mock":
-      return ['127.0.0.1:8086', '127.0.0.1:8086', '127.0.0.1:30010'];
+      return ['127.0.0.1:8086', '127.0.0.1:8086', sshUrl];
     case "self-medicate":
-      return ['antidote-local:30001', 'antidote-local:30001/syringe', 'antidote-local:30010'];
+      return ['antidote-local:30001', 'antidote-local:30001/syringe', sshUrl];
     case "production":
     default:
-      return [window.location.origin, window.location.origin+'/syringe', window.location.origin+':30010'];
+      return [window.location.origin, window.location.origin+'/syringe', sshUrl];
   }
 })();
 
