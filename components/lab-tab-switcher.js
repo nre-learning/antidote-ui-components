@@ -46,6 +46,10 @@ function LabTabSwitcher() {
     }
   }, []);
 
+  // This template previously used the presence of tab.pres to determine if the presentation
+  // type should be embedded in the h3 element for the tab. We've removed this for simplicity, but if this
+  // is desired again, see the history here for a good way to do it. It's safe to do it here since it's only
+  // used for the innerText of the h3 and not as the tab ID. For me, it was just an aesthetic thing.
   return html`
     <link rel="stylesheet" href=${getComponentStyleSheetURL(this)} />
     <ul>
@@ -53,11 +57,7 @@ function LabTabSwitcher() {
         <li id=${tab.id}
             @click=${() => this.setSelectedPresentation(tab.id)}
             ?selected=${tab.selected}>
-          ${!tab.pres ? html`
-            <h3>${tab.label}</h3>
-          ` : html`
-            <h3>${tab.pres.type.toUpperCase()} - ${tab.label}</h3>
-          `}          
+          <h3>${tab.label}</h3>          
         </li>
       `)}
     </ul>
