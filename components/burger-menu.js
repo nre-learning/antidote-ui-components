@@ -4,7 +4,7 @@ import getComponentStyleSheetURL from '../helpers/stylesheet';
 
 function toggleBurger() {
   this.classList.toggle('cross');
-  this.parentElement.querySelector('.burger-nav').classList.toggle('active');
+  this.parentNode.querySelector('.burger-nav').classList.toggle('active');
   document.body.classList.toggle('overflow-hidden');
 }
 
@@ -16,7 +16,7 @@ customElements.define('antidote-burger-menu', component(function AdvisorContext(
     </ul>
     
     <div class="burger" @click=${toggleBurger}>
-      <div class="line"></div>
+      <div class="line"></div>a
       <div class="line"></div>
       <div class="line"></div>
     </div>    
