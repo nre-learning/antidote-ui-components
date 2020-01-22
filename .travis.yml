@@ -1,0 +1,4 @@
+language: javascript
+install:
+  - ./check-changelog.sh
+sudo: false
