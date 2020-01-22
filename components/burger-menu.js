@@ -16,7 +16,7 @@ customElements.define('antidote-burger-menu', component(function AdvisorContext(
     </ul>
     
     <div class="burger" @click=${toggleBurger}>
-      <div class="line"></div>a
+      <div class="line"></div>
       <div class="line"></div>
       <div class="line"></div>
     </div>    
