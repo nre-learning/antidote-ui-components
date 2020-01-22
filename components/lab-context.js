@@ -14,7 +14,7 @@ function derivePresentationsFromLessonDetails(detailsRequest) {
     if (ep.Presentations) {
       ep.Presentations.forEach((pres) => {
         const name = ep.Presentations.length > 1
-            ? `${ep.Name} - ${pres.Name}`
+            ? `${ep.Name}-${pres.Name}`
             : `${ep.Name}`;
 
         acc.push({

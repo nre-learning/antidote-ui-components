@@ -61,7 +61,7 @@ export default function usePollingRequest({
         }
 
         try {
-          const response = await fetch(`${window.location.protocol}//${progressRequestURL}`);
+          const response = await fetch(`${progressRequestURL}`);
           const data = await response.json();
 
           if (isProgressComplete(data)) {

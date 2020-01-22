@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/nlundquist/antidote-ui-components.git"
+    "url": "git+ssh://git@github.com/nre-learning/antidote-ui-components.git"
   },
   "keywords": [
     "antidote"
@@ -16,9 +16,9 @@
   "author": "Nils Lundquist",
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/nlundquist/antidote-ui-components/issues"
+    "url": "https://github.com/nre-learning/antidote-ui-components/issues"
   },
-  "homepage": "https://github.com/nlundquist/antidote-ui-components#readme",
+  "homepage": "https://github.com/nre-learning/antidote-ui-components#readme",
   "dependencies": {
     "awesomplete": "^1.1.5",
     "haunted": "^4.7.0",
