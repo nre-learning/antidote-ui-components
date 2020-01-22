@@ -12,12 +12,14 @@ function makeId() {
 
 export const [serviceHost, syringeServiceRoot, sshServiceHost] = (() => {
 
+  // Since sshUrl is now configurable, the default case works for both production and
+  // selfmedicate. However, more tweaks may be needed.
   const sshUrl = window.WEBSSH2_LOCATION || 'http://'+window.location.host+':30010'
   switch (window.ENVIRONMENT) {
     case "mock":
-      return ['127.0.0.1:8086', '127.0.0.1:8086', sshUrl];
+      return [`${window.location.protocol}//127.0.0.1:8086`, `${window.location.protocol}//127.0.0.1:8086`, sshUrl];
     case "self-medicate":
-      return ['antidote-local:30001', 'antidote-local:30001/syringe', sshUrl];
+      return [`${window.location.protocol}//antidote-local:30001`, `${window.location.protocol}//antidote-local:30001/syringe`, sshUrl];
     case "production":
     default:
       return [window.location.origin, window.location.origin+'/syringe', sshUrl];
