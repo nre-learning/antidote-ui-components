@@ -1,4 +1,4 @@
-language: javascript
+# language: javascript   # Failing because no tests
 install:
   - ./check-changelog.sh
 sudo: false
