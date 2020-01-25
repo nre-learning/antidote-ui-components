@@ -20,7 +20,7 @@ function CollectionDetails() {
     ${request.succeeded ? html`
       <h1>${request.data.Title}</h1>
       
-      <img src="${request.data.Image}" />
+      <img class="collectionLogo" src="${request.data.Image}" />
       
       <p>${request.data.LongDescription}</p>
       
