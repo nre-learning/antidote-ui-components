@@ -20,20 +20,20 @@ function CollectionDetails() {
     ${request.succeeded ? html`
       <h1>${request.data.Title}</h1>
       
-      <img src="${request.data.Image}" />
+      <img class="collectionLogo" src="${request.data.Image}" />
       
       <p>${request.data.LongDescription}</p>
       
       <table>
-        <tr><td>${l8n('collections.details.type.label')}</td><td>${request.data.Type}</td></tr>
+        <tr><td>${l8n('collection.details.type.label')}</td><td>${request.data.Type}</td></tr>
         <tr>
-          <td>${l8n('collections.details.website.label')}</td>
+          <td>${l8n('collection.details.website.label')}</td>
           <td>
             <a href="${request.data.Website}">${request.data.Website}</a>
           </td>
         </tr>
         <tr>
-          <td>${l8n('collections.details.email.label')}</td>
+          <td>${l8n('collection.details.email.label')}</td>
           <td>
             <a href="mailto:${request.data.ContactEmail}">${request.data.ContactEmail}</a>
           </td>
@@ -42,7 +42,7 @@ function CollectionDetails() {
       
       <div class="canister medium-gray">
         ${request.data.Lessons ? html`
-          <h3>${l8n('collections.details.lessons.label')}</h3>
+          <h3>${l8n('collection.details.lessons.label')}</h3>
           ${request.data.Lessons.map((lesson, i) => html`
             <div>
               <a href="/labs/?lessonId=${lesson.lessonId}&lessonStage=1">
