@@ -63,7 +63,10 @@ export default function usePollingRequest({
         try {
           const response = await fetch(`${progressRequestURL}`);
           const data = await response.json();
-
+          // fetch() doesn't throw exceptions for HTTP error codes so we need to do this ourselves.
+          if (response.status >= 400) {
+              throw new Error(typeof data == "object" && data.error ? data.error : data);
+          }
           if (isProgressComplete(data)) {
             setProgressRequestState({
               data,

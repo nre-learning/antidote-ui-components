@@ -17,13 +17,13 @@ function LabLoadingModal() {
     if (lessonRequest.error) {
       console.error(lessonRequest.error);
       return html`
-      <h3>${l8n('lab.loading.modal.lesson.loading.error.message', { lesson: lessonRequest.error })}</h3>
+      <h3>${l8n('lab.loading.modal.lesson.loading.error.message', { error: lessonRequest.error })}</h3>
     `;
     }
     else if (detailRequest.error) {
       console.error(detailRequest.error);
       return html`
-      <h3>${l8n('lab.loading.modal.lesson.detail.loading.error.message', { lesson: detailRequest.error })}</h3>
+      <h3>${l8n('lab.loading.modal.lesson.detail.loading.error.message', { error: detailRequest.error })}</h3>
     `;
     }
     else if (!lessonRequest.completed) {

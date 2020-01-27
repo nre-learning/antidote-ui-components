@@ -26,8 +26,13 @@ export default function useFetch(path, options) {
 
       try {
         const response = await fetch(url, options);
+        const data = options && options.text ? await response.text() : await response.json();
+        // fetch() doesn't throw exceptions for HTTP error codes so we need to do this ourselves.
+        if (response.status >= 400) {
+            throw new Error(typeof data == "object" && data.error ? data.error : data);
+        }
         setRequestState({
-          data: options && options.text ? await response.text() : await response.json(),
+          data: data,
           pending: false,
           completed: true,
           succeeded: true,
