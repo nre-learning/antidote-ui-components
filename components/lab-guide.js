@@ -72,7 +72,7 @@ function LabGuide() {
   if (lessonDetailsRequest.succeeded) {
     if (lessonDetailsRequest.data.JupyterLabGuide) {
       const path = `/notebooks/stage${lessonStage}/notebook.ipynb`;
-      const url = `${serviceHost}/${lessonId}-${sessionId}-ns-jupyterlabguide${path}`;
+      const url = `${window.location.protocol}//${lessonId}-${sessionId}-ns-jupyterlabguide-web.heps.${window.location.host}${path}`
 
       guideContent = html`
         <iframe src="${url}"></iframe>
