@@ -34,9 +34,6 @@ function getTabMarkup(tab) {
           </div>
         `;
       case('http'):
-        console.log("MIERDIN1")
-        console.log(tab)
-        console.log(tab.id)
         return html`
           <div id=${tab.id}
                tab="web" 
