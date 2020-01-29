@@ -34,11 +34,14 @@ function getTabMarkup(tab) {
           </div>
         `;
       case('http'):
+        console.log("MIERDIN1")
+        console.log(tab)
+        console.log(tab.id)
         return html`
           <div id=${tab.id}
                tab="web" 
                ?selected=${tab.selected}>
-            <iframe src="${serviceHost}/${lessonId}-${sessionId}-ns-${tab.pres.endpoint}/">
+            <iframe src="${lessonId}-${sessionId}-ns-${tab.pres.endpoint}-explorer.heps.${serviceHost}/">
             </iframe>
           </div>
         `;
