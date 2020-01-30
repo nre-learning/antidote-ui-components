@@ -38,7 +38,7 @@ function getTabMarkup(tab) {
           <div id=${tab.id}
                tab="web" 
                ?selected=${tab.selected}>
-            <iframe src="${serviceHost}/${lessonId}-${sessionId}-ns-${tab.pres.endpoint}/">
+            <iframe src="${window.location.protocol}//${lessonId}-${sessionId}-ns-${tab.id}.heps.${window.location.host}/">
             </iframe>
           </div>
         `;

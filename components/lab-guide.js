@@ -26,6 +26,11 @@ document.runSnippetInTab = function runSnippetInTab(id, snippetIndex) {
   terminalEl.run(text);
 };
 
+// Helper function for the lesson author to quickly switch to another tab, but not run any commands
+document.switchToTab = function switchToTab(id) {
+  document.querySelector('antidote-lab-tab-switcher').setSelectedPresentation(id)
+};
+
 // attach scroll listener to send scroll position events, allowing position synchronization with
 // any other guides on the page for this lesson (e.g one that will be shown in when in mobile layout)
 function useSyncronizedScrolling(guide) {
@@ -72,7 +77,7 @@ function LabGuide() {
   if (lessonDetailsRequest.succeeded) {
     if (lessonDetailsRequest.data.JupyterLabGuide) {
       const path = `/notebooks/stage${lessonStage}/notebook.ipynb`;
-      const url = `${serviceHost}/${lessonId}-${sessionId}-ns-jupyterlabguide${path}`;
+      const url = `${window.location.protocol}//${lessonId}-${sessionId}-ns-jupyterlabguide-web.heps.${window.location.host}${path}`
 
       guideContent = html`
         <iframe src="${url}"></iframe>
