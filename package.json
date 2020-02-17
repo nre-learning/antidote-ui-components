@@ -1,6 +1,6 @@
 {
   "name": "antidote-ui-components",
-  "version": "0.0.1",
+  "version": "0.5.1",
   "description": "WebComponents that integrate with the Antidote project service layer.",
   "main": "index.js",
   "scripts": {
