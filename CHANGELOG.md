@@ -3,6 +3,9 @@
 ## In development
 
 
+## v0.5.1 - February 17, 2020
+
+
 ## v0.5.0 - February 01, 2020
 
 - Fixes to issues discovered during deploy process [#3](https://github.com/nre-learning/antidote-ui-components/pull/3)
