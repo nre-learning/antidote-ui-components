@@ -81,7 +81,15 @@ function initTerminal(terminalRef, terminalContainer, socketRef) {
 // - opens a new socket
 // - wires up events to fire actions that modifies the state via dispatch
 function initConnection(host, port, socket, terminal, dispatch) {
-  socket.current = io(sshServiceHost, {resource: 'ssh/host/socket.io', query: {host, port}});
+
+  // TODO(mierdin): temporary test to ensure this works before I wire everything up to the top.
+  var username = "root";
+  var userpassword = "antidotepassword";
+
+  socket.current = io(sshServiceHost, {
+    resource: 'ssh/host/socket.io',
+    query: {host, port, username, userpassword},
+  });
   socket.current.on("connect", () => dispatch({type: 'open'}));
   socket.current.on("disconnect", (reason) => {
     // todo: identify when a close isn't an error?
@@ -122,6 +130,7 @@ function getSocketEventHandler(eventName, terminal, socket, dispatch) {
     switch (eventName) {
       case 'connect':
         socket.current.emit('geometry', t.cols, t.rows);
+        // socket.current.emit('authentication', {username: "root", password: "foobar"});
         return null;
       case 'ssherror':
       case 'error':
