@@ -1,17 +1,17 @@
 import { html } from 'lit-html';
 import { component, useContext } from 'haunted';
 import { LessonContext } from '../contexts.js';
-import { lessonId, lessonStage } from "../helpers/page-state.js";
+import { lessonSlug, lessonStage } from "../helpers/page-state.js";
 import getL8nReader from '../helpers/l8n';
 import getComponentStyleSheetURL from '../helpers/stylesheet';
 
 const navTo = (destination) => () => {
   if (typeof destination === 'number') {
-    window.location.href = `/labs/?lessonId=${lessonId}&lessonStage=${destination}`;
+    window.location.href = `/labs/?lessonSlug=${lessonSlug}&lessonStage=${destination}`;
   } else if (destination === 'previous') {
-    window.location.href = `/labs/?lessonId=${lessonId}&lessonStage=${lessonStage - 1}`;
+    window.location.href = `/labs/?lessonSlug=${lessonSlug}&lessonStage=${lessonStage - 1}`;
   } else if (destination === 'next') {
-    window.location.href = `/labs/?lessonId=${lessonId}&lessonStage=${lessonStage + 1}`;
+    window.location.href = `/labs/?lessonSlug=${lessonSlug}&lessonStage=${lessonStage + 1}`;
   }
 };
 

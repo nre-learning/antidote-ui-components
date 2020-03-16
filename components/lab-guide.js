@@ -2,7 +2,7 @@ import { html } from 'lit-html';
 import { unsafeHTML } from 'lit-html/directives/unsafe-html.js';
 import { useContext, useEffect, component } from 'haunted';
 import { LiveLessonDetailsContext } from '../contexts.js';
-import { serviceHost, lessonId, lessonStage, sessionId } from "../helpers/page-state.js";
+import { serviceHost, lessonSlug, lessonStage } from "../helpers/page-state.js";
 import showdown from 'showdown';
 import debounce from '../helpers/debounce.js';
 import getComponentStyleSheetURL from '../helpers/stylesheet';
@@ -40,7 +40,7 @@ function useSyncronizedScrolling(guide) {
       this.dispatchEvent(new CustomEvent('antidote-guide-scroll-position-change', {
         bubbles: true, // allows bubbling up through the DOM
         composed: true, // allows crossing the Shadow DOM boundary
-        detail: { lessonId, lessonStage, position: scrollFraction } // all data you wish to pass must be in `detail`
+        detail: { lessonSlug, lessonStage, position: scrollFraction } // all data you wish to pass must be in `detail`
       }));
       this._lastPosition = undefined; // clear when position is set by user rather than an event
     }, 100);
@@ -48,7 +48,7 @@ function useSyncronizedScrolling(guide) {
     const handleGuidePositionChange = (ev) => {
       const currentPosition = this.scrollTop / (this.scrollHeight - this.offsetHeight);
       if (ev.target !== this // don't react to our own events
-        && ev.detail.lessonId === lessonId // only react to events for a particular lesson
+        && ev.detail.lessonSlug === lessonSlug // only react to events for a particular lesson
         && ev.detail.lessonStage === lessonStage // don't react if we're already at that position
         && ev.detail.position !== currentPosition) { // only react if we're actually at a different position
         this._lastPosition = ev.detail.position; // used to control rounding jitter feedback loops introduced when sending an event in response to a scroll that was itself in response to an event
@@ -77,7 +77,7 @@ function LabGuide() {
   if (lessonDetailsRequest.succeeded) {
     if (lessonDetailsRequest.data.JupyterLabGuide) {
       const path = `/notebooks/stage${lessonStage}/notebook.ipynb`;
-      const url = `${window.location.protocol}//${lessonId}-${sessionId}-ns-jupyterlabguide-web.heps.${window.location.host}${path}`
+      const url = `${window.location.protocol}//${lessonDetailsRequest.data.id}-jupyterlabguide-web.heps.${window.location.host}${path}`
 
       guideContent = html`
         <iframe src="${url}"></iframe>

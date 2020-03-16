@@ -1,7 +1,7 @@
 import '../contexts.js';
 import { html } from 'lit-html';
-import { sessionId, lessonId, lessonStage, syringeServiceRoot} from "../helpers/page-state.js";
-import { component } from 'haunted';
+import { lessonSlug, lessonStage, syringeServiceRoot, getSessionId} from "../helpers/page-state.js";
+import { component, useContext} from 'haunted';
 import useFetch from '../helpers/use-fetch.js';
 import usePollingRequest from '../helpers/use-polling-request.js';
 import getL8nReader from '../helpers/l8n';
@@ -33,12 +33,12 @@ function derivePresentationsFromLessonDetails(detailsRequest) {
 
 customElements.define('antidote-lab-context', component(function AntidoteLabContext() {
   const l8n = getL8nReader(this);
-  const lessonRequest = useFetch(`${syringeServiceRoot}/exp/lesson/${lessonId}`);
+  const lessonRequest = useFetch(`${syringeServiceRoot}/exp/lesson/${lessonSlug}`);
   const liveLessonDetailRequest = usePollingRequest({
     initialRequestURL: `${syringeServiceRoot}/exp/livelesson`,
     initialRequestOptions: {
       method: 'POST',
-      body: JSON.stringify({ lessonId, lessonStage, sessionId })
+      body: { lessonSlug, lessonStage }
     },
     progressRequestURL: ({id}) => `${syringeServiceRoot}/exp/livelesson/${id}`,
     isProgressComplete: ({LiveLessonStatus}) => LiveLessonStatus === 'READY',
