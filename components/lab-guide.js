@@ -86,10 +86,9 @@ function LabGuide() {
     }
     else if (lessonDetailsRequest.data.GuideType == 'markdown') {
       const converter = new showdown.Converter();
-
       guideContent = html`
         <div>
-            ${unsafeHTML(converter.makeHtml(lessonDetailsRequest.data.GuideType))}
+            ${unsafeHTML(converter.makeHtml(lessonDetailsRequest.data.GuideContents))}
             <antidote-lab-stage-selector></antidote-lab-stage-selector>        
         </div> 
       `;
