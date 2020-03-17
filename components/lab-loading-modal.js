@@ -48,12 +48,19 @@ function LabLoadingModal() {
     detailRequest.error,
   ]);
 
-  const detailRequestStatus = detailRequest && detailRequest.data && detailRequest.data.LiveLessonStatus;
+  const detailRequestStatus = detailRequest && detailRequest.data && detailRequest.data.Status;
   const healthy = (detailRequest && detailRequest.data && detailRequest.data.HealthyTests) || 0;
   const total =  (detailRequest && detailRequest.data && detailRequest.data.TotalTests) || 0;
   const detailRequestProgressFragment = useMemo(() => {
     switch (detailRequestStatus) {
-      case "INITIAL_BOOT":
+      case "INITIALIZED":
+        return html`
+          <antidote-progress-bar percent="0"></antidote-progress-bar>
+          <p>
+            ${l8n('lab.loading.modal.lesson.endpoints.pending.message')}
+          </p>
+        `;
+      case "BOOTING":
         return html`
           <antidote-progress-bar percent="33"></antidote-progress-bar>
           <p>
@@ -61,13 +68,16 @@ function LabLoadingModal() {
             ${total > 0 ? `(${healthy}/${total})` : ''}
           </p>
         `;
-
       case "CONFIGURATION":
         return html`
           <antidote-progress-bar percent="66"></antidote-progress-bar>
           <p>${l8n('lab.loading.modal.lesson.configuration.pending.message')}</p>
         `;
-
+      case "READY":
+        return html`
+          <antidote-progress-bar percent="100"></antidote-progress-bar>
+          <p>${l8n('lab.loading.modal.lesson.configuration.pending.message')}</p>
+        `;
       default:
         return '';
       }

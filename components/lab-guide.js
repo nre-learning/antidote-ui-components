@@ -75,21 +75,21 @@ function LabGuide() {
   let guideContent = "";
 
   if (lessonDetailsRequest.succeeded) {
-    if (lessonDetailsRequest.data.JupyterLabGuide) {
+    if (lessonDetailsRequest.data.GuideType == 'jupyter') {
       const path = `/notebooks/stage${lessonStage}/notebook.ipynb`;
-      const url = `${window.location.protocol}//${lessonDetailsRequest.data.id}-jupyterlabguide-web.heps.${window.location.host}${path}`
+      const url = `${window.location.protocol}//${lessonDetailsRequest.data.AntidoteID}-${lessonDetailsRequest.data.ID}-jupyterlabguide-web.heps.${window.location.host}${path}`
 
       guideContent = html`
         <iframe src="${url}"></iframe>
         <antidote-lab-stage-selector></antidote-lab-stage-selector>
       `;
     }
-    else if (lessonDetailsRequest.data.LabGuide) {
+    else if (lessonDetailsRequest.data.GuideType == 'markdown') {
       const converter = new showdown.Converter();
 
       guideContent = html`
         <div>
-            ${unsafeHTML(converter.makeHtml(lessonDetailsRequest.data.LabGuide))}
+            ${unsafeHTML(converter.makeHtml(lessonDetailsRequest.data.GuideType))}
             <antidote-lab-stage-selector></antidote-lab-stage-selector>        
         </div> 
       `;

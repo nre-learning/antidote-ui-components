@@ -14,20 +14,6 @@ export const [serviceHost, syringeServiceRoot, sshServiceHost] = (() => {
   }
 })();
 
-// This function generates a unique session ID so we can make sure you
-// consistently connect to your lab resources on the back-end. We're not doing
-// anything nefarious with this ID - this is just to make sure you have a good
-// experience on the front-end.
-// export const sessionId = (() => {
-//   var sessionCookie = document.cookie.replace(/(?:(?:^|.*;\s*)nreLabsSession\s*\=\s*([^;]*).*$)|^.*$/, "$1");
-//   if (sessionCookie === '') {
-//     const sessionId = makeId();
-//     document.cookie = "nreLabsSession=" + sessionId;
-//     return sessionId;
-//   }
-//   return sessionCookie;
-// })();
-
 // get params from page url query parameters
 export const [lessonSlug, lessonStage, collectionSlug] = (() => {
   const url = new URL(window.location.href);

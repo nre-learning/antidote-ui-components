@@ -11,9 +11,9 @@ function derivePresentationsFromLessonDetails(detailsRequest) {
   const endpoints = detailsRequest.succeeded ? detailsRequest.data.LiveEndpoints : [];
 
   return Object.values(endpoints).reduce((acc, ep) => {
-    if (ep.Presentations) {
-      ep.Presentations.forEach((pres) => {
-        const name = ep.Presentations.length > 1
+    if (ep.LivePresentations) {
+      ep.LivePresentations.forEach((pres) => {
+        const name = ep.LivePresentations.length > 1
             ? `${ep.Name}-${pres.Name}`
             : `${ep.Name}`;
 
@@ -41,7 +41,7 @@ customElements.define('antidote-lab-context', component(function AntidoteLabCont
       body: { lessonSlug, lessonStage }
     },
     progressRequestURL: ({id}) => `${syringeServiceRoot}/exp/livelesson/${id}`,
-    isProgressComplete: ({LiveLessonStatus}) => LiveLessonStatus === 'READY',
+    isProgressComplete: ({Status}) => Status === 'READY',
   });
   const tabletBreakpointCSSVar = document.documentElement.style.getPropertyValue('--tablet-max-width');
   const tabletBreakpoint = parseInt(tabletBreakpointCSSVar, 10) || 1024;
