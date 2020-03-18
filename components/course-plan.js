@@ -35,8 +35,8 @@ function CoursePlan() {
         </div>
         <div class="canister secondary">
           <h3>
-            <a href="/labs?lessonSlug=${lesson.Slug}&lessonStage=1">
-              ${lesson.LessonName}
+            <a href="/labs/?lessonSlug=${lesson.Slug}&lessonStage=0">
+              ${lesson.Name}
             </a>
           </h3>
           <p>${lesson.Description}</p>

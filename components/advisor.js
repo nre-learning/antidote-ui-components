@@ -14,8 +14,8 @@ function Advisor({ host, stylesheet }) {
   const allLessonRequest = useContext(AllLessonContext) || useFetch(`${syringeServicePrefix}/exp/lesson`);
   const lessonOptions = allLessonRequest.succeeded
     ? allLessonRequest.data.lessons.map((l) => ({
-      label: l.LessonName,
-      value: l.LessonId
+      label: l.Name,
+      value: l.Slug
     }))
     : [];
 
@@ -30,8 +30,8 @@ function Advisor({ host, stylesheet }) {
   }
 
   function select(ev) {
-    const lessonId = ev.text.value;
-    location.href = `${host || ''}/advisor/courseplan.html?lessonId=${lessonId}`;
+    const lessonSlug = ev.text.value;
+    location.href = `${host || ''}/advisor/courseplan.html?lessonSlug=${lessonSlug}`;
   }
 
   return html`

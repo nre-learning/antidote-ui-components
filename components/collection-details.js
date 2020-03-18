@@ -45,11 +45,11 @@ function CollectionDetails() {
           <h3>${l8n('collection.details.lessons.label')}</h3>
           ${request.data.Lessons.map((lesson, i) => html`
             <div>
-              <a href="/labs/?lessonSlug=${lesson.Slug}&lessonStage=1">
-                ${lesson.lessonName}
+              <a href="/labs/?lessonSlug=${lesson.Slug}&lessonStage=0">
+                ${lesson.Name}
               </a>
               <p>
-                ${lesson.lessonDescription}
+                ${lesson.Description}
               </p>
             </div>
             ${request.data.Lessons.length !== i + 1 ? html`<hr/>` : ''}

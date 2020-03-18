@@ -24,7 +24,7 @@ function LabGuidanceButtons() {
     </button>
   `);
   const exitLessonButton = html`
-    <a id="exit" class="btn secondary" href="/catalog">
+    <a id="exit" class="btn secondary" href="/catalog/">
       ${l8n(`lab.guidance.buttons.exit.label`)}
     </a>
   `;
