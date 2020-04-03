@@ -80,8 +80,17 @@ function initTerminal(terminalRef, terminalContainer, socketRef) {
 // this function is the connection initializer. it:
 // - opens a new socket
 // - wires up events to fire actions that modifies the state via dispatch
-function initConnection(host, port, socket, terminal, dispatch) {
-  socket.current = io(sshServiceHost, {resource: 'ssh/host/socket.io', query: {host, port}});
+function initConnection(host, port, user, pass, socket, terminal, dispatch) {
+
+  // Convert to webssh2 creds terminology
+  var username = user;
+  var userpassword = pass;
+
+  socket.current = io(sshServiceHost, {
+    resource: 'ssh/host/socket.io',
+    query: {host, port, username, userpassword},
+  });
+
   socket.current.on("connect", () => dispatch({type: 'open'}));
   socket.current.on("disconnect", (reason) => {
     // todo: identify when a close isn't an error?
@@ -159,7 +168,7 @@ function getSocketEventHandler(eventName, terminal, socket, dispatch) {
 
 // returns an object representing the state of the ongoing socket.io ssh connection
 // also makes a "pre-flight" GET request needed to set up the session variables in the webssh2 backend
-export default function useSSH({ host, port, terminalContainer }) {
+export default function useSSH({ host, port, user, pass, terminalContainer }) {
   const socket = useRef(null);
   const terminal = useRef(null);
   // track current connection state and provide dispatch function to make changes to current state
@@ -196,9 +205,9 @@ export default function useSSH({ host, port, terminalContainer }) {
   // init connection whenever host & port change and are both defined
   useEffect(() => {
     if (host && port) {
-      initConnection(host, port, socket, terminal, dispatch);
+      initConnection(host, port, user, pass, socket, terminal, dispatch);
     }
-  }, [host, port]);
+  }, [host, port, user, pass]);
 
   // init terminal once for the lifetime of this component
   useEffect(() => {

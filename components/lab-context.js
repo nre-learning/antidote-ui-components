@@ -23,6 +23,8 @@ function derivePresentationsFromLessonDetails(detailsRequest) {
           type: pres.Type,
           host: ep.Host,
           port: pres.Port,
+          user: ep.SSHUser,
+          pass: ep.SSHPassword,
         });
       });
     }

@@ -32,7 +32,9 @@ function getTabMarkup(tab) {
                ?selected=${tab.selected}>
               <antidote-terminal
                 host=${tab.pres.host}
-                port=${tab.pres.port} />
+                port=${tab.pres.port}
+                user=${tab.pres.user}
+                pass=${tab.pres.pass} />
           </div>
         `;
       case('http'):

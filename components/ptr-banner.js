@@ -13,7 +13,7 @@ function PTRBanner() {
     const syringeInfoRequest = useFetch(`${syringeServiceRoot}/exp/syringeinfo`);
     const commits = syringeInfoRequest.succeeded
       ? {
-        antidote: syringeInfoRequest.data.antidoteSha,
+        curriculum: syringeInfoRequest.data.curriculumVersion,
         antidoteweb: window.COMMIT_HASH,
         syringe: syringeInfoRequest.data.buildSha,
       }
@@ -27,7 +27,7 @@ function PTRBanner() {
        
       Curriculum:
       <a href="https://github.com/nre-learning/nrelabs-curriculum/commit/${commits.antidote}">
-        ${commits.antidote.substring(0, 7)}
+        ${commits.curriculum.substring(0, 7)}
       </a>  
       | Antidote-Web:
       <a href="https://github.com/nre-learning/antidote-web/commit/${commits.antidoteweb}">
