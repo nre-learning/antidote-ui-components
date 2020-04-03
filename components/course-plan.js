@@ -18,10 +18,10 @@ function CoursePlan() {
       allLessonsRequest.data.lessons.find((l) => l.Slug === prereqSlug)
     ).concat(lesson)
     : [];
-  const slug = (lesson || {}).Slug;
+  const shortDesc = (lesson || {}).ShortDescription;
   const coursePlanTitle = coursePlanName
-    ? l8n('course.plan.title', { coursePlanName, slug })
-    : l8n('course.plan.title.no.name', { slug })
+    ? l8n('course.plan.title', { coursePlanName, shortDesc })
+    : l8n('course.plan.title.no.name', { shortDesc })
 
   return html`
     <link rel="stylesheet" href=${getComponentStyleSheetURL(this)} />    
