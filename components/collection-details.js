@@ -1,14 +1,14 @@
 import '../contexts.js'; // make sure all contexts are defined
 import { html } from 'lit-html';
 import { component, useState } from 'haunted';
-import { syringeServiceRoot, collectionId } from "../helpers/page-state.js";
+import { syringeServiceRoot, collectionSlug } from "../helpers/page-state.js";
 import useFetch from '../helpers/use-fetch.js'
 import getL8nReader from '../helpers/l8n';
 import getComponentStyleSheetURL from '../helpers/stylesheet';
 
 function CollectionDetails() {
   const l8n = getL8nReader(this);
-  const request = useFetch(`${syringeServiceRoot}/exp/collection/${collectionId}`);
+  const request = useFetch(`${syringeServiceRoot}/exp/collection/${collectionSlug}`);
 
   return html` 
     <link rel="stylesheet" href=${getComponentStyleSheetURL(this)} />
@@ -45,11 +45,11 @@ function CollectionDetails() {
           <h3>${l8n('collection.details.lessons.label')}</h3>
           ${request.data.Lessons.map((lesson, i) => html`
             <div>
-              <a href="/labs/?lessonId=${lesson.lessonId}&lessonStage=1">
-                ${lesson.lessonName}
+              <a href="/labs/?lessonSlug=${lesson.Slug}&lessonStage=0">
+                ${lesson.Name}
               </a>
               <p>
-                ${lesson.lessonDescription}
+                ${lesson.Description}
               </p>
             </div>
             ${request.data.Lessons.length !== i + 1 ? html`<hr/>` : ''}

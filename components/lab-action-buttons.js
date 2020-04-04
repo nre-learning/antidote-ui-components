@@ -1,7 +1,7 @@
 import { html } from 'lit-html';
 import { component, useContext, useState, useRef } from 'haunted';
-import { LessonContext } from '../contexts.js';
-import { syringeServiceRoot, lessonStage, lessonId, sessionId } from '../helpers/page-state.js';
+import { LessonContext, LiveLessonDetailsContext } from '../contexts.js';
+import { syringeServiceRoot, lessonStage } from '../helpers/page-state.js';
 import usePollingRequest from '../helpers/use-polling-request.js';
 import getL8nReader from '../helpers/l8n';
 import getComponentStyleSheetURL from '../helpers/stylesheet';
@@ -9,17 +9,23 @@ import getComponentStyleSheetURL from '../helpers/stylesheet';
 /* Note: verification interface should probably eventually be broken into an isolated component
          rather than being part of the implementation of this particular button bar */
 
+// TODO(mierdin): This is still very much in the old verification state. I have made minimal modifications
+// to get this out of the way for now, but once verification is properly re-introduced, we should revisit this.
+
 function LabActionButtons() {
   const l8n = getL8nReader(this);
+
+  const llReq = useContext(LiveLessonDetailsContext);
+
   const lessonRequest = useContext(LessonContext);
   const hasObjective = lessonRequest.succeeded && lessonRequest.data.Stages[lessonStage].VerifyObjective;
   const verificationAttemptCount = useRef(0); // arbitrary varying value to include in request state to trigger a new request when incremented
   const [verifyModalOpen, setVerifyModalOpen] = useState(false);
   const verificationRequest = verifyModalOpen ? usePollingRequest({
-    initialRequestURL: `${syringeServiceRoot}/exp/livelesson/${lessonId}-${sessionId}/verify`,
+    initialRequestURL: `${syringeServiceRoot}/exp/livelesson/${llReq.data.id}/verify`,
     initialRequestOptions: {
       method: 'POST',
-      body: JSON.stringify({ data: { id: `${lessonId}-${sessionId}` } }),
+      body: JSON.stringify({ data: { id: `${llReq.data.id}` } }),
       attemptCount: verificationAttemptCount.current
     },
     progressRequestURL: ({id}) => `${syringeServiceRoot}/exp/verification/${id}`,

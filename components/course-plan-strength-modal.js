@@ -19,7 +19,7 @@ function CoursePlanStrengthModal() {
   const prereqRequest = useContext(LessonPrereqContext);
   const [_, setExportedStrengthsState] = useContext(CoursePlanStrengthsContext);
   const prereqLessons = allLessonsRequest.succeeded && prereqRequest.succeeded && prereqRequest.data.prereqs
-    ? prereqRequest.data.prereqs.map((prereqId) => allLessonsRequest.data.lessons.find((l) => l.LessonId === prereqId))
+    ? prereqRequest.data.prereqs.map((prereqSlug) => allLessonsRequest.data.lessons.find((l) => l.Slug === prereqSlug))
     : [];
   const prereqSkills = prereqLessons.map((l) => l.Slug);
   const [localStrengthsState, setLocalStrengthsState] = prereqSkills.length > 0

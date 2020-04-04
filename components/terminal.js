@@ -5,12 +5,12 @@ import getComponentStyleSheetURL from '../helpers/stylesheet';
 
 //const sshStyle = {};
 
-function AntidoteTerminal({ host, port }) {
+function AntidoteTerminal({ host, port, user, pass }) {
   const terminalContainer = useRef(document.createElement('div'));
 
   terminalContainer.current.id = 'term-target';
 
-  this._ssh = useSSH({ host, port, terminalContainer: terminalContainer.current });
+  this._ssh = useSSH({ host, port, user, pass, terminalContainer: terminalContainer.current });
   this.run = this._ssh.run;
   this.focusTerminal = this._ssh.focus;
 
@@ -28,7 +28,7 @@ function AntidoteTerminal({ host, port }) {
 `;
 }
 
-AntidoteTerminal.observedAttributes = ["host", "port"];
+AntidoteTerminal.observedAttributes = ["host", "port", "user", "pass"];
 
 customElements.define('antidote-terminal', component(AntidoteTerminal));
 

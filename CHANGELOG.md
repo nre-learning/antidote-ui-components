@@ -2,6 +2,7 @@
 
 ## In development
 
+- Antidote-Core Compatibility Updates [#15](https://github.com/nre-learning/antidote-ui-components/pull/15)
 
 ## v0.5.1 - February 17, 2020
 

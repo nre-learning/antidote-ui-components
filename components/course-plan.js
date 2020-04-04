@@ -1,7 +1,7 @@
 import { html } from 'lit-html';
 import { component, useContext } from 'haunted';
 import { AllLessonContext, LessonPrereqContext, CoursePlanNameContext, CoursePlanStrengthsContext } from "../contexts.js";
-import { lessonId } from "../helpers/page-state.js";
+import { lessonSlug } from "../helpers/page-state.js";
 import getL8nReader from '../helpers/l8n';
 import getComponentStyleSheetURL from '../helpers/stylesheet';
 
@@ -11,17 +11,17 @@ function CoursePlan() {
   const [coursePlanName] = useContext(CoursePlanNameContext);
   const [strengths] = useContext(CoursePlanStrengthsContext);
   const lesson = allLessonsRequest.succeeded
-    ? allLessonsRequest.data.lessons.find((l) => l.LessonId === lessonId)
+    ? allLessonsRequest.data.lessons.find((l) => l.Slug === lessonSlug)
     : null;
   const planLessons = lesson
-    ? (lesson.Prereqs || []).map((prereqId) =>
-      allLessonsRequest.data.lessons.find((l) => l.LessonId === prereqId)
+    ? (lesson.Prereqs || []).map((prereqSlug) =>
+      allLessonsRequest.data.lessons.find((l) => l.Slug === prereqSlug)
     ).concat(lesson)
     : [];
-  const slug = (lesson || {}).Slug;
+  const shortDesc = (lesson || {}).ShortDescription;
   const coursePlanTitle = coursePlanName
-    ? l8n('course.plan.title', { coursePlanName, slug })
-    : l8n('course.plan.title.no.name', { slug })
+    ? l8n('course.plan.title', { coursePlanName, shortDesc })
+    : l8n('course.plan.title.no.name', { shortDesc })
 
   return html`
     <link rel="stylesheet" href=${getComponentStyleSheetURL(this)} />    
@@ -35,8 +35,8 @@ function CoursePlan() {
         </div>
         <div class="canister secondary">
           <h3>
-            <a href="/labs?lessonId=${lesson.LessonId}&lessonStage=1">
-              ${lesson.LessonName}
+            <a href="/labs/?lessonSlug=${lesson.Slug}&lessonStage=0">
+              ${lesson.Name}
             </a>
           </h3>
           <p>${lesson.Description}</p>

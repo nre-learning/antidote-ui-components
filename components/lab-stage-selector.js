@@ -1,33 +1,33 @@
 import { html } from 'lit-html';
 import { component, useContext } from 'haunted';
 import { LessonContext } from '../contexts.js';
-import { lessonId, lessonStage } from "../helpers/page-state.js";
+import { lessonSlug, lessonStage } from "../helpers/page-state.js";
 import getL8nReader from '../helpers/l8n';
 import getComponentStyleSheetURL from '../helpers/stylesheet';
 
 const navTo = (destination) => () => {
   if (typeof destination === 'number') {
-    window.location.href = `/labs/?lessonId=${lessonId}&lessonStage=${destination}`;
+    window.location.href = `/labs/?lessonSlug=${lessonSlug}&lessonStage=${destination}`;
   } else if (destination === 'previous') {
-    window.location.href = `/labs/?lessonId=${lessonId}&lessonStage=${lessonStage - 1}`;
+    window.location.href = `/labs/?lessonSlug=${lessonSlug}&lessonStage=${lessonStage - 1}`;
   } else if (destination === 'next') {
-    window.location.href = `/labs/?lessonId=${lessonId}&lessonStage=${lessonStage + 1}`;
+    window.location.href = `/labs/?lessonSlug=${lessonSlug}&lessonStage=${lessonStage + 1}`;
   }
 };
 
 function LabStageSelector() {
   const l8n = getL8nReader(this);
   const lessonRequest = useContext(LessonContext);
-  const stages = lessonRequest.data ? lessonRequest.data.Stages.slice(1) : [];
-  const disablePrevious = lessonStage === 1 ? 'disabled' : '';
+  const stages = lessonRequest.data ? lessonRequest.data.Stages : [];
+  const disablePrevious = lessonStage === 0 ? 'disabled' : '';
   const disableNext = lessonStage === stages.length ? 'disabled' : '';
   const links = stages.map((stage, i) => ({
-    tooltip: l8n('lab.stage.selector.tooltip.label', { i: i+1 }),
-    click: navTo(i+1),
-    selected: i === lessonStage - 1
+    tooltip: l8n('lab.stage.selector.tooltip.label', { i: i }),
+    click: navTo(i),
+    selected: i === lessonStage
   }));
 
-  return stages.length > 1 ? html`
+  return stages.length > 0 ? html`
     <link rel="stylesheet" href=${getComponentStyleSheetURL(this)} />
     <div class="buttons">
       <button class="btn support ${disablePrevious}"

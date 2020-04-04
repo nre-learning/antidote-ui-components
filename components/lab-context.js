@@ -1,7 +1,7 @@
 import '../contexts.js';
 import { html } from 'lit-html';
-import { sessionId, lessonId, lessonStage, syringeServiceRoot} from "../helpers/page-state.js";
-import { component } from 'haunted';
+import { lessonSlug, lessonStage, syringeServiceRoot } from "../helpers/page-state.js";
+import { component, useContext} from 'haunted';
 import useFetch from '../helpers/use-fetch.js';
 import usePollingRequest from '../helpers/use-polling-request.js';
 import getL8nReader from '../helpers/l8n';
@@ -11,9 +11,9 @@ function derivePresentationsFromLessonDetails(detailsRequest) {
   const endpoints = detailsRequest.succeeded ? detailsRequest.data.LiveEndpoints : [];
 
   return Object.values(endpoints).reduce((acc, ep) => {
-    if (ep.Presentations) {
-      ep.Presentations.forEach((pres) => {
-        const name = ep.Presentations.length > 1
+    if (ep.LivePresentations) {
+      ep.LivePresentations.forEach((pres) => {
+        const name = ep.LivePresentations.length > 1
             ? `${ep.Name}-${pres.Name}`
             : `${ep.Name}`;
 
@@ -23,6 +23,8 @@ function derivePresentationsFromLessonDetails(detailsRequest) {
           type: pres.Type,
           host: ep.Host,
           port: pres.Port,
+          user: ep.SSHUser,
+          pass: ep.SSHPassword,
         });
       });
     }
@@ -33,15 +35,15 @@ function derivePresentationsFromLessonDetails(detailsRequest) {
 
 customElements.define('antidote-lab-context', component(function AntidoteLabContext() {
   const l8n = getL8nReader(this);
-  const lessonRequest = useFetch(`${syringeServiceRoot}/exp/lesson/${lessonId}`);
+  const lessonRequest = useFetch(`${syringeServiceRoot}/exp/lesson/${lessonSlug}`);
   const liveLessonDetailRequest = usePollingRequest({
     initialRequestURL: `${syringeServiceRoot}/exp/livelesson`,
     initialRequestOptions: {
       method: 'POST',
-      body: JSON.stringify({ lessonId, lessonStage, sessionId })
+      body: { lessonSlug, lessonStage }
     },
     progressRequestURL: ({id}) => `${syringeServiceRoot}/exp/livelesson/${id}`,
-    isProgressComplete: ({LiveLessonStatus}) => LiveLessonStatus === 'READY',
+    isProgressComplete: ({Status}) => Status === 'READY',
   });
   const tabletBreakpointCSSVar = document.documentElement.style.getPropertyValue('--tablet-max-width');
   const tabletBreakpoint = parseInt(tabletBreakpointCSSVar, 10) || 1024;

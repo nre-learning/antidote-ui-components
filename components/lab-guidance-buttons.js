@@ -24,13 +24,14 @@ function LabGuidanceButtons() {
     </button>
   `);
   const exitLessonButton = html`
-    <a id="exit" class="btn secondary" href="/catalog">
+    <a id="exit" class="btn secondary" href="/catalog/">
       ${l8n(`lab.guidance.buttons.exit.label`)}
     </a>
   `;
   const leftButtons = modalButtons;
   const rightButtons = [ exitLessonButton ];
 
+  // TODO(mierdin): Also implement StageVideo
   return html`
     <link rel="stylesheet" href=${getComponentStyleSheetURL(this)} />
     
@@ -40,13 +41,13 @@ function LabGuidanceButtons() {
     <antidote-modal show=${modalContentType !== null}>
       ${modalContentType === 'diagram' ? html`
         <h1>${l8n('lab.guidance.modal.diagram.title')}</h1>
-        <img src=${detailsRequest.data.LessonDiagram} alt="${l8n('lab.guidance.modal.diagram.title')}"/>
+        <img src=${detailsRequest.data.Diagram} alt="${l8n('lab.guidance.modal.diagram.title')}"/>
       ` : ''}
       
       ${modalContentType === 'video' ? html`
         <h1>${l8n('lab.guidance.modal.video.title')}</h1>
         <div class="video-wrapper">
-          <iframe src=${detailsRequest.data.LessonVideo} frameborder="0" class="video-embed"></iframe>
+          <iframe src=${detailsRequest.data.Video} frameborder="0" class="video-embed"></iframe>
         </div>
       ` : ''}
       

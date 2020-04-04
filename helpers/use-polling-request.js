@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'haunted';
-import useFetch from './use-fetch.js';
+import { requestLiveLesson } from './use-fetch.js';
 
 // provides the state of a request done by sending a request to one endpoint to
 // begin an activity then polling another endpoint to monitor the progress of
@@ -11,7 +11,7 @@ export default function usePollingRequest({
   progressRequestOptions,
   isProgressComplete, // predicate indicating if backend activity is still ongoing, passed the progress response body
 }) {
-  const initialRequestState = useFetch(initialRequestURL, initialRequestOptions);
+  const initialRequestState = requestLiveLesson(initialRequestURL, initialRequestOptions);
   const [progressRequestState, setProgressRequestState] = useState({
     data: null,
     pending: false,

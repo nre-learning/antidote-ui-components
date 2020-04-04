@@ -12,8 +12,8 @@ function getLessonMarkup(lessons) {
     .slice(0, 3)
     .map((l) => html`
       <div class="canister medium-gray">
-        <a href=${`/labs/?lessonId=${l.LessonId}&lessonStage=1`}>
-          <h3>${l.LessonName}</h3>      
+        <a href=${`/labs/?lessonSlug=${l.Slug}&lessonStage=0`}>
+          <h3>${l.Name}</h3>
         </a>
         <p>
           ${l.Description}
@@ -32,7 +32,7 @@ function PromotedLessons() {
     <h3>${l8n('promoted.lessons.title')}</h3>
     <div class="three-col">
         ${lessons}
-    </div>    
+    </div>
   `;
 }
 

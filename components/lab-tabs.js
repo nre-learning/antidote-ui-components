@@ -1,7 +1,7 @@
 import { html } from 'lit-html';
 import { component, useContext, useEffect } from 'haunted';
-import { LabTabsContext } from '../contexts.js';
-import { serviceHost, sessionId, lessonId } from '../helpers/page-state.js';
+import { LabTabsContext, LiveLessonDetailsContext } from '../contexts.js';
+// import { serviceHost } from '../helpers/page-state.js';
 import getComponentStyleSheetURL from '../helpers/stylesheet';
 
 // NOTE: On Tab State Management:
@@ -13,6 +13,8 @@ import getComponentStyleSheetURL from '../helpers/stylesheet';
 // changes and thus dropping the connections.
 
 function getTabMarkup(tab) {
+
+  const lessonDetailsRequest = useContext(LiveLessonDetailsContext);
   if (tab.id === 'mobile-guide') {
     return html`
       <div id=${tab.id}
@@ -30,7 +32,9 @@ function getTabMarkup(tab) {
                ?selected=${tab.selected}>
               <antidote-terminal
                 host=${tab.pres.host}
-                port=${tab.pres.port} />
+                port=${tab.pres.port}
+                user=${tab.pres.user}
+                pass=${tab.pres.pass} />
           </div>
         `;
       case('http'):
@@ -38,7 +42,7 @@ function getTabMarkup(tab) {
           <div id=${tab.id}
                tab="web" 
                ?selected=${tab.selected}>
-            <iframe src="${window.location.protocol}//${lessonId}-${sessionId}-ns-${tab.id}.heps.${window.location.host}/">
+            <iframe src="${window.location.protocol}//${lessonDetailsRequest.data.id}-${tab.id}.heps.${window.location.host}/">
             </iframe>
           </div>
         `;
