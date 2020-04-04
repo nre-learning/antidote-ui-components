@@ -1,6 +1,6 @@
 import '../contexts.js';
 import { html } from 'lit-html';
-import { lessonSlug, lessonStage, syringeServiceRoot, getSessionId} from "../helpers/page-state.js";
+import { lessonSlug, lessonStage, syringeServiceRoot } from "../helpers/page-state.js";
 import { component, useContext} from 'haunted';
 import useFetch from '../helpers/use-fetch.js';
 import usePollingRequest from '../helpers/use-polling-request.js';

@@ -21,7 +21,7 @@ function CoursePlanStrengthModal() {
   const prereqLessons = allLessonsRequest.succeeded && prereqRequest.succeeded && prereqRequest.data.prereqs
     ? prereqRequest.data.prereqs.map((prereqSlug) => allLessonsRequest.data.lessons.find((l) => l.Slug === prereqSlug))
     : [];
-  const prereqSkills = prereqLessons.map((l) => l.ShortDescription);
+  const prereqSkills = prereqLessons.map((l) => l.Slug);
   const [localStrengthsState, setLocalStrengthsState] = prereqSkills.length > 0
     ? useState(getDefaultStrengthsState(prereqSkills))
     : [{}, null];
