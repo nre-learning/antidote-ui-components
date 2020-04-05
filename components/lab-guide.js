@@ -1,11 +1,13 @@
 import { html } from 'lit-html';
 import { unsafeHTML } from 'lit-html/directives/unsafe-html.js';
 import { useContext, useEffect, component } from 'haunted';
-import { LiveLessonDetailsContext } from '../contexts.js';
+import { LiveLessonDetailsContext, LessonContext } from '../contexts.js';
+
 import { serviceHost, lessonSlug, lessonStage } from "../helpers/page-state.js";
 import showdown from 'showdown';
 import debounce from '../helpers/debounce.js';
 import getComponentStyleSheetURL from '../helpers/stylesheet';
+import getL8nReader from '../helpers/l8n';
 
 // this function currently needs to be global since it's explicitly referenced in guide markdown content
 // this could eventually be scoped and bound to the appropriate buttons post-render
@@ -71,12 +73,14 @@ function useSyncronizedScrolling(guide) {
 }
 
 function LabGuide() {
+  const l8n = getL8nReader(this);
+  const lessonRequest = useContext(LessonContext);
   const lessonDetailsRequest = useContext(LiveLessonDetailsContext);
   let guideContent = "";
 
   if (lessonDetailsRequest.succeeded) {
     if (lessonDetailsRequest.data.GuideType == 'jupyter') {
-      const path = `/notebooks/stage${lessonStage}/notebook.ipynb`;
+      const path = `/notebooks/stage${lessonStage}/guide.ipynb`;
       const url = `${window.location.protocol}//${lessonDetailsRequest.data.AntidoteID}-${lessonDetailsRequest.data.ID}-jupyterlabguide-web.heps.${window.location.host}${path}`
 
       guideContent = html`
@@ -87,20 +91,25 @@ function LabGuide() {
     else if (lessonDetailsRequest.data.GuideType == 'markdown') {
       const converter = new showdown.Converter();
       guideContent = html`
-        <div>
-            ${unsafeHTML(converter.makeHtml(lessonDetailsRequest.data.GuideContents))}
-            <antidote-lab-stage-selector></antidote-lab-stage-selector>        
-        </div> 
+        ${unsafeHTML(converter.makeHtml(lessonDetailsRequest.data.GuideContents))}
+        <antidote-lab-stage-selector></antidote-lab-stage-selector>
       `;
     }
   }
 
   useSyncronizedScrolling.apply(this);
-
-  return html`
+  return lessonRequest.completed && lessonDetailsRequest.completed ? html`
+    <div>
+      <h1>${lessonRequest.data.Name}</h1>
+      <h2 style="margin-top: 0px;">Chapter ${lessonStage+1} - ${lessonRequest.data.Stages[lessonStage].Description}</h2>
+      ${lessonRequest.data.Authors && lessonRequest.data.Authors.length > 0 ? html`<p>
+        ${lessonRequest.data.Authors.length > 1 ? l8n('lab.author.plural.label') : l8n('lab.author.singular.label')}: ${lessonRequest.data.Authors.map((author, i) => html`<a target="_blank" href="${author.Link}">${author.Name}</a>${(i>=lessonRequest.data.Authors.length-1) ? '' : ', '}`)}
+      </p>`: ''}
     <link rel="stylesheet" href=${getComponentStyleSheetURL(this)} />
-    ${guideContent}
-  `;
+    ${lessonDetailsRequest.data.GuideType == 'markdown' ? guideContent : ''}
+    </div>
+    ${lessonDetailsRequest.data.GuideType == 'jupyter' ? guideContent : ''}
+  ` : '';
 }
 
 customElements.define('antidote-lab-guide', component(LabGuide));
