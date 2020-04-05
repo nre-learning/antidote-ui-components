@@ -80,7 +80,7 @@ function LabGuide() {
 
   if (lessonDetailsRequest.succeeded) {
     if (lessonDetailsRequest.data.GuideType == 'jupyter') {
-      const path = `/notebooks/stage${lessonStage}/notebook.ipynb`;
+      const path = `/notebooks/stage${lessonStage}/guide.ipynb`;
       const url = `${window.location.protocol}//${lessonDetailsRequest.data.AntidoteID}-${lessonDetailsRequest.data.ID}-jupyterlabguide-web.heps.${window.location.host}${path}`
 
       guideContent = html`
@@ -100,15 +100,15 @@ function LabGuide() {
   useSyncronizedScrolling.apply(this);
   return lessonRequest.completed && lessonDetailsRequest.completed ? html`
     <div>
-      <h2>${lessonRequest.data.Name}</h2>
-      <h3 style="margin-top: 0px;">Chapter ${lessonStage+1} - ${lessonRequest.data.Stages[lessonStage].Description}</h3>
+      <h1>${lessonRequest.data.Name}</h1>
+      <h2 style="margin-top: 0px;">Chapter ${lessonStage+1} - ${lessonRequest.data.Stages[lessonStage].Description}</h2>
       ${lessonRequest.data.Authors && lessonRequest.data.Authors.length > 0 ? html`<p>
         ${lessonRequest.data.Authors.length > 1 ? l8n('lab.author.plural.label') : l8n('lab.author.singular.label')}: ${lessonRequest.data.Authors.map((author, i) => html`<a target="_blank" href="${author.Link}">${author.Name}</a>${(i>=lessonRequest.data.Authors.length-1) ? '' : ', '}`)}
       </p>`: ''}
-      <hr />
     <link rel="stylesheet" href=${getComponentStyleSheetURL(this)} />
-    ${guideContent}
+    ${lessonDetailsRequest.data.GuideType == 'markdown' ? guideContent : ''}
     </div>
+    ${lessonDetailsRequest.data.GuideType == 'jupyter' ? guideContent : ''}
   ` : '';
 }
 
