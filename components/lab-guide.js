@@ -105,8 +105,8 @@ function LabGuide() {
       <h2 style="margin-top: 0px;">Chapter ${lessonStage+1} - ${lessonRequest.data.Stages[lessonStage].Description}</h2>
       ${lessonRequest.data.Authors && lessonRequest.data.Authors.length > 0 ? html`<p>
         ${lessonRequest.data.Authors.length > 1 ? l8n('lab.author.plural.label') : l8n('lab.author.singular.label')}: ${lessonRequest.data.Authors.map((author, i) => html`<a target="_blank" href="${author.Link}">${author.Name}</a>${(i>=lessonRequest.data.Authors.length-1) ? '' : ', '}`)}
-      <a id="github" class="btn primary github" href="${curriculumRequest.data.GitRoot}">Edit on Github</a>
       </p>`: ''}
+      <a id="github" target="_blank" class="btn primary github" href="${curriculumRequest.data.GitRoot}">Edit on Github</a>
     <link rel="stylesheet" href=${getComponentStyleSheetURL(this)} />
     ${lessonDetailsRequest.data.GuideType == 'markdown' ? guideContent : ''}
     </div>
