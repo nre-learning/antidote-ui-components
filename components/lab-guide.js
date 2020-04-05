@@ -1,7 +1,7 @@
 import { html } from 'lit-html';
 import { unsafeHTML } from 'lit-html/directives/unsafe-html.js';
 import { useContext, useEffect, component } from 'haunted';
-import { LiveLessonDetailsContext, LessonContext } from '../contexts.js';
+import { LiveLessonDetailsContext, LessonContext, CurriculumContext } from '../contexts.js';
 
 import { serviceHost, lessonSlug, lessonStage } from "../helpers/page-state.js";
 import showdown from 'showdown';
@@ -75,6 +75,7 @@ function useSyncronizedScrolling(guide) {
 function LabGuide() {
   const l8n = getL8nReader(this);
   const lessonRequest = useContext(LessonContext);
+  const curriculumRequest = useContext(CurriculumContext);
   const lessonDetailsRequest = useContext(LiveLessonDetailsContext);
   let guideContent = "";
 
@@ -98,12 +99,13 @@ function LabGuide() {
   }
 
   useSyncronizedScrolling.apply(this);
-  return lessonRequest.completed && lessonDetailsRequest.completed ? html`
+  return curriculumRequest.completed && lessonRequest.completed && lessonDetailsRequest.completed ? html`
     <div>
       <h1>${lessonRequest.data.Name}</h1>
       <h2 style="margin-top: 0px;">Chapter ${lessonStage+1} - ${lessonRequest.data.Stages[lessonStage].Description}</h2>
       ${lessonRequest.data.Authors && lessonRequest.data.Authors.length > 0 ? html`<p>
         ${lessonRequest.data.Authors.length > 1 ? l8n('lab.author.plural.label') : l8n('lab.author.singular.label')}: ${lessonRequest.data.Authors.map((author, i) => html`<a target="_blank" href="${author.Link}">${author.Name}</a>${(i>=lessonRequest.data.Authors.length-1) ? '' : ', '}`)}
+      <a id="github" class="btn primary github" href="${curriculumRequest.data.GitRoot}">Edit on Github</a>
       </p>`: ''}
     <link rel="stylesheet" href=${getComponentStyleSheetURL(this)} />
     ${lessonDetailsRequest.data.GuideType == 'markdown' ? guideContent : ''}
