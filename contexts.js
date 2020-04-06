@@ -1,5 +1,6 @@
 import { createContext } from 'haunted';
 
+export const CurriculumContext =createContext({});
 export const LessonContext = createContext({});
 export const LiveLessonDetailsContext = createContext({});
 export const AllLessonContext = createContext({});
@@ -11,6 +12,7 @@ export const CoursePlanStrengthsContext = createContext([]);
 export const LessonPrereqContext = createContext([]);
 export const LabTabsContext = createContext([]);
 
+customElements.define('antidote-curriculum-context-provider', CurriculumContext.Provider);
 customElements.define('antidote-lesson-context-provider', LessonContext.Provider);
 customElements.define('antidote-live-lesson-details-context-provider', LiveLessonDetailsContext.Provider);
 customElements.define('antidote-all-lesson-context-provider', AllLessonContext.Provider);

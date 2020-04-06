@@ -36,6 +36,7 @@ function derivePresentationsFromLessonDetails(detailsRequest) {
 customElements.define('antidote-lab-context', component(function AntidoteLabContext() {
   const l8n = getL8nReader(this);
   const lessonRequest = useFetch(`${syringeServiceRoot}/exp/lesson/${lessonSlug}`);
+  const curriculumRequest = useFetch(`${syringeServiceRoot}/exp/curriculum`);
   const liveLessonDetailRequest = usePollingRequest({
     initialRequestURL: `${syringeServiceRoot}/exp/livelesson`,
     initialRequestOptions: {
@@ -70,9 +71,11 @@ customElements.define('antidote-lab-context', component(function AntidoteLabCont
     <link rel="stylesheet" href=${getComponentStyleSheetURL(this)} />
     <antidote-lesson-context-provider .value=${lessonRequest}>
     <antidote-live-lesson-details-context-provider .value=${liveLessonDetailRequest}>
+    <antidote-curriculum-context-provider .value=${curriculumRequest}>
     <antidote-lab-tabs-context-provider .value=${tabs}>
         <slot></slot>
     </antidote-lab-tabs-context-provider>      
+    </antidote-curriculum-context-provider>
     </antidote-live-lesson-details-context-provider>      
     </antidote-lesson-context-provider>
   `
