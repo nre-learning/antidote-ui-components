@@ -18,6 +18,8 @@ function LabLoadingModal() {
       console.error(lessonRequest.error);
       return html`
       <h3>${l8n('lab.loading.modal.lesson.loading.error.message', { error: lessonRequest.error })}</h3>
+      <hr />
+      <a href="/catalog/" class="btn primary">Return to Lesson Catalog</a>
     `;
     }
     else if (detailRequest.error) {
