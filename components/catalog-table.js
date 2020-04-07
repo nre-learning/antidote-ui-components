@@ -13,7 +13,7 @@ function doFiltering(lessons, filteringState) {
         if (filterProp === 'Tags') {
           return acc && filterValue.every((tag) => (lesson.Tags || []).includes(tag));
         } else if (filterProp === 'searchString') {
-          return acc && lesson.LessonName.toLowerCase().indexOf(filterValue) > -1;
+          return acc && lesson.Name.toLowerCase().indexOf(filterValue) > -1;
         } else {
           return acc && lesson[filterProp] === filterValue;
         }
