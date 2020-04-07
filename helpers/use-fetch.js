@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'haunted';
-import { syringeServiceRoot} from "../helpers/page-state.js";
-
+import { syringeServiceRoot, lessonId} from "../helpers/page-state.js";
 const defaultState = {
   data: null,
   pending: false,
@@ -26,6 +25,11 @@ export default function useFetch(path, options) {
       });
 
       try {
+        if (lessonId > 0) {
+          throw new Error(`It looks like you're using an older URL with the legacy "lessonId" field.
+            This is no longer supported. Please navigate back to the lesson catalog using the button
+            below and search for your lesson.`);
+        }
         const response = await fetch(url, options);
         const data = options && options.text ? await response.text() : await response.json();
         // fetch() doesn't throw exceptions for HTTP error codes so we need to do this ourselves.
@@ -109,6 +113,11 @@ export function requestLiveLesson(path, options) {
       });
 
       try {
+        if (lessonId > 0) {
+          throw new Error(`It looks like you're using an older URL with the legacy "lessonId" field.
+            This is no longer supported. Please navigate back to the lesson catalog using the button
+            below and search for your lesson.`);
+        }
         var sessionId = await getSessionId(false);
         // Inject sessionId to body and convert to string
         options.body["sessionId"] = sessionId;
