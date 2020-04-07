@@ -11,12 +11,12 @@ import getComponentStyleSheetURL from '../helpers/stylesheet';
 function LabGuidanceButtons() {
   const l8n = getL8nReader(this);
   const lessonRequest = useContext(LessonContext);
-  const detailsRequest = useContext(LiveLessonDetailsContext);
   const [modalContentType, setModalContentType] = useState(null);
   const enabledModalButtonTypes = [
-    !!(detailsRequest.succeeded && detailsRequest.data.LessonDiagram) && 'diagram',
-    !!(detailsRequest.succeeded && detailsRequest.data.LessonVideo) && 'video',
-    !!(lessonRequest.succeeded && lessonRequest.data.Stages[lessonStage].VerifyObjective) && 'objective'
+    !!(lessonRequest.succeeded && lessonRequest.data.Diagram) && 'diagram',
+    !!(lessonRequest.succeeded && lessonRequest.data.Video && !lessonRequest.data.Stages[lessonStage].StageVideo) && 'video',
+    !!(lessonRequest.succeeded && lessonRequest.data.Stages[lessonStage].VerifyObjective) && 'objective',
+    !!(lessonRequest.succeeded && lessonRequest.data.Stages[lessonStage].StageVideo) && 'stagevideo'
   ].filter((i) => i); // remove undefined/null
   const modalButtons = enabledModalButtonTypes.map((buttonType) => html`
     <button class="btn secondary" @click=${() => setModalContentType(buttonType)}>
@@ -31,7 +31,6 @@ function LabGuidanceButtons() {
   const leftButtons = modalButtons;
   const rightButtons = [ exitLessonButton ];
 
-  // TODO(mierdin): Also implement StageVideo
   return html`
     <link rel="stylesheet" href=${getComponentStyleSheetURL(this)} />
     
@@ -41,16 +40,23 @@ function LabGuidanceButtons() {
     <antidote-modal show=${modalContentType !== null}>
       ${modalContentType === 'diagram' ? html`
         <h1>${l8n('lab.guidance.modal.diagram.title')}</h1>
-        <img src=${detailsRequest.data.Diagram} alt="${l8n('lab.guidance.modal.diagram.title')}"/>
+        <img src=${lessonRequest.data.Diagram} alt="${l8n('lab.guidance.modal.diagram.title')}"/>
       ` : ''}
       
       ${modalContentType === 'video' ? html`
         <h1>${l8n('lab.guidance.modal.video.title')}</h1>
         <div class="video-wrapper">
-          <iframe src=${detailsRequest.data.Video} frameborder="0" class="video-embed"></iframe>
+          <iframe src=${lessonRequest.data.Video} frameborder="0" class="video-embed"></iframe>
         </div>
       ` : ''}
-      
+
+      ${modalContentType === 'stagevideo' ? html`
+        <h1>${l8n('lab.guidance.modal.video.title')}</h1>
+        <div class="video-wrapper">
+          <iframe src=${lessonRequest.data.Stages[lessonStage].StageVideo} frameborder="0" class="video-embed"></iframe>
+        </div>
+      ` : ''}
+
       ${modalContentType === 'objective' ? html`
         <h1>${l8n('lab.guidance.modal.objective.title')}</h1>
         <p>${lessonRequest.data.Stages[lessonStage].VerifyObjective}</p>
