@@ -102,7 +102,7 @@ function LabGuide() {
   return curriculumRequest.completed && lessonRequest.completed && lessonDetailsRequest.completed ? html`
     <div>
       <h1>${lessonRequest.data.Name}</h1>
-      <h2 style="margin-top: 0px;">Chapter ${lessonStage+1} - ${lessonRequest.data.Stages[lessonStage].Description}</h2>
+      <h2 style="margin-top: 0px;">${l8n('lab.stage.alias')} ${lessonStage+1} - ${lessonRequest.data.Stages[lessonStage].Description}</h2>
       ${lessonRequest.data.Authors && lessonRequest.data.Authors.length > 0 ? html`<p style="margin-top: 0px;">
         ${lessonRequest.data.Authors.length > 1 ? l8n('lab.author.plural.label') : l8n('lab.author.singular.label')}: ${lessonRequest.data.Authors.map((author, i) => html`<a target="_blank" href="${author.Link}">${author.Name}</a>${(i>=lessonRequest.data.Authors.length-1) ? '' : ', '}`)}
       </p>`: ''}

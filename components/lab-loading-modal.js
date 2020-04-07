@@ -19,7 +19,7 @@ function LabLoadingModal() {
       return html`
       <h3>${l8n('lab.loading.modal.lesson.loading.error.message', { error: lessonRequest.error })}</h3>
       <hr />
-      <a href="/catalog/" class="btn primary">Return to Lesson Catalog</a>
+      <a href="/catalog/" class="btn primary">${l8n('lab.loading.modal.catalog.return.button')}</a>
     `;
     }
     else if (detailRequest.error) {
