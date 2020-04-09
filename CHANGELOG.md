@@ -7,6 +7,7 @@
 - Add "Edit on Github" button [#19](https://github.com/nre-learning/antidote-ui-components/pull/19)
 - Add deprecation notice for lessonId [#20](https://github.com/nre-learning/antidote-ui-components/pull/20)
 - Fix diagram/video buttons/modal, and add ability to override with StageVideo [#21](https://github.com/nre-learning/antidote-ui-components/pull/21)
+- Only return labguide details if all requests succeeded [#22](https://github.com/nre-learning/antidote-ui-components/pull/22)
 
 ## v0.5.1 - February 17, 2020
 
