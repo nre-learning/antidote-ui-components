@@ -99,7 +99,7 @@ function LabGuide() {
   }
 
   useSyncronizedScrolling.apply(this);
-  return curriculumRequest.completed && lessonRequest.completed && lessonDetailsRequest.completed ? html`
+  return curriculumRequest.succeeded && lessonRequest.succeeded && lessonDetailsRequest.succeeded ? html`
     <div>
       <h1>${lessonRequest.data.Name}</h1>
       <h2 style="margin-top: 0px;">${l8n('lab.stage.alias')} ${lessonStage+1} - ${lessonRequest.data.Stages[lessonStage].Description}</h2>

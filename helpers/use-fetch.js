@@ -99,8 +99,6 @@ export function requestLiveLesson(path, options) {
   const url = `${path}`;
   const [requestState, setRequestState] = useState(defaultState);
 
-  const origOptions = options;
-
   useEffect(async () => {
 
     if (path) { // only start request after path variable is defined, this allows consuming hooks/components to determine when a request is started
