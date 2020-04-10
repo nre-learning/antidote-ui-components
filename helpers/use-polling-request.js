@@ -62,7 +62,18 @@ export default function usePollingRequest({
 
         try {
           const response = await fetch(`${progressRequestURL}`);
-          const data = await response.json();
+
+          // Gracefully handle JSON parsing. This gives us a chance to output the response text if
+          // not proper JSON.
+          const respText = await response.text();
+          var data = ""
+          try {
+              data = JSON.parse(respText);
+          } catch(e) {
+              console.log(respText)
+              throw new Error(respText);
+          }
+
           // fetch() doesn't throw exceptions for HTTP error codes so we need to do this ourselves.
           if (response.status >= 400) {
               throw new Error(typeof data == "object" && data.error ? data.error : data);

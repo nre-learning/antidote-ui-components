@@ -31,7 +31,23 @@ export default function useFetch(path, options) {
             below and search for your lesson.`);
         }
         const response = await fetch(url, options);
-        const data = options && options.text ? await response.text() : await response.json();
+
+        // Gracefully handle JSON parsing. This gives us a chance to output the response text if
+        // not proper JSON.
+        const respText = await response.text();
+        var data = ""
+        // Don't attempt to parse if the options aren't even expecting it
+        if (options && options.text) {
+          data = respText
+        } else {
+          try {
+              data = JSON.parse(respText);
+          } catch(e) {
+              console.log(respText)
+              throw new Error(respText);
+          }
+        }
+
         // fetch() doesn't throw exceptions for HTTP error codes so we need to do this ourselves.
         if (response.status >= 400) {
             throw new Error(typeof data == "object" && data.error ? data.error : data);
@@ -122,11 +138,27 @@ export function requestLiveLesson(path, options) {
         options.body = JSON.stringify(options.body)
 
         const response = await fetch(url, options);
-        const data = options && options.text ? await response.text() : await response.json();
+
+        // Gracefully handle JSON parsing. This gives us a chance to output the response text if
+        // not proper JSON.
+        const respText = await response.text();
+        var data = ""
+        // Don't attempt to parse if the options aren't even expecting it
+        if (options && options.text) {
+          data = respText
+        } else {
+          try {
+              data = JSON.parse(respText);
+          } catch(e) {
+              console.log(respText)
+              throw new Error(respText);
+          }
+        }
+
         // fetch() doesn't throw exceptions for HTTP error codes so we need to do this ourselves.
         if (response.status >= 400) {
           // If the error is that our session ID hasn't been found, request a new one and try once more
-          if (data.message.includes("Invalid session ID")) {
+          if (data.message && data.message.includes("Invalid session ID")) {
             sessionId = await getSessionId(true);
             var optionsBody = JSON.parse(options.body);
             optionsBody["sessionId"] = sessionId;
