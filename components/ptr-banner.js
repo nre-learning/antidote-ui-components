@@ -1,6 +1,6 @@
 import { html } from 'lit-html';
 import { component } from 'haunted';
-import { syringeServiceRoot } from "../helpers/page-state.js";
+import { acoreServiceRoot } from "../helpers/page-state.js";
 import useFetch from "../helpers/use-fetch.js";
 import getL8nReader from '../helpers/l8n';
 import getComponentStyleSheetURL from '../helpers/stylesheet';
@@ -10,12 +10,12 @@ function PTRBanner() {
   const showPTR = location.hostname.startsWith('ptr');
 
   if (showPTR) {
-    const syringeInfoRequest = useFetch(`${syringeServiceRoot}/exp/syringeinfo`);
-    const commits = syringeInfoRequest.succeeded
+    const antidoteInfoRequest = useFetch(`${acoreServiceRoot}/exp/antidoteInfo`);
+    const commits = antidoteInfoRequest.succeeded
       ? {
-        curriculum: syringeInfoRequest.data.curriculumVersion,
+        curriculum: antidoteInfoRequest.data.curriculumVersion,
         antidoteweb: window.COMMIT_HASH,
-        syringe: syringeInfoRequest.data.buildSha,
+        acore: antidoteInfoRequest.data.buildSha,
       }
       : null;
 
@@ -33,9 +33,9 @@ function PTRBanner() {
       <a href="https://github.com/nre-learning/antidote-web/commit/${commits.antidoteweb}">
         ${commits.antidoteweb.substring(0, 7)}
       </a> 
-      | Syringe:
-      <a href="https://github.com/nre-learning/syringe/commit/${commits.syringe}">
-        ${commits.syringe.substring(0, 7)}
+      | acore:
+      <a href="https://github.com/nre-learning/acore/commit/${commits.acore}">
+        ${commits.acore.substring(0, 7)}
       </a>  
     </div>
   ` : html``;

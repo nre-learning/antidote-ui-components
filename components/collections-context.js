@@ -1,12 +1,12 @@
 import '../contexts.js'; // make sure all contexts are defined
 import { html } from 'lit-html';
 import { component, useState } from 'haunted';
-import { syringeServiceRoot } from "../helpers/page-state.js";
+import { acoreServiceRoot } from "../helpers/page-state.js";
 import useFetch from '../helpers/use-fetch.js'
 import getComponentStyleSheetURL from '../helpers/stylesheet';
 
 customElements.define('antidote-collections-context', component(function CollectionContext() {
-  const allCollectionRequest = useFetch(`${syringeServiceRoot}/exp/collection`);
+  const allCollectionRequest = useFetch(`${acoreServiceRoot}/exp/collection`);
   const [filteringState, setFilteringState] = useState({
     searchString: null,
     Type: null,
