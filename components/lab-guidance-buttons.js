@@ -14,9 +14,9 @@ function LabGuidanceButtons() {
   const [modalContentType, setModalContentType] = useState(null);
   const enabledModalButtonTypes = [
     !!(lessonRequest.succeeded && lessonRequest.data.Diagram) && 'diagram',
-    !!(lessonRequest.succeeded && lessonRequest.data.Video && !lessonRequest.data.Stages[lessonStage].StageVideo) && 'video',
-    !!(lessonRequest.succeeded && lessonRequest.data.Stages[lessonStage].VerifyObjective) && 'objective',
-    !!(lessonRequest.succeeded && lessonRequest.data.Stages[lessonStage].StageVideo) && 'stagevideo'
+    !!(lessonRequest.succeeded && lessonRequest.data.Stages[lessonStage] && lessonRequest.data.Video && !lessonRequest.data.Stages[lessonStage].StageVideo) && 'video',
+    !!(lessonRequest.succeeded && lessonRequest.data.Stages[lessonStage] && lessonRequest.data.Stages[lessonStage].VerifyObjective) && 'objective',
+    !!(lessonRequest.succeeded && lessonRequest.data.Stages[lessonStage] && lessonRequest.data.Stages[lessonStage].StageVideo) && 'stagevideo'
   ].filter((i) => i); // remove undefined/null
   const modalButtons = enabledModalButtonTypes.map((buttonType) => html`
     <button class="btn secondary" @click=${() => setModalContentType(buttonType)}>

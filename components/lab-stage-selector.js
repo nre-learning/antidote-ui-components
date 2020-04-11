@@ -20,7 +20,7 @@ function LabStageSelector() {
   const lessonRequest = useContext(LessonContext);
   const stages = lessonRequest.data ? lessonRequest.data.Stages : [];
   const disablePrevious = lessonStage === 0 ? 'disabled' : '';
-  const disableNext = lessonStage === stages.length ? 'disabled' : '';
+  const disableNext = lessonStage === stages.length-1 ? 'disabled' : '';
   const links = stages.map((stage, i) => ({
     tooltip: l8n('lab.stage.selector.tooltip.label', { i: i }),
     click: navTo(i),
