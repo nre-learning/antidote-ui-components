@@ -1,7 +1,7 @@
 import { html } from 'lit-html';
 import { component, useContext, useState, useRef } from 'haunted';
 import { LessonContext, LiveLessonDetailsContext } from '../contexts.js';
-import { syringeServiceRoot, lessonStage } from '../helpers/page-state.js';
+import { acoreServiceRoot, lessonStage } from '../helpers/page-state.js';
 import usePollingRequest from '../helpers/use-polling-request.js';
 import getL8nReader from '../helpers/l8n';
 import getComponentStyleSheetURL from '../helpers/stylesheet';
@@ -22,13 +22,13 @@ function LabActionButtons() {
   const verificationAttemptCount = useRef(0); // arbitrary varying value to include in request state to trigger a new request when incremented
   const [verifyModalOpen, setVerifyModalOpen] = useState(false);
   const verificationRequest = verifyModalOpen ? usePollingRequest({
-    initialRequestURL: `${syringeServiceRoot}/exp/livelesson/${llReq.data.id}/verify`,
+    initialRequestURL: `${acoreServiceRoot}/exp/livelesson/${llReq.data.id}/verify`,
     initialRequestOptions: {
       method: 'POST',
       body: JSON.stringify({ data: { id: `${llReq.data.id}` } }),
       attemptCount: verificationAttemptCount.current
     },
-    progressRequestURL: ({id}) => `${syringeServiceRoot}/exp/verification/${id}`,
+    progressRequestURL: ({id}) => `${acoreServiceRoot}/exp/verification/${id}`,
     isProgressComplete: ({working}) => !working,
   }) : {};
   const verificationMessage = (() => {

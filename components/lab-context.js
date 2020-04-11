@@ -1,6 +1,6 @@
 import '../contexts.js';
 import { html } from 'lit-html';
-import { lessonSlug, lessonStage, syringeServiceRoot } from "../helpers/page-state.js";
+import { lessonSlug, lessonStage, acoreServiceRoot } from "../helpers/page-state.js";
 import { component, useContext} from 'haunted';
 import useFetch from '../helpers/use-fetch.js';
 import usePollingRequest from '../helpers/use-polling-request.js';
@@ -35,15 +35,15 @@ function derivePresentationsFromLessonDetails(detailsRequest) {
 
 customElements.define('antidote-lab-context', component(function AntidoteLabContext() {
   const l8n = getL8nReader(this);
-  const lessonRequest = useFetch(`${syringeServiceRoot}/exp/lesson/${lessonSlug}`);
-  const curriculumRequest = useFetch(`${syringeServiceRoot}/exp/curriculum`);
+  const lessonRequest = useFetch(`${acoreServiceRoot}/exp/lesson/${lessonSlug}`);
+  const curriculumRequest = useFetch(`${acoreServiceRoot}/exp/curriculum`);
   const liveLessonDetailRequest = usePollingRequest({
-    initialRequestURL: `${syringeServiceRoot}/exp/livelesson`,
+    initialRequestURL: `${acoreServiceRoot}/exp/livelesson`,
     initialRequestOptions: {
       method: 'POST',
       body: { lessonSlug, lessonStage }
     },
-    progressRequestURL: ({id}) => `${syringeServiceRoot}/exp/livelesson/${id}`,
+    progressRequestURL: ({id}) => `${acoreServiceRoot}/exp/livelesson/${id}`,
     isProgressComplete: ({Status}) => Status === 'READY',
   });
   const tabletBreakpointCSSVar = document.documentElement.style.getPropertyValue('--tablet-max-width');

@@ -1,6 +1,6 @@
 import { html } from 'lit-html';
 import { component, useEffect, useRef, useContext } from 'haunted';
-import { syringeServiceRoot } from "../helpers/page-state.js";
+import { acoreServiceRoot } from "../helpers/page-state.js";
 import { AllLessonContext } from "../contexts.js";
 import useFetch from '../helpers/use-fetch.js'
 import getL8nReader from '../helpers/l8n';
@@ -9,9 +9,9 @@ import getComponentStyleSheetURL from '../helpers/stylesheet';
 // todo: update to use antidote-select component
 function Advisor({ host, stylesheet }) {
   const l8n = getL8nReader(this);
-  const syringeServicePrefix = host ? host+'/syringe' : syringeServiceRoot;
+  const acoreServicePrefix = host ? host+'/acore' : acoreServiceRoot;
   const awesompleteRef = useRef(null);
-  const allLessonRequest = useContext(AllLessonContext) || useFetch(`${syringeServicePrefix}/exp/lesson`);
+  const allLessonRequest = useContext(AllLessonContext) || useFetch(`${acoreServicePrefix}/exp/lesson`);
   const lessonOptions = allLessonRequest.succeeded
     ? allLessonRequest.data.lessons.map((l) => ({
       label: l.Name,

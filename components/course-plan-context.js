@@ -1,12 +1,12 @@
 import { html } from 'lit-html';
-import { lessonSlug, syringeServiceRoot } from "../helpers/page-state.js";
+import { lessonSlug, acoreServiceRoot } from "../helpers/page-state.js";
 import { component, useState } from 'haunted';
 import useFetch from '../helpers/use-fetch.js';
 import getComponentStyleSheetURL from '../helpers/stylesheet';
 
 customElements.define('antidote-course-plan-context', component(function CoursePlanContext() {
-  const allLessonRequest = useFetch(`${syringeServiceRoot}/exp/lesson`);
-  const lessonPrereqRequest = useFetch(`${syringeServiceRoot}/exp/lesson/${lessonSlug}/prereqs`);
+  const allLessonRequest = useFetch(`${acoreServiceRoot}/exp/lesson`);
+  const lessonPrereqRequest = useFetch(`${acoreServiceRoot}/exp/lesson/${lessonSlug}/prereqs`);
   const [name, setName] = useState(null);
   const [strengths, setStrengths] = useState({});
 

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'haunted';
-import { syringeServiceRoot, lessonId} from "../helpers/page-state.js";
+import { acoreServiceRoot, lessonId} from "../helpers/page-state.js";
 const defaultState = {
   data: null,
   pending: false,
@@ -82,7 +82,7 @@ async function getSessionId(clearFirst) {
 
   var sessionId = document.cookie.replace(/(?:(?:^|.*;\s*)nreLabsSession\s*\=\s*([^;]*).*$)|^.*$/, "$1");
   if (sessionId === '') {
-    const sessionResponse = await fetch(`${syringeServiceRoot}/exp/livesession`, {
+    const sessionResponse = await fetch(`${acoreServiceRoot}/exp/livesession`, {
         method: 'POST',
         body: JSON.stringify({})
     });

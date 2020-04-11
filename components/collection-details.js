@@ -1,14 +1,14 @@
 import '../contexts.js'; // make sure all contexts are defined
 import { html } from 'lit-html';
 import { component, useState } from 'haunted';
-import { syringeServiceRoot, collectionSlug } from "../helpers/page-state.js";
+import { acoreServiceRoot, collectionSlug } from "../helpers/page-state.js";
 import useFetch from '../helpers/use-fetch.js'
 import getL8nReader from '../helpers/l8n';
 import getComponentStyleSheetURL from '../helpers/stylesheet';
 
 function CollectionDetails() {
   const l8n = getL8nReader(this);
-  const request = useFetch(`${syringeServiceRoot}/exp/collection/${collectionSlug}`);
+  const request = useFetch(`${acoreServiceRoot}/exp/collection/${collectionSlug}`);
 
   return html` 
     <link rel="stylesheet" href=${getComponentStyleSheetURL(this)} />

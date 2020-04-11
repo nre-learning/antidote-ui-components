@@ -1,4 +1,4 @@
-export const [serviceHost, syringeServiceRoot, sshServiceHost] = (() => {
+export const [serviceHost, acoreServiceRoot, sshServiceHost] = (() => {
 
   // Since sshUrl is now configurable, the default case works for both production and
   // selfmedicate. However, more tweaks may be needed.
@@ -7,10 +7,10 @@ export const [serviceHost, syringeServiceRoot, sshServiceHost] = (() => {
     case "mock":
       return [`${window.location.protocol}//127.0.0.1:8086`, `${window.location.protocol}//127.0.0.1:8086`, sshUrl];
     case "self-medicate":
-      return [`${window.location.protocol}//antidote-local:30001`, `${window.location.protocol}//antidote-local:30001/syringe`, sshUrl];
+      return [`${window.location.protocol}//antidote-local:30001`, `${window.location.protocol}//antidote-local:30001/acore`, sshUrl];
     case "production":
     default:
-      return [window.location.origin, window.location.origin+'/syringe', sshUrl];
+      return [window.location.origin, window.location.origin+'/acore', sshUrl];
   }
 })();
 
