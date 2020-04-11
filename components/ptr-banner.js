@@ -9,6 +9,9 @@ function PTRBanner() {
   const l8n = getL8nReader(this);
   const showPTR = location.hostname.startsWith('ptr');
 
+  // This isn't as useful as it used to be, so disabling for now. Would be nice if this could get refactored
+  // to show details for preview sites.
+  showPTR = false;
   if (showPTR) {
     const antidoteInfoRequest = useFetch(`${acoreServiceRoot}/exp/antidoteInfo`);
     const commits = antidoteInfoRequest.succeeded
