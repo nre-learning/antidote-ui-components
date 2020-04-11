@@ -42,7 +42,7 @@ function getTabMarkup(tab) {
           <div id=${tab.id}
                tab="web" 
                ?selected=${tab.selected}>
-            <iframe src="${window.location.protocol}//${lessonDetailsRequest.data.id}-${tab.id}.heps.${window.location.host}/">
+            <iframe src="${window.location.protocol}//${lessonDetailsRequest.data.AntidoteID}-${lessonDetailsRequest.data.ID}-${tab.id}.heps.${window.location.host}/">
             </iframe>
           </div>
         `;
