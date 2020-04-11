@@ -11,8 +11,8 @@ function PTRBanner() {
 
   // This isn't as useful as it used to be, so disabling for now. Would be nice if this could get refactored
   // to show details for preview sites.
-  showPTR = false;
-  if (showPTR) {
+  // if (showPTR) {
+  if (false) {
     const antidoteInfoRequest = useFetch(`${acoreServiceRoot}/exp/antidoteInfo`);
     const commits = antidoteInfoRequest.succeeded
       ? {
