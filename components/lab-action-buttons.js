@@ -18,7 +18,7 @@ function LabActionButtons() {
   const llReq = useContext(LiveLessonDetailsContext);
 
   const lessonRequest = useContext(LessonContext);
-  const hasObjective = lessonRequest.succeeded && lessonRequest.data.Stages[lessonStage].VerifyObjective;
+  const hasObjective = lessonRequest.succeeded && lessonRequest.data.Stages[lessonStage] && lessonRequest.data.Stages[lessonStage].VerifyObjective;
   const verificationAttemptCount = useRef(0); // arbitrary varying value to include in request state to trigger a new request when incremented
   const [verifyModalOpen, setVerifyModalOpen] = useState(false);
   const verificationRequest = verifyModalOpen ? usePollingRequest({
