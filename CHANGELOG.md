@@ -11,6 +11,7 @@
 - Gracefully handle JSON parsing of response body [#23](https://github.com/nre-learning/antidote-ui-components/pull/23)
 - Finish removing all remaining Syringe references [#24](https://github.com/nre-learning/antidote-ui-components/pull/24)
 - Fix last stage progression button bug, add stage index safety checks [#25](https://github.com/nre-learning/antidote-ui-components/pull/25)
+- Fix path for HTTP presentations [#26](https://github.com/nre-learning/antidote-ui-components/pull/26)
 
 ## v0.5.1 - February 17, 2020
 
