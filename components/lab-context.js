@@ -13,12 +13,13 @@ function derivePresentationsFromLessonDetails(detailsRequest) {
   return Object.values(endpoints).reduce((acc, ep) => {
     if (ep.LivePresentations) {
       ep.LivePresentations.forEach((pres) => {
-        const name = ep.LivePresentations.length > 1
+        const combinedname = ep.LivePresentations.length > 1
             ? `${ep.Name}-${pres.Name}`
             : `${ep.Name}`;
 
         acc.push({
-          name,
+          name: pres.Name,
+          combinedname: combinedname,
           endpoint: ep.Name,
           type: pres.Type,
           host: ep.Host,
@@ -51,8 +52,8 @@ customElements.define('antidote-lab-context', component(function AntidoteLabCont
   const isMobileSizedWindow = window.innerWidth < tabletBreakpoint;
   const presentations = derivePresentationsFromLessonDetails(liveLessonDetailRequest);
   const presentationTabs = presentations ? presentations.map((p, i) => ({
-    id: p.name.toLowerCase(),
-    label: p.name,
+    id: p.combinedname.toLowerCase(),
+    label: p.combinedname,
     pres: p,
     selected: isMobileSizedWindow ? false : i === 0
   })) : [];
