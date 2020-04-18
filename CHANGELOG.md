@@ -2,6 +2,9 @@
 
 ## In development
 
+
+## v0.6.0 - April 18, 2020
+
 - Antidote-Core Compatibility Updates [#15](https://github.com/nre-learning/antidote-ui-components/pull/15)
 - Standardize Lesson Guide Header [#17](https://github.com/nre-learning/antidote-ui-components/pull/17)
 - Add "Edit on Github" button [#19](https://github.com/nre-learning/antidote-ui-components/pull/19)
