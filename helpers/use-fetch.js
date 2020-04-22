@@ -76,11 +76,16 @@ export default function useFetch(path, options) {
 
 async function getSessionId(clearFirst) {
 
+  console.log("getSession1")
+  console.log(clearFirst)
+
   if (clearFirst) {
     document.cookie = 'nreLabsSession=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
   }
 
   var sessionId = document.cookie.replace(/(?:(?:^|.*;\s*)nreLabsSession\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+  console.log("getSession2")
+  console.log(sessionId)
   if (sessionId === '') {
     const sessionResponse = await fetch(`${acoreServiceRoot}/exp/livesession`, {
         method: 'POST',
@@ -92,6 +97,9 @@ async function getSessionId(clearFirst) {
     if (sessionResponse.status >= 400) {
         throw new Error(typeof sessionData == "object" && sessionData.error ? sessionData.error : sessionData);
     }
+
+    console.log("getSession3")
+    console.log(sessionData)
 
     // set cookie and return
     document.cookie = "nreLabsSession=" + sessionData.ID;
@@ -137,6 +145,9 @@ export function requestLiveLesson(path, options) {
         options.body["sessionId"] = sessionId;
         options.body = JSON.stringify(options.body)
 
+        console.log("requestLiveLesson1")
+        console.log(sessionId)
+
         const response = await fetch(url, options);
 
         // Gracefully handle JSON parsing. This gives us a chance to output the response text if
@@ -155,6 +166,10 @@ export function requestLiveLesson(path, options) {
           }
         }
 
+        console.log("requestLiveLesson2")
+        console.log(response)
+        console.log(data)
+
         // fetch() doesn't throw exceptions for HTTP error codes so we need to do this ourselves.
         if (response.status >= 400) {
           // If the error is that our session ID hasn't been found, request a new one and try once more
@@ -162,10 +177,17 @@ export function requestLiveLesson(path, options) {
             sessionId = await getSessionId(true);
             var optionsBody = JSON.parse(options.body);
             optionsBody["sessionId"] = sessionId;
-            options.body = JSON.stringify(optionsBody)
+            options.body = JSON.stringify(optionsBody);
+
+            console.log("requestLiveLesson3")
+            console.log(sessionId)
+            console.log(options)
+
             const retryResponse = await fetch(url, options);
             const retryData = options && options.text ? await retryResponse.text() : await retryResponse.json();
             if (retryResponse.status >= 400) {
+                console.log("requestLiveLesson4")
+                console.log(retryData)
                 throw new Error(typeof retryData == "object" && retryData.error ? retryData.error : retryData);
             }
             setRequestState({
