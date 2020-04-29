@@ -76,7 +76,17 @@ export default function useFetch(path, options) {
 
 async function getSessionId(clearFirst) {
 
+  var cookiePath = "/labs";
+
   if (clearFirst) {
+
+    // First, delete the session cookie at the expected path.
+    document.cookie = 'nreLabsSession=; expires=Thu, 01 Jan 1970 00:00:01 GMT;path=' + cookiePath + ';';
+
+    // An older version of this app was provisioning this cookie using a root path. So just in case, we'll
+    // attempt to delete it at that location, as well as without a path parameter. This will help ensure we've
+    // cleaned it up properly.
+    document.cookie = 'nreLabsSession=; expires=Thu, 01 Jan 1970 00:00:01 GMT;path=/;';
     document.cookie = 'nreLabsSession=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
   }
 
@@ -93,8 +103,9 @@ async function getSessionId(clearFirst) {
         throw new Error(typeof sessionData == "object" && sessionData.error ? sessionData.error : sessionData);
     }
 
-    // set cookie and return
-    document.cookie = "nreLabsSession=" + sessionData.ID;
+    // Set cookie and also explicitly provide path. In the unlikely event that we decide to run this function on
+    // some other path, this will provide us some predictability when cleaning up an old cookie above.
+    document.cookie = "nreLabsSession=" + sessionData.ID + ';path=' + cookiePath + ';';
     return sessionData.ID
   }
 
@@ -162,7 +173,8 @@ export function requestLiveLesson(path, options) {
             sessionId = await getSessionId(true);
             var optionsBody = JSON.parse(options.body);
             optionsBody["sessionId"] = sessionId;
-            options.body = JSON.stringify(optionsBody)
+            options.body = JSON.stringify(optionsBody);
+
             const retryResponse = await fetch(url, options);
             const retryData = options && options.text ? await retryResponse.text() : await retryResponse.json();
             if (retryResponse.status >= 400) {
