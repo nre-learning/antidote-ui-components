@@ -5,6 +5,7 @@
 - Explicitly set path for session cookie [#31](https://github.com/nre-learning/antidote-ui-components/pull/31)
 - Add collection button to lesson guide when relevant [#32](https://github.com/nre-learning/antidote-ui-components/pull/32)
 - Add message to refresh page when terminal disconnects [#34](https://github.com/nre-learning/antidote-ui-components/pull/34)
+- Add helper tip to terminal that shows copy shortcut [#35](https://github.com/nre-learning/antidote-ui-components/pull/35)
 
 ## v0.6.0 - April 18, 2020
 

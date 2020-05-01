@@ -25,7 +25,8 @@ function AntidoteTerminal({ host, port, user, pass }) {
           ${this._ssh.error.message ? html`<p>${this._ssh.error.message}</p>` : ''}  
         </div>          
     ` : ''}
-    ${terminalContainer.current}  
+    ${terminalContainer.current}
+    <div id="term-helper"><p>Copy: (Ctrl+Insert)</p></div>
 `;
 }
 
