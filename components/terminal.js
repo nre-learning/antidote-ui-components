@@ -21,6 +21,7 @@ function AntidoteTerminal({ host, port, user, pass }) {
     ${this._ssh.error ? html `
         <div class="error">
           <h1>Terminal connection closed</h1>
+          <h3>Refresh page to reconnect</h3>
           ${this._ssh.error.message ? html`<p>${this._ssh.error.message}</p>` : ''}  
         </div>          
     ` : ''}
