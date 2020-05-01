@@ -106,7 +106,8 @@ function LabGuide() {
       ${lessonRequest.data.Authors && lessonRequest.data.Authors.length > 0 ? html`<p style="margin-top: 0px;">
         ${lessonRequest.data.Authors.length > 1 ? l8n('lab.author.plural.label') : l8n('lab.author.singular.label')}: ${lessonRequest.data.Authors.map((author, i) => html`<a target="_blank" href="${author.Link}">${author.Name}</a>${(i>=lessonRequest.data.Authors.length-1) ? '' : ', '}`)}
       </p>`: ''}
-      <a id="github" target="_blank" class="btn primary github" href="${curriculumRequest.data.GitRoot}">Edit Lesson on Github</a>
+      ${lessonRequest.data.Collection ? html`<a id="collection" class="btn guidetool" href="/collections/view.html?collectionSlug=${lessonRequest.data.Collection}">View Collection</a>`: ''}
+      <a id="github" class="btn guidetool" href="${curriculumRequest.data.GitRoot}">Edit Lesson on Github</a>
     <link rel="stylesheet" href=${getComponentStyleSheetURL(this)} />
     ${lessonDetailsRequest.data.GuideType == 'markdown' ? guideContent : ''}
     </div>
