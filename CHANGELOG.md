@@ -3,6 +3,7 @@
 ## In development
 
 - Explicitly set path for session cookie [#31](https://github.com/nre-learning/antidote-ui-components/pull/31)
+- Add collection button to lesson guide when relevant [#32](https://github.com/nre-learning/antidote-ui-components/pull/32)
 
 ## v0.6.0 - April 18, 2020
 
