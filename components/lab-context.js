@@ -24,6 +24,7 @@ function derivePresentationsFromLessonDetails(detailsRequest) {
           type: pres.Type,
           host: ep.Host,
           port: pres.Port,
+          hepDomain: pres.HepDomain,
           user: ep.SSHUser,
           pass: ep.SSHPassword,
         });
