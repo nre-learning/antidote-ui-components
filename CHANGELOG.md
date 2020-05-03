@@ -2,6 +2,9 @@
 
 ## In development
 
+
+## v0.6.1 - May 03, 2020
+
 - Explicitly set path for session cookie [#31](https://github.com/nre-learning/antidote-ui-components/pull/31)
 - Add collection button to lesson guide when relevant [#32](https://github.com/nre-learning/antidote-ui-components/pull/32)
 - Add message to refresh page when terminal disconnects [#34](https://github.com/nre-learning/antidote-ui-components/pull/34)
