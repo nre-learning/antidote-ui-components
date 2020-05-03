@@ -14,7 +14,6 @@ import getComponentStyleSheetURL from '../helpers/stylesheet';
 
 function getTabMarkup(tab) {
 
-  const lessonDetailsRequest = useContext(LiveLessonDetailsContext);
   if (tab.id === 'mobile-guide') {
     return html`
       <div id=${tab.id}
@@ -42,7 +41,7 @@ function getTabMarkup(tab) {
           <div id=${tab.id}
                tab="web" 
                ?selected=${tab.selected}>
-            <iframe src="${window.location.protocol}//${lessonDetailsRequest.data.AntidoteID}-${lessonDetailsRequest.data.ID}-${tab.pres.endpoint}-${tab.pres.name}.heps.${window.location.host}/">
+            <iframe src="${window.location.protocol}//${tab.pres.hepDomain}/">
             </iframe>
           </div>
         `;
