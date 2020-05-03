@@ -82,7 +82,7 @@ function LabGuide() {
   if (lessonDetailsRequest.succeeded) {
     if (lessonDetailsRequest.data.GuideType == 'jupyter') {
       const path = `/notebooks/stage${lessonStage}/guide.ipynb`;
-      const url = `${window.location.protocol}//${lessonDetailsRequest.data.AntidoteID}-${lessonDetailsRequest.data.ID}-jupyterlabguide-web.heps.${window.location.host}${path}`
+      const url = `${window.location.protocol}//${lessonDetailsRequest.data.GuideDomain}${path}`
 
       guideContent = html`
         <iframe src="${url}"></iframe>
