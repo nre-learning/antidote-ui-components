@@ -30,7 +30,7 @@ function LabStageSelector() {
   return stages.length > 0 ? html`
     <link rel="stylesheet" href=${getComponentStyleSheetURL(this)} />
     <div class="buttons">
-      <button class="btn support ${disablePrevious}"
+      <button class="btn primary ${disablePrevious}"
         @click=${navTo('previous')}>
         ${l8n('lab.stage.selector.previous.button.label')}
       </button>
