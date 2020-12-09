@@ -14,6 +14,7 @@ export default function usePollingRequest({
   const initialRequestState = requestLiveLesson(initialRequestURL, initialRequestOptions);
   const [progressRequestState, setProgressRequestState] = useState({
     data: null,
+    llID: null,
     pending: false,
     completed: false,
     succeeded: false,
@@ -24,6 +25,7 @@ export default function usePollingRequest({
     if (initialRequestState.error) {
       setProgressRequestState({
         data: null,
+        llID: null,
         pending: false,
         completed: true,
         succeeded: false,
@@ -39,6 +41,7 @@ export default function usePollingRequest({
 
       setProgressRequestState({
         data: null,
+        llID: initialRequestState.data.id,
         pending: true,
         completed: false,
         succeeded: false,
@@ -52,6 +55,7 @@ export default function usePollingRequest({
         if (attemptCount++ === 1200) {
           setProgressRequestState({
             data: null,
+            llID: initialRequestState.data.id,
             pending: false,
             completed: true,
             succeeded: false,
@@ -81,6 +85,7 @@ export default function usePollingRequest({
           if (isProgressComplete(data)) {
             setProgressRequestState({
               data,
+              llID: initialRequestState.data.id,
               pending: false,
               completed: true,
               succeeded: true,
@@ -90,6 +95,7 @@ export default function usePollingRequest({
           } else {
             setProgressRequestState({
               data,
+              llID: initialRequestState.data.id,
               pending: true,
               completed: false,
               succeeded: false,
@@ -99,6 +105,7 @@ export default function usePollingRequest({
         } catch (e) {
           setProgressRequestState({
             data: null,
+            llID: initialRequestState.data.id,
             pending: false,
             completed: true,
             succeeded: false,
