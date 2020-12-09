@@ -1,6 +1,7 @@
 import { html } from 'lit-html';
 import { component, useContext, useMemo } from 'haunted';
 import { LessonContext, LiveLessonDetailsContext } from '../contexts.js';
+import { lessonSlug, lessonStage } from "../helpers/page-state.js";
 import getL8nReader from '../helpers/l8n';
 import getComponentStyleSheetURL from '../helpers/stylesheet';
 
@@ -13,6 +14,9 @@ function LabLoadingModal() {
   const l8n = getL8nReader(this);
   const lessonRequest = useContext(LessonContext);
   const detailRequest = useContext(LiveLessonDetailsContext);
+
+  const sessionId = document.cookie.replace(/(?:(?:^|.*;\s*)nreLabsSession\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+
   const content = useMemo(() => {
     if (lessonRequest.error) {
       console.error(lessonRequest.error);
@@ -20,12 +24,20 @@ function LabLoadingModal() {
       <h3>${l8n('lab.loading.modal.lesson.loading.error.message', { error: lessonRequest.error })}</h3>
       <hr />
       <a href="/catalog/" class="btn primary">${l8n('lab.loading.modal.catalog.return.button')}</a>
+      <a target="_blank"
+        href="https://discuss.nrelabs.io/new-topic?title=NRE%20Labs%20Problem%20Report&body=%23+Describe+the+Problem%0D%0A%0D%0A<+Please+replace+this+text+with+a+detailed+description+of+what+you+were+doing,+and+the+problem+you+ran+into.+>%0D%0A%0D%0A%23+Debug+Information%0D%0A%0D%0A>+Please+do+not+change+or+remove+this+section,+it+makes+it+easier+for+us+to+help+with+your+problem.%0D%0A%0D%0A**LiveSession+ID**:+${sessionId}%0D%0A**LiveLesson+ID**:+${detailRequest.llID}%0D%0A**Lesson+Slug**:+${lessonSlug}%0D%0A**Lesson+Stage**:+${lessonStage}%0D%0A&category=nre-labs-curriculum&tags=feedback"
+        class="btn secondary">${l8n('lab.loading.modal.catalog.problemreport.button')}</a>
     `;
     }
     else if (detailRequest.error) {
       console.error(detailRequest.error);
       return html`
       <h3>${l8n('lab.loading.modal.lesson.detail.loading.error.message', { error: detailRequest.error })}</h3>
+      <hr />
+      <a href="/catalog/" class="btn primary">${l8n('lab.loading.modal.catalog.return.button')}</a>
+      <a target="_blank"
+      href="https://discuss.nrelabs.io/new-topic?title=NRE%20Labs%20Problem%20Report&body=%23+Describe+the+Problem%0D%0A%0D%0A<+Please+replace+this+text+with+a+detailed+description+of+what+you+were+doing,+and+the+problem+you+ran+into.+>%0D%0A%0D%0A%23+Debug+Information%0D%0A%0D%0A>+Please+do+not+change+or+remove+this+section,+it+makes+it+easier+for+us+to+help+with+your+problem.%0D%0A%0D%0A**LiveSession+ID**:+${sessionId}%0D%0A**LiveLesson+ID**:+${detailRequest.llID}%0D%0A**Lesson+Slug**:+${lessonSlug}%0D%0A**Lesson+Stage**:+${lessonStage}%0D%0A&category=nre-labs-curriculum&tags=feedback"
+        class="btn secondary">${l8n('lab.loading.modal.catalog.problemreport.button')}</a>
     `;
     }
     else if (!lessonRequest.completed) {
