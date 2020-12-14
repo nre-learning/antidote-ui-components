@@ -3,6 +3,9 @@
 ## In development
 
 
+## v0.7.0 - December 14, 2020
+
+
 ## v0.6.2 - May 03, 2020
 
 - Use guide domain from API [#37](https://github.com/nre-learning/antidote-ui-components/pull/37)
