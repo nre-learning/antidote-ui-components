@@ -33,35 +33,31 @@ function LabGuidanceButtons() {
 
   return html`
     <link rel="stylesheet" href=${getComponentStyleSheetURL(this)} />
-    
+
     <div id="leftButtons">${leftButtons}</div>
-    <div id="rightButtons">${rightButtons}</div>      
-      
+    <div id="rightButtons">${rightButtons}</div>
+
     <antidote-modal show=${modalContentType !== null}>
       ${modalContentType === 'diagram' ? html`
         <h1>${l8n('lab.guidance.modal.diagram.title')}</h1>
         <img src=${lessonRequest.data.Diagram} alt="${l8n('lab.guidance.modal.diagram.title')}"/>
       ` : ''}
-      
+
       ${modalContentType === 'video' ? html`
         <h1>${l8n('lab.guidance.modal.video.title')}</h1>
-        <div class="video-wrapper">
-          <iframe src=${lessonRequest.data.Video} frameborder="0" class="video-embed"></iframe>
-        </div>
+        <video-player source-url=${lessonRequest.data.Video}></video-player>
       ` : ''}
 
       ${modalContentType === 'stagevideo' ? html`
         <h1>${l8n('lab.guidance.modal.video.title')}</h1>
-        <div class="video-wrapper">
-          <iframe src=${lessonRequest.data.Stages[lessonStage].StageVideo} frameborder="0" class="video-embed"></iframe>
-        </div>
+        <video-player source-url=${lessonRequest.data.Stages[lessonStage].StageVideo}></video-player>
       ` : ''}
 
       ${modalContentType === 'objective' ? html`
         <h1>${l8n('lab.guidance.modal.objective.title')}</h1>
         <p>${lessonRequest.data.Stages[lessonStage].VerifyObjective}</p>
       ` : ''}
-      
+
       <button id="exit" class="btn primary" @click=${() => setModalContentType(null)}>
         ${l8n('lab.guidance.modal.close.button.label')}
       </button>
