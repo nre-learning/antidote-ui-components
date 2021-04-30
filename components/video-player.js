@@ -7,21 +7,21 @@ import {
 
 import getComponentStyleSheetURL from '../helpers/stylesheet';
 
-export function getPlayerType (url) {
-  if (!url) {
+export function getPlayerType (sourceUrl) {
+  if (!sourceUrl) {
     console.error('No video url set in lesson')
     return
   }
 
-  const isYoutubeVideo = url.indexOf('youtube.com') !== -1
-    || url.indexOf('youtu.be') !== -1
+  const isYouTubeVideo = sourceUrl.indexOf('youtube.com') !== -1
+    || sourceUrl.indexOf('youtu.be') !== -1
 
-  return isYoutubeVideo ? 'youtube' : 'native'
+  return isYouTubeVideo ? 'youtube' : 'native'
 }
 
-export function getVideoType (url) {
+export function getVideoType (sourceUrl) {
   const regex = /\.\w{3,4}($|\?)/
-  const match = url && url.match(regex)
+  const match = sourceUrl && sourceUrl.match(regex)
   const videoExtension = match && match[0]
   const videoType = (typeof videoExtension === 'string')
     ? videoExtension.replace('.', '')
@@ -30,17 +30,15 @@ export function getVideoType (url) {
   return videoType
 }
 
-export function getVideoPlayer({ url, videoType, playerType }) {
-  // validate url first as good url, with supported extension for file,
-  // embed in url for youtube sources?
-  playerType = playerType || getPlayerType(url)
-  videoType = videoType || getVideoType(url)
+export function getVideoPlayer({ sourceUrl, videoType, playerType }) {
+  playerType = playerType || getPlayerType(sourceUrl)
+  videoType = videoType || getVideoType(sourceUrl)
 
   if (playerType === 'youtube') {
     return html`
       <div class="video-wrapper">
         <iframe
-          src=${url}
+          src=${sourceUrl}
           frameborder="0"
           class="video-embed">
         </iframe>
@@ -50,7 +48,7 @@ export function getVideoPlayer({ url, videoType, playerType }) {
     return html`
       <div class="native-video-wrapper">
         <video class="native-video-embed" controls>
-          <source src=${url} type="video/${getVideoType(url)}">
+          <source src=${sourceUrl} type="video/${getVideoType(sourceUrl)}">
         </video>
       </div>
     `
@@ -58,31 +56,14 @@ export function getVideoPlayer({ url, videoType, playerType }) {
 }
 
 function VideoPlayer({ sourceUrl }) {
-  const [url, setUrl] = useState('')
-  useEffect(() => {
-    if (typeof sourceUrl === 'string') {
-      setUrl(sourceUrl)
-    }
-  }, [sourceUrl]);
-
   return html`
     <link rel="stylesheet" href=${getComponentStyleSheetURL(this)} />
-    ${url
+    ${sourceUrl && sourceUrl.length
     ?
       html`
-        ${getVideoPlayer({ url })}
+        ${getVideoPlayer({ sourceUrl })}
       `
-    :
-    html`
-        <div class="no-video-container">
-          <div>URL is Empty</div>
-            <video id="video" width="560" height="315">
-            </video>
-          <div class="overlay-desc">
-            <h1>No Video Selected</h1>
-          </div>
-        </div>
-      `
+    : html``
     }
   `;
 }

@@ -28,4 +28,4 @@ export * from './components/course-plan-name-field.js';
 export * from './components/ptr-banner.js';
 export * from './components/promoted-lessons.js';
 export * from './components/progress-links';
-export * from './components/video-player';
+export * from './components/video-player.js';
